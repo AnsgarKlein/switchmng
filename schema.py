@@ -38,13 +38,11 @@ class Vlan(Base):
     def __init__(self, tag = None, description = None):
         if type(tag) is not int:
             raise TypeError('Expected vlan id to be of type int')
-        else:
-            self.tag = tag
+        self.tag = tag
 
         if type(description) is not str:
             raise TypeError('Expected vlan description to be of type string')
-        else:
-            self.description = description
+        self.description = description
 
     def jsonify(self):
         return { 'tag': str(self.tag),
@@ -135,6 +133,9 @@ class SwitchModel(Base):
     _size = Column('size', Integer, nullable = True)
 
     def __init__(self, name, ports, size = None):
+        # Assign name from argument
+        if type(name) is not str:
+            raise TypeError('Expected name of switch model to be of type str')
         self.name = name
 
         # Assign ports from argument
@@ -142,6 +143,8 @@ class SwitchModel(Base):
 
         # Assign size from argument
         if size is not None:
+            if type(size) is not int:
+                raise TypeError('Expected size of switch model to be of type int')
             self.size = size
 
     @property
@@ -227,7 +230,6 @@ class SwitchModel(Base):
 
     def jsonify(self):
         return { 'name': self.name,
-                 #'ports': [ p.jsonify() for p in self.ports ],
                  'ports': self.ports,
                  'size': self.size }
 
@@ -363,9 +365,13 @@ class Switch(Base):
 
     def __init__(self, name, model, port_maps = None, location = None):
         # Assign name from argument
+        if type(name) is not str:
+            raise TypeError('Expected name of switch to be of type str')
         self.name = name
 
         # Assign model from argument
+        if type(model) is not SwitchModel:
+            raise TypeError('Expected switch model of switch to be of type SwitchModel')
         self.model = model
 
         # Adopt ports from switch model and then assign
@@ -468,7 +474,7 @@ class Switch(Base):
     def jsonify(self):
         return { 'name': self.name,
                  'location': self.location,
-                 'model': self.model.name,
+                 'model': str(self.model),
                  'ports': self.ports }
 
     def __str__(self):
