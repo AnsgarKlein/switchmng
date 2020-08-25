@@ -1,19 +1,37 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import scoped_session
 
 from schema import *
 
-class Database:
+dbtype = 'sqlite'
+dbstr = 'example.db'
 
-    engine = create_engine('sqlite:///')
+# Initialize sqlalchemy scoped sessions for multi thread requests
+if 'Session' not in vars():
+    print('Initializing session registry...')
+
+    # Initialize db engine
+    if dbtype != 'sqlite':
+        raise NotImplementedError('Databases other than sqlite are not yet supported')
+    global engine
+    engine = create_engine('sqlite:///' +dbstr)
+
     Base.metadata.create_all(engine)
     Base.metadata.bin = engine
-    sessionm = sessionmaker()
-    sessionm.configure(bind = engine)
-    session = sessionm()
 
+    # Initialize scoped sessions to support multi thread access to database
+    global sessionm
+    sessionm = sessionmaker(bind = engine)
+    global Session
+    Session = scoped_session(sessionm)
+
+class Database:
     def __init__(self):
-        print('setting up database...')
+        self.session = Session()
+
+    def __del__(self):
+        Session.remove()
 
     def query_switch_models(self, **kwargs):
         # Query
