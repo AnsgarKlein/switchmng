@@ -4,9 +4,11 @@ import pprint
 
 import json
 
-import database
+from database import Database
 
-def main():
+def input_examples():
+    database = Database()
+
     # Create vlans
     database.add_vlan(tag = 1005, description = 'internal')
     database.add_vlan(tag = 107, description = 'guest')
@@ -75,6 +77,9 @@ def main():
 
     for sw in database.query_switches():
         pprint.PrettyPrinter(indent=4).pprint(sw.jsonify())
+
+def main():
+    #input_examples()
 
 if __name__ == '__main__':
     main()
