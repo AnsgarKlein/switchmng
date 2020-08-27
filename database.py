@@ -8,34 +8,76 @@ dbtype = 'sqlite'
 dbstr = 'example.db'
 
 # Initialize sqlalchemy scoped sessions for multi thread requests
-if 'Session' not in vars():
-    print('Initializing session registry...')
+print('Initializing session registry...')
 
-    # Initialize db engine
-    if dbtype != 'sqlite':
-        raise NotImplementedError('Databases other than sqlite are not yet supported')
-    global engine
-    engine = create_engine('sqlite:///' +dbstr)
+# Initialize db engine
+if dbtype != 'sqlite':
+    raise NotImplementedError('Databases other than sqlite are not yet supported')
+engine = create_engine('sqlite:///' +dbstr)
+Base.metadata.create_all(engine)
+Base.metadata.bin = engine
 
-    Base.metadata.create_all(engine)
-    Base.metadata.bin = engine
+# Initialize scoped sessions to support multi thread access to database
+sessionm = sessionmaker(bind = engine)
+Session = scoped_session(sessionm)
 
-    # Initialize scoped sessions to support multi thread access to database
-    global sessionm
-    sessionm = sessionmaker(bind = engine)
-    global Session
-    Session = scoped_session(sessionm)
+class DatabaseConnection:
+    def query_switch_model(self, name):
+        if type(name) is not str:
+            raise TypeError('Given parameter "name" is not of expected type str')
 
-class Database:
-    def __init__(self):
-        self.session = Session()
+        session = Session()
+        model = session.query(SwitchModel)
+        model = model.filter_by(_name = name)
 
-    def __del__(self):
-        Session.remove()
+        if len(model.all()) > 1:
+            raise TypeError('DB query resulted in multiple elements but only one was requested')
+
+        return model.first()
+
+    def query_switch(self, name):
+        if type(name) is not str:
+            raise TypeError('Given parameter "name" is not of expected type str')
+
+        session = Session()
+        sw = session.query(Switch)
+        sw = sw.filter_by(_name = name)
+
+        if len(sw.all()) > 1:
+            raise TypeError('DB query resulted in multiple elements but only one was requested')
+
+        return sw.first()
+
+    def query_port_type(self, description):
+        if type(description) is not str:
+            raise TypeError('Given parameter "description" is not of expected type str')
+
+        session = Session()
+        pt = session.query(PortType)
+        pt = pt.filter_by(description = description)
+
+        if len(pt.all()) > 1:
+            raise TypeError('DB query resulted in multiple elements but only one was requested')
+
+        return pt.first()
+
+    def query_vlan(self, tag):
+        if type(tag) is not int:
+            raise TypeError('Given parameter "tag" is not of expected type int')
+
+        session = Session()
+        vl = session.query(Vlan)
+        vl = vl.filter_by(tag = tag)
+
+        if len(vl.all()) > 1:
+            raise TypeError('DB query resulted in multiple elements but only one was requested')
+
+        return vl.first()
 
     def query_switch_models(self, **kwargs):
         # Query
-        models = self.session.query(SwitchModel)
+        session = Session()
+        models = session.query(SwitchModel)
 
         # Filter
         for key, val in kwargs.items():
@@ -49,18 +91,10 @@ class Database:
 
         return models.all()
 
-    def query_switch_model(self, name):
-        model = self.session.query(SwitchModel)
-        model = model.filter_by(_name = name)
-
-        if len(model.all()) > 1:
-            raise TypeError('DB query resulted in multiple elements but only one was requested')
-
-        return model.first()
-
     def query_switches(self, **kwargs):
         # Query
-        sws = self.session.query(Switch)
+        session = Session()
+        sws = session.query(Switch)
 
         # Filter
         for key, val in kwargs.items():
@@ -78,18 +112,10 @@ class Database:
 
         return sws.all()
 
-    def query_switch(self, name):
-        sw = self.session.query(Switch)
-        sw = sw.filter_by(_name = name)
-
-        if len(sw.all()) > 1:
-            raise TypeError('DB query resulted in multiple elements but only one was requested')
-
-        return sw.first()
-
     def query_port_types(self, **kwargs):
         # Query
-        pts = self.session.query(PortType)
+        session = Session()
+        pts = session.query(PortType)
 
         # Filter
         for key, val in kwargs.items():
@@ -103,18 +129,10 @@ class Database:
 
         return pts.all()
 
-    def query_port_type(self, description):
-        pt = self.session.query(PortType)
-        pt = pt.filter_by(description = description)
-
-        if len(pt.all()) > 1:
-            raise TypeError('DB query resulted in multiple elements but only one was requested')
-
-        return pt.first()
-
     def query_vlans(self, **kwargs):
         # Query
-        vls = self.session.query(Vlan)
+        session = Session()
+        vls = session.query(Vlan)
 
         # Filter
         for key, val in kwargs.items():
@@ -128,33 +146,22 @@ class Database:
 
         return vls.all()
 
-    def query_vlan(self, tag):
-        vl = self.session.query(Vlan)
-
-        if tag:
-            vl = vl.filter_by(tag = tag)
-
-        if len(vl.all()) > 1:
-            raise TypeError('DB query resulted in multiple elements but only one was requested')
-
-        return vl.first()
-
     def modify_switch_model(self, name, **kwargs):
         # Check switch model
         sm = self.query_switch_model(name)
         if sm is None:
-            return None
+            raise ValueError('Given switch model does not exist')
 
         # Check all arguments before making any changes
         for key, val in kwargs.items():
             if key == 'ports':
                 try:
-                    kwargs['ports'] = _port_model_maps_to_dict(val)
+                    kwargs['ports'] = _port_models_to_dict(val)
                 except:
-                    return None
+                    raise ValueError('Given list of ports of switch model is malformed')
             elif key == 'size':
                 if type(val) is not int and val is not None:
-                    return None
+                    raise TypeError('Given size of switch model is not of type int')
             else:
                 raise TypeError(
                     'Cannot modify switch model with unexpected attribute "{}"'.format(key))
@@ -167,49 +174,26 @@ class Database:
 
         return sm
 
-    def add_switch_model(self, name, ports, size = None):
-        # Check all arguments before making any changes
-        if type(name) is not str:
-            return None
-
-        if self.query_switch_model(name) is not None:
-            return None
-
-        if ports is not None:
-            try:
-                ports = self._port_model_maps_to_dict(ports)
-            except:
-                return None
-
-        if size is not None:
-            if type(size) is not int:
-                return None
-
-        swm = SwitchModel(name = name, size = size, ports = ports)
-        self.session.add(swm)
-        self.session.commit()
-        return swm
-
     def modify_switch(self, name, **kwargs):
         # Check switch
         sw = self.query_switch(name)
         if sw is None:
-            return None
+            raise ValueError('Given switch does not exist')
 
         # Check all arguments before making any changes
         for key, val in kwargs.items():
             if key == 'model':
                 kwargs['model'] = self.query_switch_model(val)
-                if type(kwargs['model']) is not SwitchModel:
-                    return None
-            elif key == 'port_maps':
+                if kwargs['model'] is None:
+                    raise ValueError('Given switch model of switch does not exist')
+            elif key == 'ports':
                 try:
-                    kwargs['port_maps'] = _port_maps_to_dict(val)
+                    kwargs['ports'] = self._ports_to_dict(val)
                 except:
-                    return None
+                    raise ValueError('Given list of ports of switch is malformed')
             elif key == 'location':
                 if type(val) is not int:
-                    return None
+                    raise TypeError('Given location of switch is not of type int')
             else:
                 raise TypeError(
                     'Cannot modify switch with unexpected attribute "{}"'.format(key))
@@ -217,52 +201,24 @@ class Database:
         # Apply modifications
         if 'model' in kwargs:
             sw.model = kwargs['model']
-        if 'port_maps' in kwargs:
-            sw.ports = kwargs['port_maps']
+        if 'ports' in kwargs:
+            sw.ports = kwargs['ports']
         if 'location' in kwargs:
             sw.location = kwargs['location']
 
-        return sw
-
-    def add_switch(self, name, model, port_maps = None, location = None):
-        # Check all arguments before making any changes
-        if type(name) is not str:
-            return None
-
-        if self.query_switch(name) is not None:
-            return None
-
-        if type(model) is not str:
-            return None
-        model = self.query_switch_model(model)
-        if model is None:
-            return None
-
-        if port_maps is not None:
-            try:
-                port_maps = self._port_maps_to_dict(port_maps)
-            except:
-                return None
-
-        # Create switch
-        sw = Switch(name = name, model = model, port_maps = port_maps, location = location)
-
-        # Commit to database
-        self.session.add(sw)
-        self.session.commit()
         return sw
 
     def modify_port_type(self, description, **kwargs):
         # Check port type
         pt = self.query_port_type(description)
         if pt is None:
-            return None
+            raise ValueError('Given port type does not exist')
 
         # Check all arguments before making any changes
         for key, value in kwargs.items():
             if key == 'speed':
                 if type(val) is not int:
-                    return None
+                    raise TypeError('Given speed of port type is not of type int')
             else:
                 raise TypeError(
                     'Cannot modify switch with unexpected attribute "{}"'.format(key))
@@ -273,77 +229,195 @@ class Database:
 
         return pt
 
-    def add_port_type(self, description = None, speed = None):
-        pt = PortType(description = description, speed = speed)
-        self.session.add(pt)
-        self.session.commit()
+    def modify_vlan(self, tag, **kwargs):
+        # Check if vlan already exists
+        vl = self.query_vlan(tag)
+        if vl is None:
+            raise ValueError('Given VLAN does not exist')
+
+        # Check all arguments before making any changes
+        for key, val in kwargs.items():
+            if key == 'description':
+                if type(val) is not str:
+                    raise TypeError('Given description of VLAN is not of type str')
+            else:
+                raise TypeError(
+                    'Cannot modify vlan with unexpeceted attribute "{}"'.format(key))
+
+        # Apply modifications
+        if 'description' in kwargs:
+            vl.description = kwargs['description']
+
+        return vl
+
+    def add_switch_model(self, **kwargs):
+        # Check if switch model already exists
+        if 'name' not in kwargs:
+            raise KeyError('Missing necessary argument "name" for adding switch model')
+        if self.query_switch_model(kwargs['name']) is not None:
+            raise ValueError(
+                'Cannot add switch model with name {} - switch model already exists'
+                .format(kwargs['name']))
+
+        # Check all arguments before making any changes
+        for key, val in kwargs.items():
+            if key == 'name':
+                pass
+            elif key == 'ports':
+                try:
+                    kwargs['ports'] = self._port_models_to_dict(val)
+                except:
+                    raise ValueError('Given list of ports of switch model is malformed')
+            elif key == 'size':
+                pass
+            else:
+                raise TypeError(
+                    'Cannot add switch model with unexpected attribute "{}"'.format(key))
+
+        # Create switch model
+        swm = SwitchModel(**kwargs)
+        session = Session()
+        session.add(swm)
+        session.commit()
+        return swm
+
+    def add_switch(self, **kwargs):
+        # Check if switch already exists
+        if 'name' not in kwargs:
+            raise KeyError('Missing necessary argument "name" for adding switch')
+        if self.query_switch(kwargs['name']) is not None:
+            raise ValueError(
+                'Cannot add switch with name {} - switch already exists'
+                .format(kwargs['name']))
+
+        # Check all arguments before making any changes
+        for key, val in kwargs.items():
+            if key == 'name':
+                pass
+            elif key == 'model':
+                kwargs['model'] = self.query_switch_model(val)
+                if kwargs['model'] is None:
+                    raise ValueError(
+                        'Cannot add switch with switch model {} - switch model does not exist'
+                        .format(val))
+            elif key == 'ports':
+                try:
+                    kwargs['ports'] = self._ports_to_dict(val)
+                except:
+                    raise ValueError('Given list of ports of switch is malformed')
+            elif key == 'location':
+                pass
+            else:
+                raise TypeError(
+                    'Cannot create switch with unexpected attribute "{}"'.format(key))
+
+        # Create switch
+        sw = Switch(**kwargs)
+        session = Session()
+        session.add(sw)
+        session.commit()
+        return sw
+
+    def add_port_type(self, **kwargs):
+        # Check if port type already exists
+        if 'description' not in kwargs:
+            raise KeyError('Missing necessary argument "description" for adding port type')
+        if self.query_port_type(kwargs['description']) is not None:
+            raise ValueError(
+                'Cannot add port type with description {} - port type already exists'
+                .format(kwargs['description']))
+
+        # Check all arguments before making any changes
+        for key, val in kwargs.items():
+            if key == 'description':
+                pass
+            elif key == 'speed':
+                pass
+            else:
+                raise TypeError(
+                    'Cannot create port type with unexpected attribute "{}"'.format(key))
+
+        # Add port type
+        pt = PortType(**kwargs)
+        session = Session()
+        session.add(pt)
+        session.commit()
         return pt
 
-    def modify_vlan(self, tag, description = None):
-        vl = self.query_vlan(tag)
-        if not vl:
-            return None
+    def add_vlan(self, **kwargs):
+        # Check if vlan already exists
+        if 'tag' not in kwargs:
+            raise KeyError('Missing necessary argument "tag" for adding vlan')
+        if self.query_vlan(kwargs['tag']) is not None:
+            raise ValueError(
+                'Cannot add vlan with tag {} - vlan already exists'
+                .format(kwargs['tag']))
 
-        if description:
-            if type(description) is not str:
-                return None
-            vl.description = description
 
+        # Check all arguments before making any changes
+        for key, val in kwargs.items():
+            if key == 'tag':
+                pass
+            elif key == 'description':
+                pass
+            else:
+                raise TypeError(
+                    'Cannot add vlan with unexpected attribute "{}"'.format(key))
+
+        # Add vlan
+        vl = Vlan(**kwargs)
+        session = Session()
+        session.add(vl)
+        session.commit()
         return vl
 
-    def add_vlan(self, tag = None, description = None):
-        vl = Vlan(tag = tag, description = description)
-        self.session.add(vl)
-        self.session.commit()
-        return vl
+    def _port_models_to_dict(self, ports):
+        if type(ports) is not list:
+            raise TypeError('Given list of ports is not a list')
 
-    def _port_model_maps_to_dict(self, port_maps):
-        if type(port_maps) is not list:
-            raise TypeError('Given list of port maps is not a list')
-
-        # Unpack port maps
+        # Unpack ports
         maps = []
-        for port_map in port_maps:
-            if type(port_map) is not dict:
+        for port in ports:
+            if type(port) is not dict:
                 raise TypeError('Given port map is not a dict')
-            if 'name' not in port_map:
+            if 'name' not in port:
                 raise KeyError('Given port map does not contain key "name"')
-            if 'port_type' not in port_map:
+            if 'port_type' not in port:
                 raise KeyError('Given port map does not contain key "port_type"')
 
-            name = port_map['name']
-            port_type = self.query_port_type(port_map['port_type'])
+            name = port['name']
+            port_type = self.query_port_type(port['port_type'])
 
             if type(name) is not str:
-                raise TypeError('Key "name" of given port map is not of type str')
+                raise TypeError('Element "name" of given port map is not of type str')
             if type(port_type) is not PortType:
-                raise ValueError('Key "port_type" of given port map contains invalid port type')
+                raise ValueError('Element "port_type" of given port map contains invalid port type')
 
             maps.append({ 'name': name, 'port_type': port_type })
 
         return maps
 
-    def _port_maps_to_dict(self, port_maps):
-        if type(port_maps) is not list:
-            raise TypeError('Given list of port maps is not a list')
+    def _ports_to_dict(self, ports):
+        if type(ports) is not list:
+            raise TypeError('Given list of port is not a list')
 
-        # Unpack port maps
+        # Unpack ports
         maps = []
-        for port_map in port_maps:
-            if type(port_map) is not dict:
+        for port in ports:
+            if type(port) is not dict:
                 raise TypeError('Given port map is not a dict')
-            if 'name' not in port_map:
+            if 'name' not in port:
                 raise KeyError('Given port map does not contain key "name"')
-            if 'vlans' not in port_map:
+            if 'vlans' not in port:
                 raise KeyError('Given port map does not contain key "vlans"')
 
-            name = port_map['name']
-            vlans = [ self.query_vlan(v) for v in port_map['vlans'] ]
+            name = port['name']
+            vlans = [ self.query_vlan(v) for v in port['vlans'] ]
 
             if type(name) is not str:
-                raise TypeError('Key "name" of given port map is not of type str')
+                raise TypeError('Element "name" of given port map is not of type str')
             if None in vlans:
-                raise ValueError('Key "vlans" of given port map contains invalid vlan')
+                raise ValueError('Element "vlans" of given port map contains invalid vlan')
 
             maps.append({ 'name': name, 'vlans': vlans })
 

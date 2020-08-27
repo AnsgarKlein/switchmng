@@ -363,7 +363,7 @@ class Switch(Base):
     _ports = relationship('Port', uselist = True)
     _location = Column('location', Integer, nullable = True)
 
-    def __init__(self, name, model, port_maps = None, location = None):
+    def __init__(self, name, model, ports = None, location = None):
         # Assign name from argument
         if type(name) is not str:
             raise TypeError('Expected name of switch to be of type str')
@@ -375,8 +375,8 @@ class Switch(Base):
         self.model = model
 
         # Adopt ports from switch model and then assign
-        if port_maps is not None:
-            self.ports = port_maps
+        if ports is not None:
+            self.ports = ports
 
         # Assign location from argument
         if location is not None:

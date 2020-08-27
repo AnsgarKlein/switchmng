@@ -4,10 +4,10 @@ import pprint
 
 import json
 
-from database import Database
+from database import DatabaseConnection
 
 def input_examples():
-    database = Database()
+    database = DatabaseConnection()
 
     # Create vlans
     database.add_vlan(tag = 1005, description = 'internal')
@@ -47,7 +47,7 @@ def input_examples():
       { 'name': 'TP6', 'vlans': [ 107 ] },
       { 'name': 'F2',  'vlans': [ 107 ] }
     ]
-    database.add_switch(name = 'switch1', model = 'ZyXEL GS1910-24', port_maps = ports_str)
+    database.add_switch(name = 'switch1', model = 'ZyXEL GS1910-24', ports = ports_str)
 
     for sw in database.query_switches():
         pprint.PrettyPrinter(indent=4).pprint(sw.jsonify())
@@ -73,7 +73,7 @@ def input_examples():
       { 'name': 'TP13', 'vlans': [ 1005, 107 ] },
       { 'name': 'TP16', 'vlans': [ 1005 ] }
     ]
-    database.modify_switch('switch1', port_maps = ports_str)
+    database.modify_switch('switch1', ports = ports_str)
 
     for sw in database.query_switches():
         pprint.PrettyPrinter(indent=4).pprint(sw.jsonify())
