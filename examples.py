@@ -78,8 +78,6 @@ def input_examples():
     for sw in database.query_switches():
         pprint.PrettyPrinter(indent=4).pprint(sw.jsonify())
 
-def main():
-    #input_examples()
-
 if __name__ == '__main__':
-    main()
+    input_examples()
+
