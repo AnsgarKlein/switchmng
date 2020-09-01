@@ -7,113 +7,288 @@ from flask import request
 app = Flask('REST API')
 app.url_map.strict_slashes = False
 
-@app.route('/')
-def hello_world():
-    str = '''
-        Welcome<br>
-        <br>
-        Menu:<br>
-        <ul>
-        <li>/switches</li>
-        <li>/switch_models</li>
-        <li>/port_types</li>
-        <li>/vlans</li>
-        </ul>
-        '''
-    return str
-
 @app.errorhandler(404)
 def error404(error):
     return { 'data': None,
              'result': False,
              'error': 404,
-             'message': 'Not found' }
+             'message': 'Not found' }, 404
 
-@app.route('/switch_models/<string:model_id>', methods = ['GET'])
-def get_switch_model(model_id):
+@app.route('/switch_models/<string:resource_id>', methods = ['GET'])
+def get_switch_model(resource_id):
     db = DatabaseConnection()
-    model = db.query_switch_model(model_id)
+    sm = db.query_switch_model(resource_id)
 
-    if model is None:
+    if sm is None:
         abort(404)
 
     return { 'result': True,
-             'data': model.jsonify() }
+             'data': sm.jsonify() }, 200
 
-@app.route('/switches/<string:switch_id>', methods = ['GET'])
-def get_switch(switch_id):
+@app.route('/switches/<string:resource_id>', methods = ['GET'])
+def get_switch(resource_id):
     db = DatabaseConnection()
-    switch = db.query_switch(switch_id)
+    sw = db.query_switch(resource_id)
 
-    if switch is None:
+    if sw is None:
         abort(404)
 
     return { 'result': True,
-             'data': switch.jsonify() }
+             'data': sw.jsonify() }, 200
 
-@app.route('/port_types/<string:port_type_id>', methods = ['GET'])
-def get_port_type(port_type_id):
+@app.route('/port_types/<string:resource_id>', methods = ['GET'])
+def get_port_type(resource_id):
     db = DatabaseConnection()
-    port_type = db.query_port_type(port_type_id)
+    pt = db.query_port_type(resource_id)
 
-    if port_type is None:
+    if pt is None:
         abort(404)
 
     return { 'result': True,
-             'data': port_type.jsonify() }
+             'data': pt.jsonify() }, 200
 
-@app.route('/vlans/<int:vlan_id>')
-def get_vlan(vlan_id):
+@app.route('/vlans/<int:resource_id>', methods = ['GET'])
+def get_vlan(resource_id):
     db = DatabaseConnection()
-    vlan = db.query_vlan(vlan_id)
+    vl = db.query_vlan(resource_id)
 
-    if vlan is None:
+    if vl is None:
         abort(404)
 
     return { 'result': True,
-             'data': vlan.jsonify() }
+             'data': vl.jsonify() }, 200
 
 @app.route('/switch_models', methods = ['GET'])
 def get_switch_models():
     db = DatabaseConnection()
     return { 'result': True,
-             'data': [ m.jsonify() for m in db.query_switch_models() ] }
+             'data': [ sm.jsonify() for sm in db.query_switch_models() ] }, 200
 
 @app.route('/switches', methods = ['GET'])
 def get_switches():
     db = DatabaseConnection()
     return { 'result': True,
-             'data': [ sw.jsonify() for sw in db.query_switches() ] }
+             'data': [ sw.jsonify() for sw in db.query_switches() ] }, 200
 
 @app.route('/port_types', methods = ['GET'])
 def get_port_types():
     db = DatabaseConnection()
     return { 'result': True,
-             'data': [ pt.jsonify() for pt in db.query_port_types() ] }
+             'data': [ pt.jsonify() for pt in db.query_port_types() ] }, 200
 
 @app.route('/vlans', methods = ['GET'])
 def get_vlans():
     db = DatabaseConnection()
     return { 'result': True,
-             'data': [ v.jsonify() for v in db.query_vlans() ] }
+             'data': [ vl.jsonify() for vl in db.query_vlans() ] }, 200
 
-@app.route('/switches', methods = ['POST'])
-def add_switch():
-    # Unpack request
-    req = request.json
-    if req is None or 'name' not in req:
-        abort(400)
-    name = req.pop('name')
+@app.route('/switch_models/<string:resource_id>', methods = ['PUT'])
+def put_switch_model(resource_id):
+    # Check request
+    try:
+        req = request.json
+        if type(req) is not dict:
+            raise BaseException()
+    except:
+        return { 'result': False,
+                 'data': None,
+                 'error': 400,
+                 'message': 'Request is not valid json object' }, 400
 
-    print('POST: {}  {} '.format(name, req))
+    # Modify in database
+    try:
+        db = DatabaseConnection()
+        sm = db.set_switch_model(resource_id = resource_id, **req)
+    except BaseException as e:
+        return { 'result': False,
+                 'data': None,
+                 'error': 400,
+                 'message': str(e) }, 400
+
+    return { 'result': True,
+             'data:': sm.jsonify() }, 200
+
+@app.route('/switches/<string:resource_id>', methods = ['PUT'])
+def put_switch(resource_id):
+    # Check request
+    try:
+        req = request.json
+        if type(req) is not dict:
+            raise BaseException()
+    except:
+        return { 'result': False,
+                 'data': None,
+                 'error': 400,
+                 'message': 'Request is not valid json object' }, 400
+
+    # Modify in database
+    try:
+        db = DatabaseConnection()
+        sw = db.set_switch(resource_id = resource_id, **req)
+    except BaseException as e:
+        return { 'result': False,
+                 'data': None,
+                 'error': 400,
+                 'message': str(e) }, 400
+
+    return { 'result': True,
+             'data:': sw.jsonify() }, 200
+
+@app.route('/port_types/<string:resource_id>', methods = ['PUT'])
+def put_port_type(resource_id):
+    # Check request
+    try:
+        req = request.json
+        if type(req) is not dict:
+            raise BaseException()
+    except:
+        return { 'result': False,
+                 'data': None,
+                 'error': 400,
+                 'message': 'Request is not valid json object' }, 400
+
+    # Modify in database
+    try:
+        db = DatabaseConnection()
+        pt = db.set_port_type(resource_id = resource_id, **req)
+    except BaseException as e:
+        return { 'result': False,
+                 'data': None,
+                 'error': 400,
+                 'message': str(e) }, 400
+
+    return { 'result': True,
+             'data:': pt.jsonify() }, 200
+
+@app.route('/vlans/<int:resource_id>', methods = ['PUT'])
+def put_vlan(resource_id):
+    # Check request
+    try:
+        req = request.json
+        if type(req) is not dict:
+            raise BaseException()
+    except:
+        return { 'result': False,
+                 'data': None,
+                 'error': 400,
+                 'message': 'Request is not valid json object' }, 400
+
+    # Modify in database
+    try:
+        db = DatabaseConnection()
+        vl = db.set_vlan(resource_id = resource_id, **req)
+    except BaseException as e:
+        return { 'result': False,
+                 'data': None,
+                 'error': 400,
+                 'message': str(e) }, 400
+
+    return { 'result': True,
+             'data:': vl.jsonify() }, 200
+
+@app.route('/switch_models', methods = ['POST'])
+def post_switch_model():
+    # Check request
+    try:
+        req = request.json
+        if type(req) is not dict:
+            raise BaseException()
+    except:
+        return { 'result': False,
+                 'data': None,
+                 'error': 400,
+                 'message': 'Request is not valid json object' }, 400
 
     # Add to database
-    db = DatabaseConnection()
-    #db.
+    try:
+        db = DatabaseConnection()
+        sm = db.add_switch_model(**req)
+    except BaseException as e:
+        return { 'result': False,
+                 'data': None,
+                 'error': 400,
+                 'message': str(e) }, 400
 
-    # TODO: Call add_switch(name, **req)
+    return { 'result': True,
+             'data': sm.jsonify() }, 201
 
-    pass
+@app.route('/switches', methods = ['POST'])
+def post_switch():
+    # Check request
+    try:
+        req = request.json
+        if type(req) is not dict:
+            raise BaseException()
+    except:
+        return { 'result': False,
+                 'data': None,
+                 'error': 400,
+                 'message': 'Request is not valid json object' }, 400
+
+    # Add to database
+    try:
+        db = DatabaseConnection()
+        sw = db.add_switch(**req)
+    except BaseException as e:
+        return { 'result': False,
+                 'data': None,
+                 'error': 400,
+                 'message': str(e) }, 400
+
+    return { 'result': True,
+             'data': sw.jsonify() }, 201
+
+@app.route('/port_types', methods = ['POST'])
+def post_port_types():
+    # Check request
+    try:
+        req = request.json
+        if type(req) is not dict:
+            raise BaseException()
+    except:
+        return { 'result': False,
+                 'data': None,
+                 'error': 400,
+                 'message': 'Request is not valid json object' }, 400
+
+    # Add to database
+    try:
+        db = DatabaseConnection()
+        pt = db.add_port_type(**req)
+    except BaseException as e:
+        return { 'result': False,
+                 'data': None,
+                 'error': 400,
+                 'message': str(e) }, 400
+
+    return { 'result': True,
+             'data': pt.jsonify() }, 201
+
+@app.route('/vlans', methods = ['POST'])
+def post_vlans():
+    # Check request
+    try:
+        req = request.json
+        if type(req) is not dict:
+            raise BaseException()
+    except:
+        return { 'result': False,
+                 'data': None,
+                 'error': 400,
+                 'message': 'Request is not valid json object' }, 400
+
+    # Add to database
+    try:
+        db = DatabaseConnection()
+        vl = db.add_vlan(**req)
+    except BaseException as e:
+        return { 'result': False,
+                 'data': None,
+                 'error': 400,
+                 'message': str(e) }, 400
+
+    return { 'result': True,
+             'data': vl.jsonify() }, 201
 
 if __name__ == '__main__':
     app.run(debug= True, host = '127.0.0.1', port = 8000)
