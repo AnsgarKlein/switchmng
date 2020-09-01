@@ -34,7 +34,7 @@ class Vlan(Base):
         self.description = description
 
     def jsonify(self):
-        return { 'tag': str(self.tag),
+        return { 'tag': self.tag,
                  'description': self.description }
 
     def __str__(self):
