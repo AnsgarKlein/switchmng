@@ -5,6 +5,7 @@ from flask import abort
 from flask import request
 
 app = Flask('REST API')
+app.url_map.strict_slashes = False
 
 @app.route('/')
 def hello_world():
