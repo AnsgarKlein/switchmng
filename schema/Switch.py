@@ -30,7 +30,7 @@ class Switch(Base):
         __tablename__ = 'ports'
         _port_id = Column('id', Integer, primary_key = True, nullable = False)
         _switch_id = Column('switch_id', Integer, ForeignKey('switches.id'),
-                           nullable = True)
+                           nullable = False)
 
         _name = Column('name', String, nullable = False)
         _vlans = relationship('Vlan', secondary = vlans_ports_mapping, uselist = True)
@@ -77,7 +77,7 @@ class Switch(Base):
 
     # Resource state
     _model = relationship('SwitchModel', uselist = False)
-    _ports = relationship('Port', uselist = True)
+    _ports = relationship('Port', uselist = True, cascade = 'all, delete-orphan')
     _location = Column('location', Integer, nullable = True)
 
     def __init__(self, name, model, ports = None, location = None):

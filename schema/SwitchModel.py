@@ -75,7 +75,7 @@ class SwitchModel(Base):
     _name = Column('name', String, nullable = False, unique = True)
 
     # Resource state
-    _ports = relationship('PortModel', uselist = True)
+    _ports = relationship('PortModel', uselist = True, cascade = 'all, delete-orphan')
     _size = Column('size', Integer, nullable = True)
 
     def __init__(self, name, ports, size = None):
