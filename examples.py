@@ -54,7 +54,7 @@ def input_examples():
 
 
     # Change switch model
-    database.modify_switch('switch1', model = 'defect ZyXEL GS1910-24')
+    database.modify_switch(switch = 'switch1', model = 'defect ZyXEL GS1910-24')
 
     for sw in database.query_switches():
         pprint.PrettyPrinter(indent=4).pprint(sw.jsonify())
@@ -73,7 +73,7 @@ def input_examples():
       { 'name': 'TP13', 'vlans': [ 1005, 107 ] },
       { 'name': 'TP16', 'vlans': [ 1005 ] }
     ]
-    database.modify_switch('switch1', ports = ports_str)
+    database.modify_switch(switch = 'switch1', ports = ports_str)
 
     for sw in database.query_switches():
         pprint.PrettyPrinter(indent=4).pprint(sw.jsonify())
