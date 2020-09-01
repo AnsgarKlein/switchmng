@@ -5,6 +5,45 @@ vlans_ports_mapping = Table('vlan_ports', Base.metadata,
     Column('vlan_id', Integer, ForeignKey('vlans.id'), primary_key = True),
 )
 
+class Port(Base):
+    __tablename__ = 'ports'
+    _port_id = Column('id', Integer, primary_key = True, nullable = False)
+    _switch_id = Column('switch_id', Integer, ForeignKey('switches.id'),
+                       nullable = False)
+
+    _name = Column('name', String, nullable = False)
+    _vlans = relationship('Vlan', secondary = vlans_ports_mapping, uselist = True)
+
+    def __init__(self, name, vlans = []):
+        self.name = name
+        self.vlans = vlans
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        if type(name) is not str:
+            raise TypeError('Expected name of port to be of type string')
+        if len(name) < 1:
+            raise ValueError('Length of port name cannot be zero')
+        self._name = name
+
+    @property
+    def vlans(self):
+        return self._vlans
+
+    @vlans.setter
+    def vlans(self, vlans):
+        if type(vlans) is not list:
+            raise TypeError('Expected vlans of port to be a list')
+        self._vlans = vlans
+
+    def jsonify(self):
+        return { 'name': self.name,
+                 'vlans': [ str(v) for v in self.vlans ] }
+
 class Switch(Base):
     """
     Represents a switch resource.
@@ -25,45 +64,6 @@ class Switch(Base):
     location : int
         Location of this switch in server rack
     """
-
-    class Port(Base):
-        __tablename__ = 'ports'
-        _port_id = Column('id', Integer, primary_key = True, nullable = False)
-        _switch_id = Column('switch_id', Integer, ForeignKey('switches.id'),
-                           nullable = False)
-
-        _name = Column('name', String, nullable = False)
-        _vlans = relationship('Vlan', secondary = vlans_ports_mapping, uselist = True)
-
-        def __init__(self, name, vlans = []):
-            self.name = name
-            self.vlans = vlans
-
-        @property
-        def name(self):
-            return self._name
-
-        @name.setter
-        def name(self, name):
-            if type(name) is not str:
-                raise TypeError('Expected name of port to be of type string')
-            if len(name) < 1:
-                raise ValueError('Length of port name cannot be zero')
-            self._name = name
-
-        @property
-        def vlans(self):
-            return self._vlans
-
-        @vlans.setter
-        def vlans(self, vlans):
-            if type(vlans) is not list:
-                raise TypeError('Expected vlans of port to be a list')
-            self._vlans = vlans
-
-        def jsonify(self):
-            return { 'name': self.name,
-                     'vlans': [ str(v) for v in self.vlans ] }
 
     __tablename__ = 'switches'
 
@@ -170,7 +170,7 @@ class Switch(Base):
                     if self.model._port_obj(p.name) is not None ]
 
         # Add all ports from switch model
-        nports2 = [ self.Port(name = p.name)
+        nports2 = [ Port(name = p.name)
                     for p in self.model._ports
                     if self._port_obj(p.name) is None ]
 

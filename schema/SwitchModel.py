@@ -1,5 +1,51 @@
 from . import *
 
+class PortModel(Base):
+    __tablename__ = 'port_models'
+
+    # Database id
+    _port_model_id = Column('id', Integer, primary_key = True, nullable = False)
+    _switch_model_id = Column('switch_model_id', Integer,
+                             ForeignKey('switch_models.id'), nullable = False)
+    port_type_id = Column('port_type_id', Integer,
+                          ForeignKey('port_types.description'), nullable = True)
+
+    # Attributes
+    _name = Column('name', String, nullable = False)
+    _port_type = relationship('PortType', uselist = False)
+
+    def __init__(self, name, port_type = None):
+        self.name = name
+
+        if port_type is not None:
+            self.port_type = port_type
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        if type(name) is not str:
+            raise TypeError('Expected name of port model to be of type string')
+        if len(name) < 1:
+            raise ValueError('Length of port name cannot be zero')
+        self._name = name
+
+    @property
+    def port_type(self):
+        return self._port_type
+
+    @port_type.setter
+    def port_type(self, port_type):
+        if type(port_type) is not PortType:
+            raise TypeError('Expected port type of port model to be of type PortType')
+        self._port_type = port_type
+
+    def jsonify(self):
+        return { 'name': self.name,
+                 'port_type': str(self.port_type) }
+
 class SwitchModel(Base):
     """
     Represents a switch model resource.
@@ -18,53 +64,6 @@ class SwitchModel(Base):
     ports : list
         Ports associated with this switch model
     """
-
-    class PortModel(Base):
-        __tablename__ = 'port_models'
-
-        # Database id
-        _port_model_id = Column('id', Integer, primary_key = True, nullable = False)
-        _switch_model_id = Column('switch_model_id', Integer,
-                                 ForeignKey('switch_models.id'), nullable = False)
-        port_type_id = Column('port_type_id', Integer,
-                              ForeignKey('port_types.description'), nullable = True)
-
-        # Attributes
-        _name = Column('name', String, nullable = False)
-        _port_type = relationship('PortType', uselist = False)
-
-        def __init__(self, name, port_type = None):
-            self.name = name
-
-            if port_type is not None:
-                self.port_type = port_type
-
-        @property
-        def name(self):
-            return self._name
-
-        @name.setter
-        def name(self, name):
-            if type(name) is not str:
-                raise TypeError('Expected name of port model to be of type string')
-            if len(name) < 1:
-                raise ValueError('Length of port name cannot be zero')
-            self._name = name
-
-        @property
-        def port_type(self):
-            return self._port_type
-
-        @port_type.setter
-        def port_type(self, port_type):
-            if type(port_type) is not PortType:
-                raise TypeError('Expected port type of port model to be of type PortType')
-            self._port_type = port_type
-
-        def jsonify(self):
-            return { 'name': self.name,
-                     'port_type': str(self.port_type) }
-
 
     __tablename__ = 'switch_models'
 
@@ -133,7 +132,7 @@ class SwitchModel(Base):
             if type(port_type) is not PortType:
                 raise TypeError('Given port type of switch model is not of type PortType')
 
-            port_list.append(self.PortModel(name = port_name, port_type = port_type))
+            port_list.append(PortModel(name = port_name, port_type = port_type))
 
         self._ports = port_list
 
