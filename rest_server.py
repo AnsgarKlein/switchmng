@@ -85,6 +85,11 @@ def get_vlans():
 @app.route('/switch_models/<string:resource_id>', methods = ['PUT'])
 def put_switch_model(resource_id):
     # Check request
+    if request.content_type != 'application/json':
+        return { 'result': False,
+                 'data': None,
+                 'error': 400,
+                 'message': 'Expected content type to be application/json' }, 400
     try:
         req = request.json
         if type(req) is not dict:
@@ -93,7 +98,7 @@ def put_switch_model(resource_id):
         return { 'result': False,
                  'data': None,
                  'error': 400,
-                 'message': 'Request is not valid json object' }, 400
+                 'message': 'Request is not a valid json object' }, 400
 
     # Modify in database
     try:
@@ -111,6 +116,11 @@ def put_switch_model(resource_id):
 @app.route('/switches/<string:resource_id>', methods = ['PUT'])
 def put_switch(resource_id):
     # Check request
+    if request.content_type != 'application/json':
+        return { 'result': False,
+                 'data': None,
+                 'error': 400,
+                 'message': 'Expected content type to be application/json' }, 400
     try:
         req = request.json
         if type(req) is not dict:
@@ -119,7 +129,7 @@ def put_switch(resource_id):
         return { 'result': False,
                  'data': None,
                  'error': 400,
-                 'message': 'Request is not valid json object' }, 400
+                 'message': 'Request is not a valid json object' }, 400
 
     # Modify in database
     try:
@@ -137,6 +147,11 @@ def put_switch(resource_id):
 @app.route('/port_types/<string:resource_id>', methods = ['PUT'])
 def put_port_type(resource_id):
     # Check request
+    if request.content_type != 'application/json':
+        return { 'result': False,
+                 'data': None,
+                 'error': 400,
+                 'message': 'Expected content type to be application/json' }, 400
     try:
         req = request.json
         if type(req) is not dict:
@@ -145,7 +160,7 @@ def put_port_type(resource_id):
         return { 'result': False,
                  'data': None,
                  'error': 400,
-                 'message': 'Request is not valid json object' }, 400
+                 'message': 'Request is not a valid json object' }, 400
 
     # Modify in database
     try:
@@ -163,6 +178,11 @@ def put_port_type(resource_id):
 @app.route('/vlans/<int:resource_id>', methods = ['PUT'])
 def put_vlan(resource_id):
     # Check request
+    if request.content_type != 'application/json':
+        return { 'result': False,
+                 'data': None,
+                 'error': 400,
+                 'message': 'Expected content type to be application/json' }, 400
     try:
         req = request.json
         if type(req) is not dict:
@@ -171,7 +191,7 @@ def put_vlan(resource_id):
         return { 'result': False,
                  'data': None,
                  'error': 400,
-                 'message': 'Request is not valid json object' }, 400
+                 'message': 'Request is not a valid json object' }, 400
 
     # Modify in database
     try:
@@ -189,6 +209,11 @@ def put_vlan(resource_id):
 @app.route('/switch_models', methods = ['POST'])
 def post_switch_model():
     # Check request
+    if request.content_type != 'application/json':
+        return { 'result': False,
+                 'data': None,
+                 'error': 400,
+                 'message': 'Expected content type to be application/json' }, 400
     try:
         req = request.json
         if type(req) is not dict:
@@ -197,7 +222,7 @@ def post_switch_model():
         return { 'result': False,
                  'data': None,
                  'error': 400,
-                 'message': 'Request is not valid json object' }, 400
+                 'message': 'Request is not a valid json object' }, 400
 
     # Add to database
     try:
@@ -215,6 +240,11 @@ def post_switch_model():
 @app.route('/switches', methods = ['POST'])
 def post_switch():
     # Check request
+    if request.content_type != 'application/json':
+        return { 'result': False,
+                 'data': None,
+                 'error': 400,
+                 'message': 'Expected content type to be application/json' }, 400
     try:
         req = request.json
         if type(req) is not dict:
@@ -223,7 +253,7 @@ def post_switch():
         return { 'result': False,
                  'data': None,
                  'error': 400,
-                 'message': 'Request is not valid json object' }, 400
+                 'message': 'Request is not a valid json object' }, 400
 
     # Add to database
     try:
@@ -241,6 +271,11 @@ def post_switch():
 @app.route('/port_types', methods = ['POST'])
 def post_port_types():
     # Check request
+    if request.content_type != 'application/json':
+        return { 'result': False,
+                 'data': None,
+                 'error': 400,
+                 'message': 'Expected content type to be application/json' }, 400
     try:
         req = request.json
         if type(req) is not dict:
@@ -249,7 +284,7 @@ def post_port_types():
         return { 'result': False,
                  'data': None,
                  'error': 400,
-                 'message': 'Request is not valid json object' }, 400
+                 'message': 'Request is not a valid json object' }, 400
 
     # Add to database
     try:
@@ -267,6 +302,11 @@ def post_port_types():
 @app.route('/vlans', methods = ['POST'])
 def post_vlans():
     # Check request
+    if request.content_type != 'application/json':
+        return { 'result': False,
+                 'data': None,
+                 'error': 400,
+                 'message': 'Expected content type to be application/json' }, 400
     try:
         req = request.json
         if type(req) is not dict:
@@ -275,7 +315,7 @@ def post_vlans():
         return { 'result': False,
                  'data': None,
                  'error': 400,
-                 'message': 'Request is not valid json object' }, 400
+                 'message': 'Request is not a valid json object' }, 400
 
     # Add to database
     try:
