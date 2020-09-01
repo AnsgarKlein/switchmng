@@ -146,89 +146,80 @@ class DatabaseConnection:
 
         return vls.all()
 
-    def modify_switch_model(self, name, **kwargs):
+    def modify_switch_model(self, resource_id, **kwargs):
+        # Check all arguments before making any changes
+        kwargs = self._check_switch_model_parameters(**kwargs)
+
         # Check switch model
-        sm = self.query_switch_model(name)
+        sm = self.query_switch_model(resource_id)
         if sm is None:
             raise ValueError('Given switch model does not exist')
 
-        # Check all arguments before making any changes
-        for key, val in kwargs.items():
-            if key == 'ports':
-                try:
-                    kwargs['ports'] = _port_models_to_dict(val)
-                except:
-                    raise ValueError('Given list of ports of switch model is malformed')
-            elif key == 'size':
-                if type(val) is not int and val is not None:
-                    raise TypeError('Given size of switch model is not of type int')
-            else:
-                raise TypeError(
-                    'Cannot modify switch model with unexpected attribute "{}"'.format(key))
-
         # Apply modifications
-        if 'ports' in kwargs:
-            sm.ports = kwargs['ports']
-        if 'size' in kwargs:
-            sm.size = kwargs['size']
+        for key, val in kwargs.items():
+            setattr(sm, key, val)
+
+        session = Session()
+        session.add(sm)
+        session.commit()
 
         return sm
 
-    def modify_switch(self, switch, **kwargs):
+    def modify_switch(self, resource_id, **kwargs):
         # Check all arguments before making any changes
         kwargs = self._check_switch_parameters(**kwargs)
 
         # Check if switch does not exists
-        sw = self.query_switch(switch)
+        sw = self.query_switch(resource_id)
         if sw is None:
             raise ValueError('Given switch "{}" does not exist'
-                .format(switch))
+                .format(resource_id))
 
         # Apply modifications
         for key, val in kwargs.items():
             setattr(sw, key, val)
 
+        session = Session()
+        session.add(sw)
+        session.commit()
+
         return sw
 
-    def modify_port_type(self, port_type, **kwargs):
+    def modify_port_type(self, resource_id, **kwargs):
+        # Check all arguments before making any changes
+        kwargs = self._check_port_type_parameters(**kwargs)
+
         # Check port type
-        pt = self.query_port_type(port_type)
+        pt = self.query_port_type(resource_id)
         if pt is None:
             raise ValueError('Given port type does not exist')
 
-        # Check all arguments before making any changes
-        for key, value in kwargs.items():
-            if key == 'speed':
-                if type(val) is not int:
-                    raise TypeError('Given speed of port type is not of type int')
-            else:
-                raise TypeError(
-                    'Cannot modify switch with unexpected attribute "{}"'.format(key))
-
         # Apply modifications
-        if 'speed' in kwargs:
-            pt.speed = kwargs['speed']
+        for key, val in kwargs.items():
+            setattr(pt, key, val)
+
+        session = Session()
+        session.add(pt)
+        session.commit()
 
         return pt
 
-    def modify_vlan(self, vlan, **kwargs):
+    def modify_vlan(self, resource_id, **kwargs):
+        # Check all arguments before making any changes
+        kwargs = self._check_vlan_parameters(**kwargs)
+
         # Check if vlan already exists
-        vl = self.query_vlan(vlan)
+        vl = self.query_vlan(resource_id)
         if vl is None:
             raise ValueError('Given VLAN does not exist')
 
-        # Check all arguments before making any changes
-        for key, val in kwargs.items():
-            if key == 'description':
-                if type(val) is not str:
-                    raise TypeError('Given description of VLAN is not of type str')
-            else:
-                raise TypeError(
-                    'Cannot modify vlan with unexpeceted attribute "{}"'.format(key))
-
         # Apply modifications
-        if 'description' in kwargs:
-            vl.description = kwargs['description']
+        for key, val in kwargs.items():
+            setattr(vl, key, val)
+
+        session = Session()
+        session.add(vl)
+        session.commit()
 
         return vl
 
