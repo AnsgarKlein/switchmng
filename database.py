@@ -75,6 +75,9 @@ class DatabaseConnection:
         return vl.first()
 
     def query_switch_models(self, **kwargs):
+        # Check all arguments
+        kwargs = self._check_switch_model_parameters(**kwargs)
+
         # Query
         session = Session()
         models = session.query(SwitchModel)
@@ -82,8 +85,6 @@ class DatabaseConnection:
         # Filter
         for key, val in kwargs.items():
             if key == 'size':
-                if type(val) is not int:
-                    raise TypeError('Expected size of switch model to be of type int')
                 models = models.filter_by(_size = val)
             else:
                 raise TypeError(
@@ -92,6 +93,9 @@ class DatabaseConnection:
         return models.all()
 
     def query_switches(self, **kwargs):
+        # Check all arguments
+        kwargs = self._check_switch_parameters(**kwargs)
+
         # Query
         session = Session()
         sws = session.query(Switch)
@@ -99,12 +103,8 @@ class DatabaseConnection:
         # Filter
         for key, val in kwargs.items():
             if key == 'location':
-                if type(val) is not int:
-                    raise TypeError('Expected location of switch to be of type int')
                 sws = sws.filter_by(_location = val)
             elif key == 'model':
-                if type(val) is not str:
-                    raise TypeError('Expected model of switch to be of type str')
                 sws = sws.filter_by(_model = val)
             else:
                 raise TypeError(
@@ -113,6 +113,9 @@ class DatabaseConnection:
         return sws.all()
 
     def query_port_types(self, **kwargs):
+        # Check all arguments
+        kwargs = self._check_port_type_parameters(**kwargs)
+
         # Query
         session = Session()
         pts = session.query(PortType)
@@ -120,8 +123,6 @@ class DatabaseConnection:
         # Filter
         for key, val in kwargs.items():
             if key == 'speed':
-                if type(val) is not int:
-                    raise TypeError('Expected speed of port type to be of type int')
                 pts = pts.filter_by(speed = val)
             else:
                 raise TypeError(
@@ -130,6 +131,9 @@ class DatabaseConnection:
         return pts.all()
 
     def query_vlans(self, **kwargs):
+        # Check all arguments
+        kwargs = self._check_vlan_parameters(**kwargs)
+
         # Query
         session = Session()
         vls = session.query(Vlan)
@@ -137,8 +141,6 @@ class DatabaseConnection:
         # Filter
         for key, val in kwargs.items():
             if key == 'description':
-                if type(val) is not str:
-                    raise TypeError('Expected description of vlan to be of type str')
                 vls = vls.filter_by(description = val)
             else:
                 raise TypeError(
