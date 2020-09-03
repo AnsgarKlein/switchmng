@@ -7,6 +7,7 @@ app.url_map.strict_slashes = False
 
 from database import DatabaseConnection
 
+from .delete import *
 from .errors import *
 from .get    import *
 from .patch  import *

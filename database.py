@@ -75,47 +75,103 @@ class DatabaseConnection:
         return vl.first()
 
     def query_switch_models(self, **kwargs):
-        # Check all arguments
-        kwargs = self._check_switch_model_parameters(**kwargs)
-
         # Query
         session = Session()
         models = session.query(SwitchModel)
 
-        # Filter
+        # Filter with SQL
         for key, val in kwargs.items():
             if key == 'size':
+                if type(val) is not int:
+                    raise TypeError('Given size of switch model is not of type int')
                 models = models.filter_by(_size = val)
+            elif key == 'port_type':
+                if type(val) is not str:
+                    raise TypeError('Given port type of port of switch model is not of type str')
+                val = self.query_port_type(val)
+                if val is None:
+                    raise ValueError('Given port type does not exist')
             else:
                 raise TypeError(
                     'Cannot query switch models with unexpected filter "{}"'.format(key))
 
-        return models.all()
+        models = models.all()
+
+        # TODO: When querying switch models don't filter manually but let database do the work
+
+        # Filter manually
+        for key, val in kwargs.items():
+            if key == 'size':
+                pass
+            elif key == 'port_type':
+                new_models = list()
+                pt = val
+                for model in models:
+                    for port in model.ports:
+                        if port['port_type'] == pt:
+                            new_models.append(model)
+                            break
+                models = new_models
+            else:
+                raise TypeError(
+                    'Cannot query switch models with unexpected filter "{}"'.format(key))
+
+        return models
 
     def query_switches(self, **kwargs):
-        # Check all arguments
-        kwargs = self._check_switch_parameters(**kwargs)
-
         # Query
         session = Session()
-        sws = session.query(Switch)
+        switches = session.query(Switch)
 
-        # Filter
+        # Filter with SQL
         for key, val in kwargs.items():
             if key == 'location':
-                sws = sws.filter_by(_location = val)
+                if type(val) is not int:
+                    raise TypeError('Given location of switch is not of type int')
+                switches = switches.filter_by(_location = val)
             elif key == 'model':
-                sws = sws.filter_by(_model = val)
+                kwargs['model'] = self.query_switch_model(val)
+                if kwargs['model'] is None:
+                    raise ValueError(
+                        'Got invalid switch model "{}" - switch model does not exist')
+                switches = switches.filter_by(_model = kwargs['model'])
+            elif key == 'vlan':
+                if type(val) is not int:
+                    raise TypeError('Given vlan of port of switch is not of type int')
             else:
                 raise TypeError(
                     'Cannot query switches with unexpected filter "{}"'.format(key))
 
-        return sws.all()
+        switches = switches.all()
+
+        # TODO: When querying switches don't filter manually but let database do the work
+
+        # Filter manually
+        print('filtering manually...')
+        for key, val in kwargs.items():
+            if key == 'location':
+                pass
+            elif key == 'model':
+                pass
+            elif key == 'vlan':
+                new_switches = list()
+                vl = val
+                for switch in switches:
+                    for port in switch.ports:
+                        if vl in port['vlans']:
+                            new_switches.append(switch)
+                            break
+                switches = new_switches
+            else:
+                raise TypeError(
+                    'Cannot query switches with unexpected filter "{}"'.format(key))
+
+        print('done filtering')
+
+
+        return switches
 
     def query_port_types(self, **kwargs):
-        # Check all arguments
-        kwargs = self._check_port_type_parameters(**kwargs)
-
         # Query
         session = Session()
         pts = session.query(PortType)
@@ -123,6 +179,8 @@ class DatabaseConnection:
         # Filter
         for key, val in kwargs.items():
             if key == 'speed':
+                if type(val) is not int:
+                    raise TypeError('Given speed of port type is not of type int')
                 pts = pts.filter_by(speed = val)
             else:
                 raise TypeError(
@@ -131,9 +189,6 @@ class DatabaseConnection:
         return pts.all()
 
     def query_vlans(self, **kwargs):
-        # Check all arguments
-        kwargs = self._check_vlan_parameters(**kwargs)
-
         # Query
         session = Session()
         vls = session.query(Vlan)
@@ -141,12 +196,79 @@ class DatabaseConnection:
         # Filter
         for key, val in kwargs.items():
             if key == 'description':
+                if type(val) is not str:
+                    raise TypeError('Given description of vlan is not of type str')
                 vls = vls.filter_by(description = val)
             else:
                 raise TypeError(
                     'Cannot query port types with unexpected filter "{}"'.format(key))
 
         return vls.all()
+
+    def delete_switch_model(self, resource_id):
+        # Check switch model
+        sm = self.query_switch_model(resource_id)
+        if sm is None:
+            raise ValueError('Given switch model does not exist')
+
+        # Check if there are switches still using this model
+        affected_sw = self.query_switches(model = resource_id)
+        if type(affected_sw) is not list:
+            raise TypeError('Expected list of switches to be of type list')
+        if len(affected_sw) > 0:
+            raise ValueError('Given switch model is still in use')
+
+        # Delete switch model
+        session = Session()
+        session.delete(sm)
+        session.commit()
+
+    def delete_switch(self, resource_id):
+        # Check switch
+        sw = self.query_switch(resource_id)
+        if sw is None:
+            raise ValueError('Given switch does not exist')
+
+        # Delete switch
+        session = Session()
+        session.delete(sw)
+        session.commit()
+
+    def delete_port_type(self, resource_id):
+        # Check port type
+        pt = self.query_port_type(resource_id)
+        if pt is None:
+            raise ValueError('Given port type does not exist')
+
+        # Check if there are switch models still using this port type
+        affected_sm = self.query_switch_models(port_type = resource_id)
+        if type(affected_sm) is not list:
+            raise TypeError('Expected list of switch models to be of type list')
+        if len(affected_sm) > 0:
+            raise ValueError('Given port type is still in use')
+
+        # Delete port type
+        session = Session()
+        session.delete(pt)
+        session.commit()
+
+    def delete_vlan(self, resource_id):
+        # Check vlan
+        vl = self.query_vlan(resource_id)
+        if vl is None:
+            raise ValueError('Given vlan does not exist')
+
+        # Check if there are switch ports still using this vlan
+        affected_sw = self.query_switches(vlan = resource_id)
+        if type(affected_sw) is not list:
+            raise TypeError('Expected list of switches to be of type list')
+        if len(affected_sw) > 0:
+            raise ValueError('Given vlan is still in use')
+
+        # Delete vlan
+        session = Session()
+        session.delete(vl)
+        session.commit()
 
     def modify_switch_model(self, resource_id, **kwargs):
         # Check all arguments before making any changes

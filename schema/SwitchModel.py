@@ -77,6 +77,10 @@ class SwitchModel(Base):
     _ports = relationship('PortModel', uselist = True, cascade = 'all, delete-orphan')
     _size = Column('size', Integer, nullable = True)
 
+    # Helper relationship to ensure that all switches that have
+    # this as a switch model get deleted if this model gets deleted.
+    _switches = relationship('Switch', uselist = True, cascade = 'all, delete-orphan')
+
     def __init__(self, name, ports, size = None):
         # Assign name from argument
         if type(name) is not str:
