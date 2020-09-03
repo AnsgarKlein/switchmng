@@ -34,7 +34,7 @@ def input_examples():
     ps = [{ 'name': 'TP{}'.format(i + 1), 'port_type': '1000BASE-T' } for i in range(20)]
     database.add_switch_model(name = 'defect ZyXEL GS1910-24', ports = ps)
     pprint.PrettyPrinter(indent=4).pprint(database.query_switch_model('defect ZyXEL GS1910-24').jsonify())
-    database.modify_switch_model(name = 'defect ZyXEL GS1910-24', size = 1)
+    database.modify_switch_model(resource_id = 'defect ZyXEL GS1910-24', size = 1)
     pprint.PrettyPrinter(indent=4).pprint(database.query_switch_model('defect ZyXEL GS1910-24').jsonify())
 
 
@@ -54,7 +54,7 @@ def input_examples():
 
 
     # Change switch model
-    database.modify_switch(switch = 'switch1', model = 'defect ZyXEL GS1910-24')
+    database.modify_switch(resource_id = 'switch1', model = 'defect ZyXEL GS1910-24')
 
     for sw in database.query_switches():
         pprint.PrettyPrinter(indent=4).pprint(sw.jsonify())
@@ -73,7 +73,7 @@ def input_examples():
       { 'name': 'TP13', 'vlans': [ 1005, 107 ] },
       { 'name': 'TP16', 'vlans': [ 1005 ] }
     ]
-    database.modify_switch(switch = 'switch1', ports = ports_str)
+    database.modify_switch(resource_id = 'switch1', ports = ports_str)
 
     for sw in database.query_switches():
         pprint.PrettyPrinter(indent=4).pprint(sw.jsonify())
