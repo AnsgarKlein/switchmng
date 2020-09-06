@@ -13,7 +13,7 @@ def delete_switch_model(resource_id):
     try:
         db.delete_switch_model(resource_id)
     except BaseException as e:
-        return error_400(str(e))
+        return error_400(message = str(e))
 
     return { 'result': True,
              'data:': None }, 200
@@ -31,7 +31,7 @@ def delete_switch(resource_id):
     try:
         db.delete_switch(resource_id)
     except BaseException as e:
-        return error_400(str(e))
+        return error_400(message = str(e))
 
     return { 'result': True,
              'data:': None }, 200
@@ -49,7 +49,7 @@ def delete_port_type(resource_id):
     try:
         db.delete_port_type(resource_id)
     except BaseException as e:
-        return error_400(str(e))
+        return error_400(message = str(e))
 
     return { 'result': True,
              'data:': None }, 200
@@ -67,7 +67,7 @@ def delete_vlan(resource_id):
     try:
         db.delete_vlan(resource_id)
     except BaseException as e:
-        return error_400(str(e))
+        return error_400(message = str(e))
 
     return { 'result': True,
              'data:': None }, 200
