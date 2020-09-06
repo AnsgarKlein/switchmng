@@ -42,7 +42,7 @@ class Port(Base):
 
     def jsonify(self):
         return { 'name': self.name,
-                 'vlans': [ str(v) for v in self.vlans ] }
+                 'vlans': [ int(str(v)) for v in self.vlans ] }
 
 class Switch(Base):
     """
