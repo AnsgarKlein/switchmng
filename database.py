@@ -628,7 +628,7 @@ class DatabaseConnection:
                     raise TypeError('Given size of switch model is not of type int')
             else:
                 raise TypeError(
-                    'Cannot add switch model with unexpected attribute "{}"'.format(key))
+                    'Unexpected attribute "{}" for switch model'.format(key))
 
         return kwargs
 
@@ -653,7 +653,7 @@ class DatabaseConnection:
                     raise TypeError('Given location of switch is not of type int')
             else:
                 raise TypeError(
-                    'Got invalid switch attribute "{}"'.format(key))
+                    'Unexpected attribute "{}" for switch'.format(key))
 
         return kwargs
 
@@ -667,7 +667,7 @@ class DatabaseConnection:
                     raise TypeError('Given speed of port type is not of type int')
             else:
                 raise TypeError(
-                    'Cannot create port type with unexpected attribute "{}"'.format(key))
+                    'Unexpected attribute "{}" for port type'.format(key))
 
         return kwargs
 
@@ -681,7 +681,7 @@ class DatabaseConnection:
                     raise TypeError('Given description of vlan is not of type str')
             else:
                 raise TypeError(
-                    'Cannot add vlan with unexpected attribute "{}"'.format(key))
+                    'Unexpected attribute "{}" for VLAN'.format(key))
 
         return kwargs
 
