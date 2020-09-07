@@ -22,52 +22,52 @@ sessionm = sessionmaker(bind = engine)
 Session = scoped_session(sessionm)
 
 class DatabaseConnection:
-    def query_switch_model(self, name):
-        if type(name) is not str:
-            raise TypeError('Given parameter "name" is not of expected type str')
+    def query_switch_model(self, resource_id):
+        if type(resource_id) is not str:
+            raise TypeError('Cannot query switch model with resource id not of type str')
 
         session = Session()
         model = session.query(SwitchModel)
-        model = model.filter_by(_name = name)
+        model = model.filter_by(_name = resource_id)
 
         if len(model.all()) > 1:
             raise TypeError('DB query resulted in multiple elements but only one was requested')
 
         return model.first()
 
-    def query_switch(self, name):
-        if type(name) is not str:
-            raise TypeError('Given parameter "name" is not of expected type str')
+    def query_switch(self, resource_id):
+        if type(resource_id) is not str:
+            raise TypeError('Cannot query switch with resource id not of type str')
 
         session = Session()
         sw = session.query(Switch)
-        sw = sw.filter_by(_name = name)
+        sw = sw.filter_by(_name = resource_id)
 
         if len(sw.all()) > 1:
             raise TypeError('DB query resulted in multiple elements but only one was requested')
 
         return sw.first()
 
-    def query_port_type(self, description):
-        if type(description) is not str:
-            raise TypeError('Given parameter "description" is not of expected type str')
+    def query_port_type(self, resource_id):
+        if type(resource_id) is not str:
+            raise TypeError('Cannot query port type with resource id not of type str')
 
         session = Session()
         pt = session.query(PortType)
-        pt = pt.filter_by(description = description)
+        pt = pt.filter_by(description = resource_id)
 
         if len(pt.all()) > 1:
             raise TypeError('DB query resulted in multiple elements but only one was requested')
 
         return pt.first()
 
-    def query_vlan(self, tag):
-        if type(tag) is not int:
-            raise TypeError('Given parameter "tag" is not of expected type int')
+    def query_vlan(self, resource_id):
+        if type(resource_id) is not int:
+            raise TypeError('Cannot query vlan with resource id not of type int')
 
         session = Session()
         vl = session.query(Vlan)
-        vl = vl.filter_by(tag = tag)
+        vl = vl.filter_by(tag = resource_id)
 
         if len(vl.all()) > 1:
             raise TypeError('DB query resulted in multiple elements but only one was requested')
