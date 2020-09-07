@@ -4,7 +4,7 @@ from . import *
 def put_switch_model(resource_id):
     # Check request
     if request.content_type != 'application/json':
-        return error_415(message = 'Expected content type to be application/json')
+        return error_415(message = 'Expected Content-Type to be application/json')
     try:
         req = request.json
         if type(req) is not dict:
@@ -26,7 +26,7 @@ def put_switch_model(resource_id):
 def put_switch(resource_id):
     # Check request
     if request.content_type != 'application/json':
-        return error_415(message = 'Expected content type to be application/json')
+        return error_415(message = 'Expected Content-Type to be application/json')
     try:
         req = request.json
         if type(req) is not dict:
@@ -48,7 +48,7 @@ def put_switch(resource_id):
 def put_port_type(resource_id):
     # Check request
     if request.content_type != 'application/json':
-        return error_415(message = 'Expected content type to be application/json')
+        return error_415(message = 'Expected Content-Type to be application/json')
     try:
         req = request.json
         if type(req) is not dict:
@@ -70,7 +70,7 @@ def put_port_type(resource_id):
 def put_vlan(resource_id):
     # Check request
     if request.content_type != 'application/json':
-        return error_415(message = 'Expected content type to be application/json')
+        return error_415(message = 'Expected Content-Type to be application/json')
     try:
         req = request.json
         if type(req) is not dict:

@@ -4,7 +4,7 @@ from . import *
 def post_switch_model():
     # Check request
     if request.content_type != 'application/json':
-        return error_415(message = 'Expected content type to be application/json')
+        return error_415(message = 'Expected Content-Type to be application/json')
     try:
         req = request.json
         if type(req) is not dict:
@@ -26,7 +26,7 @@ def post_switch_model():
 def post_switch():
     # Check request
     if request.content_type != 'application/json':
-        return error_415(message = 'Expected content type to be application/json')
+        return error_415(message = 'Expected Content-Type to be application/json')
     try:
         req = request.json
         if type(req) is not dict:
@@ -48,7 +48,7 @@ def post_switch():
 def post_port_types():
     # Check request
     if request.content_type != 'application/json':
-        return error_415(message = 'Expected content type to be application/json')
+        return error_415(message = 'Expected Content-Type to be application/json')
     try:
         req = request.json
         if type(req) is not dict:
@@ -70,7 +70,7 @@ def post_port_types():
 def post_vlans():
     # Check request
     if request.content_type != 'application/json':
-        return error_415(message = 'Expected content type to be application/json')
+        return error_415(message = 'Expected Content-Type to be application/json')
     try:
         req = request.json
         if type(req) is not dict:

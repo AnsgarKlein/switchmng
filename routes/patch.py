@@ -4,7 +4,7 @@ from . import *
 def patch_switch_model(resource_id):
     # Check request
     if request.content_type != 'application/merge-patch+json':
-        return error_415(message = 'Expected content type to be application/merge-patch+json')
+        return error_415(message = 'Expected Content-Type to be application/merge-patch+json')
     try:
         req = request.json
         if type(req) is not dict:
@@ -26,7 +26,7 @@ def patch_switch_model(resource_id):
 def patch_switch(resource_id):
     # Check request
     if request.content_type != 'application/merge-patch+json':
-        return error_415(message = 'Expected content type to be application/merge-patch+json')
+        return error_415(message = 'Expected Content-Type to be application/merge-patch+json')
     try:
         req = request.json
         if type(req) is not dict:
@@ -48,7 +48,7 @@ def patch_switch(resource_id):
 def patch_port_type(resource_id):
     # Check request
     if request.content_type != 'application/merge-patch+json':
-        return error_415(message = 'Expected content type to be application/merge-patch+json')
+        return error_415(message = 'Expected Content-Type to be application/merge-patch+json')
     try:
         req = request.json
         if type(req) is not dict:
@@ -70,7 +70,7 @@ def patch_port_type(resource_id):
 def patch_vlan(resource_id):
     # Check request
     if request.content_type != 'application/merge-patch+json':
-        return error_415(message = 'Expected content type to be application/merge-patch+json')
+        return error_415(message = 'Expected Content-Type to be application/merge-patch+json')
     try:
         req = request.json
         if type(req) is not dict:
