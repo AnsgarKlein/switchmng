@@ -1,6 +1,6 @@
 from . import *
 
-@app.route('/switch_models', methods = ['POST'])
+@restbp.route('/switch_models', methods = ['POST'])
 def post_switch_model():
     # Check request
     if request.content_type != 'application/json':
@@ -24,7 +24,7 @@ def post_switch_model():
     return { 'result': True,
              'data': sm.jsonify() }, 201
 
-@app.route('/switches', methods = ['POST'])
+@restbp.route('/switches', methods = ['POST'])
 def post_switch():
     # Check request
     if request.content_type != 'application/json':
@@ -48,7 +48,7 @@ def post_switch():
     return { 'result': True,
              'data': sw.jsonify() }, 201
 
-@app.route('/port_types', methods = ['POST'])
+@restbp.route('/port_types', methods = ['POST'])
 def post_port_types():
     # Check request
     if request.content_type != 'application/json':
@@ -72,7 +72,7 @@ def post_port_types():
     return { 'result': True,
              'data': pt.jsonify() }, 201
 
-@app.route('/vlans', methods = ['POST'])
+@restbp.route('/vlans', methods = ['POST'])
 def post_vlans():
     # Check request
     if request.content_type != 'application/json':

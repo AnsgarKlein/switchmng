@@ -1,9 +1,8 @@
-from flask import Flask
+from flask import Blueprint
 from flask import abort
 from flask import request
 
-app = Flask('REST API')
-app.url_map.strict_slashes = False
+restbp = Blueprint('REST API', __name__)
 
 from database import DatabaseConnection
 

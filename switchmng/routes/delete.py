@@ -1,6 +1,6 @@
 from . import *
 
-@app.route('/switch_models/<string:resource_id>', methods = ['DELETE'])
+@restbp.route('/switch_models/<string:resource_id>', methods = ['DELETE'])
 def delete_switch_model(resource_id):
     # Check if switch model exists
     db = DatabaseConnection()
@@ -18,7 +18,7 @@ def delete_switch_model(resource_id):
     return { 'result': True,
              'data:': None }, 200
 
-@app.route('/switches/<string:resource_id>', methods = ['DELETE'])
+@restbp.route('/switches/<string:resource_id>', methods = ['DELETE'])
 def delete_switch(resource_id):
     # Check if switch exists
     db = DatabaseConnection()
@@ -36,7 +36,7 @@ def delete_switch(resource_id):
     return { 'result': True,
              'data:': None }, 200
 
-@app.route('/port_types/<string:resource_id>', methods = ['DELETE'])
+@restbp.route('/port_types/<string:resource_id>', methods = ['DELETE'])
 def delete_port_type(resource_id):
     # Check if port type exists
     db = DatabaseConnection()
@@ -54,7 +54,7 @@ def delete_port_type(resource_id):
     return { 'result': True,
              'data:': None }, 200
 
-@app.route('/vlans/<int:resource_id>', methods = ['DELETE'])
+@restbp.route('/vlans/<int:resource_id>', methods = ['DELETE'])
 def delete_vlan(resource_id):
     # Check if vlan exists
     db = DatabaseConnection()

@@ -1,6 +1,6 @@
 from . import *
 
-@app.route('/switch_models/<string:resource_id>', methods = ['PUT'])
+@restbp.route('/switch_models/<string:resource_id>', methods = ['PUT'])
 def put_switch_model(resource_id):
     # Check request
     if request.content_type != 'application/json':
@@ -24,7 +24,7 @@ def put_switch_model(resource_id):
     return { 'result': True,
              'data:': sm.jsonify() }, 200
 
-@app.route('/switches/<string:resource_id>', methods = ['PUT'])
+@restbp.route('/switches/<string:resource_id>', methods = ['PUT'])
 def put_switch(resource_id):
     # Check request
     if request.content_type != 'application/json':
@@ -48,7 +48,7 @@ def put_switch(resource_id):
     return { 'result': True,
              'data:': sw.jsonify() }, 200
 
-@app.route('/port_types/<string:resource_id>', methods = ['PUT'])
+@restbp.route('/port_types/<string:resource_id>', methods = ['PUT'])
 def put_port_type(resource_id):
     # Check request
     if request.content_type != 'application/json':
@@ -72,7 +72,7 @@ def put_port_type(resource_id):
     return { 'result': True,
              'data:': pt.jsonify() }, 200
 
-@app.route('/vlans/<int:resource_id>', methods = ['PUT'])
+@restbp.route('/vlans/<int:resource_id>', methods = ['PUT'])
 def put_vlan(resource_id):
     # Check request
     if request.content_type != 'application/json':
