@@ -694,18 +694,21 @@ class DatabaseConnection:
         for port in ports:
             if type(port) is not dict:
                 raise TypeError('Given port map is not a dict')
+
+            # Check port name
             if 'name' not in port:
                 raise KeyError('Given port map does not contain key "name"')
-            if 'port_type' not in port:
-                raise KeyError('Given port map does not contain key "port_type"')
-
             name = port['name']
-            port_type = self.query_port_type(port['port_type'])
-
             if type(name) is not str:
                 raise TypeError('Element "name" of given port map is not of type str')
-            if type(port_type) is not PortType:
-                raise ValueError('Element "port_type" of given port map contains invalid port type')
+
+            # Check port type
+            if 'port_type' not in port or port['port_type'] is None:
+                port_type = None
+            else:
+                port_type = self.query_port_type(port['port_type'])
+                if type(port_type) is not PortType:
+                    raise ValueError('Element "port_type" of given port map contains invalid port type')
 
             maps.append({ 'name': name, 'port_type': port_type })
 

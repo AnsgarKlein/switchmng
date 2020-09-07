@@ -44,7 +44,7 @@ class PortModel(Base):
 
     def jsonify(self):
         return { 'name': self.name,
-                 'port_type': str(self.port_type) }
+                 'port_type': None if self.port_type is None else str(self.port_type) }
 
 class SwitchModel(Base):
     """
@@ -123,18 +123,21 @@ class SwitchModel(Base):
         for port in ports:
             if type(port) is not dict:
                 raise TypeError('Expected port of switch model to be of type dict')
+
+            # Check port name
             if 'name' not in port:
                 raise KeyError('Given port of switch model does not contain key "name"')
-            if 'port_type' not in port:
-                raise KeyError('Given port of switch model does not contain key "port_type"')
-
             port_name = port['name']
-            port_type = port['port_type']
-
             if type(port_name) is not str:
                 raise TypeError('Given name of port of switch model is not of type str')
-            if type(port_type) is not PortType:
-                raise TypeError('Given port type of switch model is not of type PortType')
+
+            # Check port type
+            if 'port_type' not in port or port['port_type'] is None:
+                port_type = None
+            else:
+                port_type = port['port_type']
+                if type(port_type) is not PortType:
+                    raise TypeError('Given port type of switch model is not of type PortType')
 
             port_list.append(PortModel(name = port_name, port_type = port_type))
 
