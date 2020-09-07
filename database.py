@@ -619,10 +619,7 @@ class DatabaseConnection:
                 if type(val) is not str:
                     raise TypeError('Given name of switch model is not of type str')
             elif key == 'ports':
-                try:
-                    kwargs['ports'] = self._port_models_to_dict(val)
-                except:
-                    raise ValueError('Given list of ports of switch model is malformed')
+                kwargs['ports'] = self._port_models_to_dict(val)
             elif key == 'size':
                 if type(val) is not int:
                     raise TypeError('Given size of switch model is not of type int')
@@ -644,10 +641,7 @@ class DatabaseConnection:
                         'Got invalid switch model "{}" - switch model does not exist'
                         .format(val))
             elif key == 'ports':
-                try:
-                    kwargs['ports'] = self._ports_to_dict(val)
-                except:
-                    raise ValueError('Given list of ports of switch is malformed')
+                kwargs['ports'] = self._ports_to_dict(val)
             elif key == 'location':
                 if type(val) is not int:
                     raise TypeError('Given location of switch is not of type int')
