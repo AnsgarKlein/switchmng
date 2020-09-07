@@ -25,6 +25,7 @@ $RECYCLE.BIN/
 
 # virtualenv
 env/
+venv/
 
 # python
 __pycache__/
