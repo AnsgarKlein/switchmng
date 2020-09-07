@@ -147,7 +147,6 @@ class DatabaseConnection:
         # TODO: When querying switches don't filter manually but let database do the work
 
         # Filter manually
-        print('filtering manually...')
         for key, val in kwargs.items():
             if key == 'location':
                 pass
@@ -165,9 +164,6 @@ class DatabaseConnection:
             else:
                 raise TypeError(
                     'Cannot query switches with unexpected filter "{}"'.format(key))
-
-        print('done filtering')
-
 
         return switches
 
