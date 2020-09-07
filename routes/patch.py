@@ -5,6 +5,8 @@ def patch_switch_model(resource_id):
     # Check request
     if request.content_type != 'application/merge-patch+json':
         return error_415(message = 'Expected Content-Type to be application/merge-patch+json')
+    if not request.accept_mimetypes.accept_json:
+        return error_406(message = 'Content-Type application/json is not accepted by client')
     try:
         req = request.json
         if type(req) is not dict:
@@ -27,6 +29,8 @@ def patch_switch(resource_id):
     # Check request
     if request.content_type != 'application/merge-patch+json':
         return error_415(message = 'Expected Content-Type to be application/merge-patch+json')
+    if not request.accept_mimetypes.accept_json:
+        return error_406(message = 'Content-Type application/json is not accepted by client')
     try:
         req = request.json
         if type(req) is not dict:
@@ -49,6 +53,8 @@ def patch_port_type(resource_id):
     # Check request
     if request.content_type != 'application/merge-patch+json':
         return error_415(message = 'Expected Content-Type to be application/merge-patch+json')
+    if not request.accept_mimetypes.accept_json:
+        return error_406(message = 'Content-Type application/json is not accepted by client')
     try:
         req = request.json
         if type(req) is not dict:
@@ -71,6 +77,8 @@ def patch_vlan(resource_id):
     # Check request
     if request.content_type != 'application/merge-patch+json':
         return error_415(message = 'Expected Content-Type to be application/merge-patch+json')
+    if not request.accept_mimetypes.accept_json:
+        return error_406(message = 'Content-Type application/json is not accepted by client')
     try:
         req = request.json
         if type(req) is not dict:
