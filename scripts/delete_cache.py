@@ -7,7 +7,7 @@ import re
 
 # Relative path from this script to directory containing
 # this projects source files.
-SRC_PATH = [ '..', 'switchmng' ]
+SRC_PATH = [ '..', 'src', 'switchmng' ]
 SRC_PATH = os.path.join(*SRC_PATH)
 
 
