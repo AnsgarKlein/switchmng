@@ -4,14 +4,12 @@ import pprint
 
 import json
 
-from switchmng.database import DatabaseConnection
+import switchmng.database as db
 
 def input_examples():
-    database = DatabaseConnection()
-
     # Create vlans
-    database.add_vlan(tag = 1005, description = 'internal')
-    database.add_vlan(tag = 107, description = 'guest')
+    db.add_vlan(tag = 1005, description = 'internal')
+    db.add_vlan(tag = 107, description = 'guest')
 
     # Create port types
     pts = [
@@ -20,22 +18,22 @@ def input_examples():
       { 'description': '1000BASE-X', 'speed': 1000 }
     ]
     for pt in pts:
-        database.add_port_type(description = pt['description'], speed = pt['speed'])
+        db.add_port_type(description = pt['description'], speed = pt['speed'])
 
 
     # Create switch model1
     ps = [{ 'name': 'TP{}'.format(i + 1), 'port_type': '1000BASE-T' } for i in range(24)]
     for i in range(4):
         ps.append({ 'name': 'F{}'.format(i + 1), 'port_type': '1000BASE-X' })
-    database.add_switch_model(name = 'ZyXEL GS1910-24', size = 1, ports = ps)
+    db.add_switch_model(name = 'ZyXEL GS1910-24', size = 1, ports = ps)
 
 
     # Create switch model2
     ps = [{ 'name': 'TP{}'.format(i + 1), 'port_type': '1000BASE-T' } for i in range(20)]
-    database.add_switch_model(name = 'defect ZyXEL GS1910-24', ports = ps)
-    pprint.PrettyPrinter(indent=4).pprint(database.query_switch_model('defect ZyXEL GS1910-24').jsonify())
-    database.modify_switch_model(resource_id = 'defect ZyXEL GS1910-24', size = 1)
-    pprint.PrettyPrinter(indent=4).pprint(database.query_switch_model('defect ZyXEL GS1910-24').jsonify())
+    db.add_switch_model(name = 'defect ZyXEL GS1910-24', ports = ps)
+    pprint.PrettyPrinter(indent=4).pprint(db.query_switch_model('defect ZyXEL GS1910-24').jsonify())
+    db.modify_switch_model(resource_id = 'defect ZyXEL GS1910-24', size = 1)
+    pprint.PrettyPrinter(indent=4).pprint(db.query_switch_model('defect ZyXEL GS1910-24').jsonify())
 
 
     # Create switch
@@ -47,16 +45,16 @@ def input_examples():
       { 'name': 'TP6', 'vlans': [ 107 ] },
       { 'name': 'F2',  'vlans': [ 107 ] }
     ]
-    database.add_switch(name = 'switch1', model = 'ZyXEL GS1910-24', ports = ports_str)
+    db.add_switch(name = 'switch1', model = 'ZyXEL GS1910-24', ports = ports_str)
 
-    for sw in database.query_switches():
+    for sw in db.query_switches():
         pprint.PrettyPrinter(indent=4).pprint(sw.jsonify())
 
 
     # Change switch model
-    database.modify_switch(resource_id = 'switch1', model = 'defect ZyXEL GS1910-24')
+    db.modify_switch(resource_id = 'switch1', model = 'defect ZyXEL GS1910-24')
 
-    for sw in database.query_switches():
+    for sw in db.query_switches():
         pprint.PrettyPrinter(indent=4).pprint(sw.jsonify())
 
 
@@ -73,9 +71,9 @@ def input_examples():
       { 'name': 'TP13', 'vlans': [ 1005, 107 ] },
       { 'name': 'TP16', 'vlans': [ 1005 ] }
     ]
-    database.modify_switch(resource_id = 'switch1', ports = ports_str)
+    db.modify_switch(resource_id = 'switch1', ports = ports_str)
 
-    for sw in database.query_switches():
+    for sw in db.query_switches():
         pprint.PrettyPrinter(indent=4).pprint(sw.jsonify())
 
 if __name__ == '__main__':

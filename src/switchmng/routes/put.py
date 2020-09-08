@@ -16,7 +16,6 @@ def put_switch_model(resource_id):
 
     # Modify in database
     try:
-        db = DatabaseConnection()
         sm = db.set_switch_model(resource_id = resource_id, **req)
     except BaseException as e:
         return error_400(message = str(e))
@@ -40,7 +39,6 @@ def put_switch(resource_id):
 
     # Modify in database
     try:
-        db = DatabaseConnection()
         sw = db.set_switch(resource_id = resource_id, **req)
     except BaseException as e:
         return error_400(message = str(e))
@@ -64,7 +62,6 @@ def put_port_type(resource_id):
 
     # Modify in database
     try:
-        db = DatabaseConnection()
         pt = db.set_port_type(resource_id = resource_id, **req)
     except BaseException as e:
         return error_400(message = str(e))
@@ -88,7 +85,6 @@ def put_vlan(resource_id):
 
     # Modify in database
     try:
-        db = DatabaseConnection()
         vl = db.set_vlan(resource_id = resource_id, **req)
     except BaseException as e:
         return error_400(message = str(e))

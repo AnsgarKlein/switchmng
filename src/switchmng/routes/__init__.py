@@ -2,7 +2,7 @@ from flask import Blueprint
 from flask import abort
 from flask import request
 
-from switchmng.database import DatabaseConnection
+import switchmng.database as db
 
 restbp = Blueprint('REST API', __name__)
 

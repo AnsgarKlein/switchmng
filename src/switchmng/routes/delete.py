@@ -3,7 +3,6 @@ from . import *
 @restbp.route('/switch_models/<string:resource_id>', methods = ['DELETE'])
 def delete_switch_model(resource_id):
     # Check if switch model exists
-    db = DatabaseConnection()
     sm = db.query_switch_model(resource_id)
 
     if sm is None:
@@ -21,7 +20,6 @@ def delete_switch_model(resource_id):
 @restbp.route('/switches/<string:resource_id>', methods = ['DELETE'])
 def delete_switch(resource_id):
     # Check if switch exists
-    db = DatabaseConnection()
     sw = db.query_switch(resource_id)
 
     if sw is None:
@@ -39,7 +37,6 @@ def delete_switch(resource_id):
 @restbp.route('/port_types/<string:resource_id>', methods = ['DELETE'])
 def delete_port_type(resource_id):
     # Check if port type exists
-    db = DatabaseConnection()
     pt = db.query_port_type(resource_id)
 
     if pt is None:
@@ -57,7 +54,6 @@ def delete_port_type(resource_id):
 @restbp.route('/vlans/<int:resource_id>', methods = ['DELETE'])
 def delete_vlan(resource_id):
     # Check if vlan exists
-    db = DatabaseConnection()
     vl = db.query_vlan(resource_id)
 
     if vl is None:

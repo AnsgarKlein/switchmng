@@ -16,7 +16,6 @@ def post_switch_model():
 
     # Add to database
     try:
-        db = DatabaseConnection()
         sm = db.add_switch_model(**req)
     except BaseException as e:
         return error_400(message = str(e))
@@ -40,7 +39,6 @@ def post_switch():
 
     # Add to database
     try:
-        db = DatabaseConnection()
         sw = db.add_switch(**req)
     except BaseException as e:
         return error_400(message = str(e))
@@ -64,7 +62,6 @@ def post_port_types():
 
     # Add to database
     try:
-        db = DatabaseConnection()
         pt = db.add_port_type(**req)
     except BaseException as e:
         return error_400(message = str(e))
@@ -88,7 +85,6 @@ def post_vlans():
 
     # Add to database
     try:
-        db = DatabaseConnection()
         vl = db.add_vlan(**req)
     except BaseException as e:
         return error_400(message = str(e))
