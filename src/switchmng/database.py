@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import scoped_session
 
-from schema import *
+from switchmng.schema import *
 
 dbtype = 'sqlite'
 dbstr = 'example.db'

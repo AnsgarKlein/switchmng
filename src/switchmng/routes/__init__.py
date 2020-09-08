@@ -2,9 +2,9 @@ from flask import Blueprint
 from flask import abort
 from flask import request
 
-restbp = Blueprint('REST API', __name__)
+from switchmng.database import DatabaseConnection
 
-from database import DatabaseConnection
+restbp = Blueprint('REST API', __name__)
 
 from .delete import *
 from .errors import *

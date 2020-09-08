@@ -4,7 +4,7 @@ import pprint
 
 import json
 
-from database import DatabaseConnection
+from switchmng.database import DatabaseConnection
 
 def input_examples():
     database = DatabaseConnection()
