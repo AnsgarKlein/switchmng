@@ -70,7 +70,7 @@ def query_switch_models(**kwargs):
                 raise ValueError('Given port type does not exist')
         else:
             raise TypeError(
-                'Cannot query switch models with unexpected filter "{}"'.format(key))
+                "Cannot query switch models with unexpected filter '{}'".format(key))
 
     models = models.all()
 
@@ -91,7 +91,7 @@ def query_switch_models(**kwargs):
             models = new_models
         else:
             raise TypeError(
-                'Cannot query switch models with unexpected filter "{}"'.format(key))
+                "Cannot query switch models with unexpected filter '{}'".format(key))
 
     return models
 
@@ -113,14 +113,14 @@ def query_switches(**kwargs):
             kwargs['model'] = query_switch_model(val)
             if kwargs['model'] is None:
                 raise ValueError(
-                    'Got invalid switch model "{}" - switch model does not exist')
+                    "Got invalid switch model '{}' - switch model does not exist")
             switches = switches.filter_by(_model = kwargs['model'])
         elif key == 'vlan':
             if type(val) is not int:
                 raise TypeError('Given vlan of port of switch is not of type int')
         else:
             raise TypeError(
-                'Cannot query switches with unexpected filter "{}"'.format(key))
+                "Cannot query switches with unexpected filter '{}'".format(key))
 
     switches = switches.all()
 
@@ -143,7 +143,7 @@ def query_switches(**kwargs):
             switches = new_switches
         else:
             raise TypeError(
-                'Cannot query switches with unexpected filter "{}"'.format(key))
+                "Cannot query switches with unexpected filter '{}'".format(key))
 
     return switches
 
@@ -161,7 +161,7 @@ def query_port_types(**kwargs):
             pts = pts.filter_by(_speed = val)
         else:
             raise TypeError(
-                'Cannot query port types with unexpected filter "{}"'.format(key))
+                "Cannot query port types with unexpected filter '{}'".format(key))
 
     return pts.all()
 
@@ -179,7 +179,7 @@ def query_vlans(**kwargs):
             vls = vls.filter_by(_description = val)
         else:
             raise TypeError(
-                'Cannot query port types with unexpected filter "{}"'.format(key))
+                "Cannot query port types with unexpected filter '{}'".format(key))
 
     return vls.all()
 

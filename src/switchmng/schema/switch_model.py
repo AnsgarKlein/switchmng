@@ -168,6 +168,6 @@ class SwitchModel(Base):
                     raise ValueError('Size of switch model cannot be less than 1')
                 continue
 
-            raise TypeError('Unexpected attribute "{}" for switch'.format(key))
+            raise TypeError("Unexpected attribute '{}' for switch".format(key))
 
         return kwargs
