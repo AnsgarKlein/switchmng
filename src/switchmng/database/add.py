@@ -2,9 +2,6 @@ from . import *
 from .helper import *
 
 def add_switch_model(**kwargs):
-    # Check all arguments before making any changes
-    kwargs = check_switch_model_parameters(**kwargs)
-
     # Check if switch model already exists
     if 'name' not in kwargs:
         raise KeyError('Missing necessary argument "name" for adding switch model')
@@ -12,6 +9,10 @@ def add_switch_model(**kwargs):
         raise ValueError(
             'Cannot add switch model with name {} - switch model already exists'
             .format(kwargs['name']))
+
+    # Replace list of port strings with list of port objects
+    if 'ports' in kwargs:
+        kwargs['ports'] = port_models_from_dict(kwargs['ports'])
 
     # Create switch model
     sm = SwitchModel(**kwargs)
@@ -21,9 +22,6 @@ def add_switch_model(**kwargs):
     return sm
 
 def add_switch(**kwargs):
-    # Check all arguments before making any changes
-    kwargs = check_switch_parameters(**kwargs)
-
     # Check if switch already exists
     if 'name' not in kwargs:
         raise KeyError('Missing necessary argument "name" for adding switch')
@@ -31,6 +29,14 @@ def add_switch(**kwargs):
         raise ValueError(
             'Cannot add switch with name {} - switch already exists'
             .format(kwargs['name']))
+
+    # Replace list of port strings with list of port objects
+    if 'ports' in kwargs:
+        kwargs['ports'] = ports_from_dict(kwargs['ports'])
+
+    # Replace switch model string with switch model object
+    if 'model' in kwargs:
+        kwargs['model'] = query_switch_model(kwargs['model'])
 
     # Create switch
     sw = Switch(**kwargs)
@@ -40,9 +46,6 @@ def add_switch(**kwargs):
     return sw
 
 def add_port_type(**kwargs):
-    # Check all arguments before making any changes
-    kwargs = check_port_type_parameters(**kwargs)
-
     # Check if port type already exists
     if 'description' not in kwargs:
         raise KeyError('Missing necessary argument "description" for adding port type')
@@ -59,9 +62,6 @@ def add_port_type(**kwargs):
     return pt
 
 def add_vlan(**kwargs):
-    # Check all arguments before making any changes
-    kwargs = check_vlan_parameters(**kwargs)
-
     # Check if vlan already exists
     if 'tag' not in kwargs:
         raise KeyError('Missing necessary argument "tag" for adding vlan')
@@ -76,5 +76,4 @@ def add_vlan(**kwargs):
     session.add(vl)
     session.commit()
     return vl
-
 

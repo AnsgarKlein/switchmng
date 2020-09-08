@@ -32,7 +32,7 @@ def query_port_type(resource_id):
 
     session = Session()
     pt = session.query(PortType)
-    pt = pt.filter_by(description = resource_id)
+    pt = pt.filter_by(_description = resource_id)
 
     if len(pt.all()) > 1:
         raise TypeError('DB query resulted in multiple elements but only one was requested')
@@ -45,7 +45,7 @@ def query_vlan(resource_id):
 
     session = Session()
     vl = session.query(Vlan)
-    vl = vl.filter_by(tag = resource_id)
+    vl = vl.filter_by(_tag = resource_id)
 
     if len(vl.all()) > 1:
         raise TypeError('DB query resulted in multiple elements but only one was requested')
@@ -53,6 +53,9 @@ def query_vlan(resource_id):
     return vl.first()
 
 def query_switch_models(**kwargs):
+    # Check all arguments before querying
+    SwitchModel.check_params(**kwargs)
+
     # Query
     session = Session()
     models = session.query(SwitchModel)
@@ -60,12 +63,8 @@ def query_switch_models(**kwargs):
     # Filter with SQL
     for key, val in kwargs.items():
         if key == 'size':
-            if type(val) is not int:
-                raise TypeError('Given size of switch model is not of type int')
             models = models.filter_by(_size = val)
         elif key == 'port_type':
-            if type(val) is not str:
-                raise TypeError('Given port type of port of switch model is not of type str')
             val = query_port_type(val)
             if val is None:
                 raise ValueError('Given port type does not exist')
@@ -97,6 +96,9 @@ def query_switch_models(**kwargs):
     return models
 
 def query_switches(**kwargs):
+    # Check all arguments before querying
+    Switch.check_params(**kwargs)
+
     # Query
     session = Session()
     switches = session.query(Switch)
@@ -146,6 +148,9 @@ def query_switches(**kwargs):
     return switches
 
 def query_port_types(**kwargs):
+    # Check all arguments before querying
+    PortType.check_params(**kwargs)
+
     # Query
     session = Session()
     pts = session.query(PortType)
@@ -153,9 +158,7 @@ def query_port_types(**kwargs):
     # Filter
     for key, val in kwargs.items():
         if key == 'speed':
-            if type(val) is not int:
-                raise TypeError('Given speed of port type is not of type int')
-            pts = pts.filter_by(speed = val)
+            pts = pts.filter_by(_speed = val)
         else:
             raise TypeError(
                 'Cannot query port types with unexpected filter "{}"'.format(key))
@@ -163,6 +166,9 @@ def query_port_types(**kwargs):
     return pts.all()
 
 def query_vlans(**kwargs):
+    # Check all arguments before querying
+    Vlan.check_params(**kwargs)
+
     # Query
     session = Session()
     vls = session.query(Vlan)
@@ -170,9 +176,7 @@ def query_vlans(**kwargs):
     # Filter
     for key, val in kwargs.items():
         if key == 'description':
-            if type(val) is not str:
-                raise TypeError('Given description of vlan is not of type str')
-            vls = vls.filter_by(description = val)
+            vls = vls.filter_by(_description = val)
         else:
             raise TypeError(
                 'Cannot query port types with unexpected filter "{}"'.format(key))

@@ -22,14 +22,14 @@ def input_examples():
 
 
     # Create switch model1
-    ps = [{ 'name': 'TP{}'.format(i + 1), 'port_type': '1000BASE-T' } for i in range(24)]
+    ps = [{ 'name': 'TP{:02}'.format(i + 1), 'port_type': '1000BASE-T' } for i in range(24)]
     for i in range(4):
-        ps.append({ 'name': 'F{}'.format(i + 1), 'port_type': '1000BASE-X' })
+        ps.append({ 'name': 'F{:02}'.format(i + 1), 'port_type': '1000BASE-X' })
     db.add_switch_model(name = 'ZyXEL GS1910-24', size = 1, ports = ps)
 
 
     # Create switch model2
-    ps = [{ 'name': 'TP{}'.format(i + 1), 'port_type': '1000BASE-T' } for i in range(20)]
+    ps = [{ 'name': 'TP{:02}'.format(i + 1), 'port_type': '1000BASE-T' } for i in range(20)]
     db.add_switch_model(name = 'defect ZyXEL GS1910-24', ports = ps)
     pprint.PrettyPrinter(indent=4).pprint(db.query_switch_model('defect ZyXEL GS1910-24').jsonify())
     db.modify_switch_model(resource_id = 'defect ZyXEL GS1910-24', size = 1)
@@ -38,12 +38,12 @@ def input_examples():
 
     # Create switch
     ports_str = [
-      { 'name': 'TP1', 'vlans': [ 1005 ] },
-      { 'name': 'TP2', 'vlans': [ 1005 ] },
-      { 'name': 'TP3', 'vlans': [ 107 ] },
-      { 'name': 'TP4', 'vlans': [ 1005, 107 ] },
-      { 'name': 'TP6', 'vlans': [ 107 ] },
-      { 'name': 'F2',  'vlans': [ 107 ] }
+      { 'name': 'TP01', 'vlans': [ 1005 ] },
+      { 'name': 'TP02', 'vlans': [ 1005 ] },
+      { 'name': 'TP03', 'vlans': [ 107 ] },
+      { 'name': 'TP04', 'vlans': [ 1005, 107 ] },
+      { 'name': 'TP06', 'vlans': [ 107 ] },
+      { 'name': 'F02',  'vlans': [ 107 ] }
     ]
     db.add_switch(name = 'switch1', model = 'ZyXEL GS1910-24', ports = ports_str)
 
@@ -60,11 +60,11 @@ def input_examples():
 
     # Modify switch ports
     ports_str = [
-      { 'name': 'TP1', 'vlans': [ ] },
-      { 'name': 'TP2', 'vlans': [ ] },
-      { 'name': 'TP3', 'vlans': [ ] },
-      { 'name': 'TP4', 'vlans': [ ] },
-      { 'name': 'TP6', 'vlans': [ ] },
+      { 'name': 'TP01', 'vlans': [ ] },
+      { 'name': 'TP02', 'vlans': [ ] },
+      { 'name': 'TP03', 'vlans': [ ] },
+      { 'name': 'TP04', 'vlans': [ ] },
+      { 'name': 'TP06', 'vlans': [ ] },
       { 'name': 'TP10', 'vlans': [ 1005 ] },
       { 'name': 'TP11', 'vlans': [ 1005 ] },
       { 'name': 'TP12', 'vlans': [ 107 ] },

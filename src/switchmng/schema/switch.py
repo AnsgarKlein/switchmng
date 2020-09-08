@@ -1,49 +1,5 @@
 from . import *
 
-vlans_ports_mapping = Table('vlan_ports', Base.metadata,
-    Column('port_id', Integer, ForeignKey('ports.id'), primary_key = True),
-    Column('vlan_id', Integer, ForeignKey('vlans.id'), primary_key = True),
-)
-
-class Port(Base):
-    __tablename__ = 'ports'
-    _port_id = Column('id', Integer, primary_key = True, nullable = False)
-    _switch_id = Column('switch_id', Integer, ForeignKey('switches.id'),
-                       nullable = False)
-
-    _name = Column('name', String, nullable = False)
-    _vlans = relationship('Vlan', secondary = vlans_ports_mapping, uselist = True)
-
-    def __init__(self, name, vlans = []):
-        self.name = name
-        self.vlans = vlans
-
-    @property
-    def name(self):
-        return self._name
-
-    @name.setter
-    def name(self, name):
-        if type(name) is not str:
-            raise TypeError('Expected name of port to be of type string')
-        if len(name) < 1:
-            raise ValueError('Length of port name cannot be zero')
-        self._name = name
-
-    @property
-    def vlans(self):
-        return self._vlans
-
-    @vlans.setter
-    def vlans(self, vlans):
-        if type(vlans) is not list:
-            raise TypeError('Expected vlans of port to be a list')
-        self._vlans = vlans
-
-    def jsonify(self):
-        return { 'name': self.name,
-                 'vlans': [ int(str(v)) for v in self.vlans ] }
-
 class Switch(Base):
     """
     Represents a switch resource.
@@ -80,7 +36,7 @@ class Switch(Base):
     _ports = relationship('Port', uselist = True, cascade = 'all, delete-orphan')
     _location = Column('location', Integer, nullable = True)
 
-    def __init__(self, name, model, ports = None, location = None):
+    def __init__(self, name = None, model = None, ports = None, location = None):
         # Assign name from argument
         if type(name) is not str:
             raise TypeError('Expected name of switch to be of type str')
@@ -105,10 +61,7 @@ class Switch(Base):
 
     @name.setter
     def name(self, name):
-        if type(name) is not str:
-            raise TypeError('Expected name of switch to be of type string')
-        if len(name) < 1:
-            raise ValueError('Length of switch name cannot be zero')
+        Switch.check_params(name = name)
         self._name = name
 
     @property
@@ -117,8 +70,7 @@ class Switch(Base):
 
     @model.setter
     def model(self, model):
-        if type(model) is not SwitchModel:
-            raise TypeError('Expected model of switch to be of type SwitchModel')
+        Switch.check_params(model = model)
         self._model = model
 
         # If switch model changed we need to update all
@@ -127,31 +79,62 @@ class Switch(Base):
 
     @property
     def ports(self):
-        return [ p.jsonify() for p in self._ports ]
+        # Convert sqlalchemy.orm.collections.InstrumentedList to default
+        # python list
+        l = [ p for p in self._ports ]
+
+        # Sort list by name of port
+        l.sort(key = lambda p: p.name)
+
+        return l
 
     @ports.setter
-    def ports(self, port_configs):
-        # Check all parameters first without making any changes
-        if type(port_configs) is not list:
-            raise TypeError('Expected maps from ports to vlans to be of type list')
-        for port_config in port_configs:
-            if type(port_config) is not dict:
-                raise TypeError('Expected map from ports to vlans to be of type dict')
-            if 'name' not in port_config or 'vlans' not in port_config:
-                raise KeyError('Given map from port to vlan does not contain required keys')
+    def ports(self, ports):
+        """
+        Set all ports of this switch.
+        All ports not given but present will be reset
+        """
 
-            # Check if port of port map exists
-            if self._port_obj(port_config['name']) is None:
-                raise ValueError('Port of given map from port to vlan does not exist on this switch')
+        # Check ports
+        Switch.check_params(ports = ports)
 
-            # Check if all vlans of port map exist
-            for v in port_config['vlans']:
-                if type(v) is not Vlan:
-                    raise TypeError('Given map from port to vlan contains invalid vlan')
+        # Check if given ports exist in the switch model
+        for p in ports:
+            if self.model._port_by_name(p.name) is None:
+                raise ValueError(
+                    "Port '{}' does not exist in switch model '{}' of switch '{}'"
+                    .format(str(p), str(self.model), str(self)))
 
-        # Adjust ports
-        for port_config in port_configs:
-            self._port_obj(port_config['name']).vlans = port_config['vlans']
+        # Apply new port list
+        self._ports = ports
+
+        # We changed the port list so we have to make sure all ports of
+        # switch model are present.
+        self._refresh_ports()
+
+    def modify_ports(self, ports):
+        """
+        Change only given ports of this switch.
+        All ports not given but present will not be touched.
+        """
+
+        # Check ports
+        Switch.check_params(ports = ports)
+
+        # Check if given ports exist in the switch model
+        for p in ports:
+            if self.model._port_by_name(p.name) is None:
+                raise ValueError(
+                    "Port '{}' does not exist in switch model '{}' of switch '{}'"
+                    .format(str(p), str(self.model), str(self)))
+
+        # Never add or delete any ports only apply changes.
+        # Don't touch non specified ports.
+        for new_port in ports:
+            for i, old_port in enumerate(self._ports):
+                if old_port.name == new_port.name:
+                    self._ports[i] = new_port
+                    break
 
     @property
     def location(self):
@@ -164,19 +147,20 @@ class Switch(Base):
         self._location = location
 
     def _refresh_ports(self):
-        # Remove ports that do not exist in switch model
+        # Port list 1: Ports currently set that also exist in switch model
         nports1 = [ p
                     for p in self._ports
-                    if self.model._port_obj(p.name) is not None ]
+                    if self.model._port_by_name(p.name) is not None ]
 
-        # Add all ports from switch model
+        # Port list 2: Ports from switch model that do not currently exist
         nports2 = [ Port(name = p.name)
                     for p in self.model._ports
-                    if self._port_obj(p.name) is None ]
+                    if self._port_by_name(p.name) is None ]
 
+        # Set ports of this switch to concatenation of generated two lists
         self._ports = nports1 + nports2
 
-    def _port_obj(self, port_name):
+    def _port_by_name(self, port_name):
         if type(port_name) is not str:
             return None
 
@@ -192,11 +176,44 @@ class Switch(Base):
         return { 'name': self.name,
                  'location': self.location,
                  'model': str(self.model),
-                 'ports': self.ports }
+                 'ports': [ p.jsonify() for p in self.ports ] }
 
     def __str__(self):
         return self.name
 
     def __repr__(self):
         return self.__str__()
+
+    def check_params(**kwargs):
+        for key, val in kwargs.items():
+            if key == 'name':
+                if type(val) is not str:
+                    raise TypeError('Name of switch has to be of type str')
+                if len(val) < 1:
+                    raise ValueError('Length of name of switch cannot be zero')
+                continue
+
+            if key == 'model':
+                if type(val) is not SwitchModel:
+                    raise TypeError('Switch model of switch has to be of type SwitchModel')
+                continue
+
+            if key == 'ports':
+                if type(val) is not list:
+                    raise TypeError('List of ports for switch has to be of type list')
+                for port in val:
+                    if type(port) is not Port:
+                        raise TypeError('Ports in list of ports for switch has to be of type Port')
+                continue
+
+            if key == 'location':
+                if val is None:
+                    continue
+                if type(val) is not int:
+                    raise TypeError('Given location of switch has to be of type int')
+                continue
+
+            raise TypeError("Unexpected attribute '{}' for switch".format(key))
+
+        return kwargs
 

@@ -2,15 +2,19 @@ from . import *
 from .helper import *
 
 def set_switch_model(resource_id, **kwargs):
+    # Replace list of ports with list of port objects
+    if 'ports' in kwargs:
+        kwargs['ports'] = ports_models_from_dict(kwargs['ports'])
+
     # Check all arguments before making any changes
-    kwargs = check_switch_model_parameters(**kwargs)
+    SwitchModel.check_params(**kwargs)
 
     # Check if switch model exists
     source_sm = query_switch_model(resource_id)
 
     if source_sm is None:
         # Source switch model does not exist:
-        #  We are creating a new switch model
+        # We are creating a new switch model
 
         # Switch model name is either resource specifier or not set at all
         # (in which case it will be set automatically)
@@ -49,15 +53,23 @@ def set_switch_model(resource_id, **kwargs):
         return target_sm
 
 def set_switch(resource_id, **kwargs):
+    # Replace list of ports with list of port objects
+    if 'ports' in kwargs:
+        kwargs['ports'] = ports_from_dict(kwargs['ports'])
+
+    # Replace switch model string with switch model object
+    if 'model' in kwargs:
+        kwargs['model'] = query_switch_model(kwargs['model'])
+
     # Check all arguments before making any changes
-    kwargs = check_switch_parameters(**kwargs)
+    Switch.check_params(**kwargs)
 
     # Check if switch exists
     source_sw = query_switch(resource_id)
 
     if source_sw is None:
         # Source switch does not exist:
-        #  We are creating a new switch
+        # We are creating a new switch
 
         # Switch name is either resource specifier or not set at all
         # (in which case it will be set automatically)
@@ -97,14 +109,14 @@ def set_switch(resource_id, **kwargs):
 
 def set_port_type(resource_id, **kwargs):
     # Check all arguments before making any changes
-    kwargs = check_port_type_parameters(**kwargs)
+    PortType.check_params(**kwargs)
 
     # Check if source port type exists
     source_pt = query_port_type(resource_id)
 
     if source_pt is None:
         # Source port type does not exist:
-        #  We are creating a new port type
+        # We are creating a new port type
 
         # Port type description is either resource specifier or not set at
         # all (in which case it will be set automatically)
@@ -144,16 +156,14 @@ def set_port_type(resource_id, **kwargs):
 
 def set_vlan(resource_id, **kwargs):
     # Check all arguments before making any changes
-    kwargs = check_vlan_parameters(**kwargs)
+    Vlan.check_params(**kwargs)
 
     # Check if source vlan exists
     source_vl = query_vlan(resource_id)
 
-    print('source vlan: {}'.format(source_vl))
-
     if source_vl is None:
         # Source vlan does not exist:
-        #  We are creating a new vlan
+        # We are creating a new vlan
 
         # Vlan tag is either resource specifier or not set at all
         # (in which case it will be set automatically)
@@ -190,5 +200,4 @@ def set_vlan(resource_id, **kwargs):
         session.add(target_vl)
         session.commit()
         return target_vl
-
 

@@ -23,21 +23,32 @@ class PortType(Base):
     _port_type_id = Column('id', Integer, primary_key = True, nullable = False)
 
     # Resource identifier
-    description = Column('description', String, nullable = False, unique = True)
+    _description = Column('description', String, nullable = False, unique = True)
 
     # Resource state
-    speed = Column('speed', Integer, nullable = False)
+    _speed = Column('speed', Integer, nullable = True)
 
-    def __init__(self, description, speed):
-        if type(description) is not str:
-            raise TypeError('Expected description of port type to be of type string')
-        else:
-            self.description = description
+    def __init__(self, description = None, speed = None):
+        self.description = description
+        self.speed = speed
 
-        if type(speed) is not int:
-            raise TypeError('Expected speed of port type to be of type int')
-        else:
-            self.speed = speed
+    @property
+    def description(self):
+        return self._description
+
+    @description.setter
+    def description(self, description):
+        PortType.check_params(description = description)
+        self._description = description
+
+    @property
+    def speed(self):
+        return self._speed
+
+    @speed.setter
+    def speed(self, speed):
+        PortType.check_params(speed = speed)
+        self._speed = speed
 
     def jsonify(self):
         return { 'description': self.description,
@@ -48,4 +59,22 @@ class PortType(Base):
 
     def __repr__(self):
         return self.__str__()
+
+    def check_params(**kwargs):
+        for key, val in kwargs.items():
+            if key == 'description':
+                if type(val) is not str:
+                    raise TypeError('Description of port type has to be of type str')
+                continue
+
+            if key == 'speed':
+                if type(val) is not int and val is not None:
+                    raise TypeError('Speed of port type has to be of type int')
+                if val < 0:
+                    raise ValueError('Speed of port type cannot be less than 0')
+                continue
+
+            raise TypeError("Unexpected attribute '{}' for port type".format(key))
+
+        return kwargs
 

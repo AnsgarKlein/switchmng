@@ -1,51 +1,5 @@
 from . import *
 
-class PortModel(Base):
-    __tablename__ = 'port_models'
-
-    # Database id
-    _port_model_id = Column('id', Integer, primary_key = True, nullable = False)
-    _switch_model_id = Column('switch_model_id', Integer,
-                             ForeignKey('switch_models.id'), nullable = False)
-    port_type_id = Column('port_type_id', Integer,
-                          ForeignKey('port_types.description'), nullable = True)
-
-    # Attributes
-    _name = Column('name', String, nullable = False)
-    _port_type = relationship('PortType', uselist = False)
-
-    def __init__(self, name, port_type = None):
-        self.name = name
-
-        if port_type is not None:
-            self.port_type = port_type
-
-    @property
-    def name(self):
-        return self._name
-
-    @name.setter
-    def name(self, name):
-        if type(name) is not str:
-            raise TypeError('Expected name of port model to be of type string')
-        if len(name) < 1:
-            raise ValueError('Length of port name cannot be zero')
-        self._name = name
-
-    @property
-    def port_type(self):
-        return self._port_type
-
-    @port_type.setter
-    def port_type(self, port_type):
-        if type(port_type) is not PortType:
-            raise TypeError('Expected port type of port model to be of type PortType')
-        self._port_type = port_type
-
-    def jsonify(self):
-        return { 'name': self.name,
-                 'port_type': None if self.port_type is None else str(self.port_type) }
-
 class SwitchModel(Base):
     """
     Represents a switch model resource.
@@ -81,7 +35,7 @@ class SwitchModel(Base):
     # this as a switch model get deleted if this model gets deleted.
     _switches = relationship('Switch', uselist = True, cascade = 'all, delete-orphan')
 
-    def __init__(self, name, ports, size = None):
+    def __init__(self, name = None, ports = [], size = None):
         # Assign name from argument
         if type(name) is not str:
             raise TypeError('Expected name of switch model to be of type str')
@@ -102,46 +56,46 @@ class SwitchModel(Base):
 
     @name.setter
     def name(self, name):
-        if type(name) is not str:
-            raise TypeError('Expected name of switch model to be of type string')
-        if len(name) < 1:
-            raise ValueError('Length of switch model name cannot be zero')
-
+        SwitchModel.check_params(name = name)
         self._name = name
 
     @property
     def ports(self):
-        return [ p.jsonify() for p in self._ports ]
+        # Convert sqlalchemy.orm.collections.InstrumentedList to default
+        # python list
+        l = [ p for p in self._ports ]
+
+        # Sort list by name of port
+        l.sort(key = lambda p: p.name)
+
+        return l
 
     @ports.setter
     def ports(self, ports):
-        if type(ports) is not list:
-            raise TypeError('Expected ports of switch model to be of type list')
+        """
+        Set all ports of this switch model.
+        All ports not given but present will be removed
+        """
 
-        port_list = []
+        SwitchModel.check_params(ports = ports)
+        self._ports = ports
 
-        for port in ports:
-            if type(port) is not dict:
-                raise TypeError('Expected port of switch model to be of type dict')
+    def modify_ports(self, ports):
+        """
+        Change only given ports of this switch model.
+        All ports not given but present will not be touched.
+        """
 
-            # Check port name
-            if 'name' not in port:
-                raise KeyError('Given port of switch model does not contain key "name"')
-            port_name = port['name']
-            if type(port_name) is not str:
-                raise TypeError('Given name of port of switch model is not of type str')
+        # Check ports
+        SwitchModel.check_params(ports = ports)
 
-            # Check port type
-            if 'port_type' not in port or port['port_type'] is None:
-                port_type = None
-            else:
-                port_type = port['port_type']
-                if type(port_type) is not PortType:
-                    raise TypeError('Given port type of switch model is not of type PortType')
-
-            port_list.append(PortModel(name = port_name, port_type = port_type))
-
-        self._ports = port_list
+        # Never add or delete any ports only apply changes.
+        # Non specified ports will not get touched.
+        for new_port in ports:
+            for i, old_port in enumerate(self._ports):
+                if old_port.name == new_port.name:
+                    self._ports[i] = new_port
+                    break
 
     @property
     def size(self):
@@ -149,10 +103,7 @@ class SwitchModel(Base):
 
     @size.setter
     def size(self, size):
-        if type(size) is not int:
-            raise TypeError('Expected size of switch model to be of type int')
-        if size < 1:
-            raise ValueError('Size of switch model cannot be less than 1')
+        SwitchModel.check_params(size = size)
         self._size = size
 
     def modify_port(self, port, name = None, port_type = None):
@@ -168,7 +119,7 @@ class SwitchModel(Base):
 
         return True
 
-    def _port_obj(self, port_name):
+    def _port_by_name(self, port_name):
         if type(port_name) is not str:
             return None
 
@@ -182,7 +133,7 @@ class SwitchModel(Base):
 
     def jsonify(self):
         return { 'name': self.name,
-                 'ports': self.ports,
+                 'ports': [ p.jsonify() for p in self.ports ],
                  'size': self.size }
 
     def __str__(self):
@@ -191,3 +142,32 @@ class SwitchModel(Base):
     def __repr__(self):
         return self.__str__()
 
+    def check_params(**kwargs):
+        for key, val in kwargs.items():
+            if key == 'name':
+                if type(val) is not str:
+                    raise TypeError('Name of switch model has to be of type string')
+                if len(val) < 1:
+                    raise ValueError('Length of name of switch model cannot be zero')
+                continue
+
+            if key == 'ports':
+                if type(val) is not list:
+                    raise TypeError('List of ports for switch model has to be of type list')
+                for port in val:
+                    if type(port) is not PortModel:
+                        raise TypeError('Ports in list of ports for switch model has to be of type PortModel')
+                continue
+
+            if key == 'size':
+                if val is None:
+                    continue
+                if type(val) is not int:
+                    raise TypeError('Size of switch model has to be of type int')
+                if val < 1:
+                    raise ValueError('Size of switch model cannot be less than 1')
+                continue
+
+            raise TypeError('Unexpected attribute "{}" for switch'.format(key))
+
+        return kwargs
