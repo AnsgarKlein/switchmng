@@ -74,11 +74,16 @@ class SwitchModel(Base):
     def ports(self, ports):
         """
         Set all ports of this switch model.
-        All ports not given but present will be removed
+        All ports not given but present will be removed.
         """
 
         SwitchModel.check_params(ports = ports)
         self._ports = ports
+
+        # If ports of this switch model change we need to update
+        # the list of ports of all switches that use this switch model.
+        for sw in self._switches:
+            sw._sync_ports_from_model()
 
     def modify_ports(self, ports):
         """
@@ -96,6 +101,11 @@ class SwitchModel(Base):
                 if old_port.name == new_port.name:
                     self._ports[i] = new_port
                     break
+
+        # If ports of this switch model change we need to update
+        # the list of ports of all switches that use this switch model.
+        for sw in self._switches:
+            sw._sync_ports_from_model()
 
     @property
     def size(self):

@@ -75,7 +75,7 @@ class Switch(Base):
 
         # If switch model changed we need to update all
         # ports of this switch to reflect ports from model.
-        self._refresh_ports()
+        self._sync_ports_from_model()
 
     @property
     def ports(self):
@@ -110,7 +110,7 @@ class Switch(Base):
 
         # We changed the port list so we have to make sure all ports of
         # switch model are present.
-        self._refresh_ports()
+        self._sync_ports_from_model()
 
     def modify_ports(self, ports):
         """
@@ -146,7 +146,16 @@ class Switch(Base):
             raise TypeError('Expected location of switch to be of type int')
         self._location = location
 
-    def _refresh_ports(self):
+    def _sync_ports_from_model(self):
+        """
+        Synchronize ports from switch model.
+
+        All ports that have a name that does not exist in switch model will
+        get removed.
+        All ports from switch model that do not exist in this object will
+        be added.
+        """
+
         # Port list 1: Ports currently set that also exist in switch model
         nports1 = [ p
                     for p in self._ports
