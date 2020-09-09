@@ -17,10 +17,8 @@ def port_models_from_dict(ports):
     port_objs = []
     for port in ports:
         # Convert port type from str to obj
-        if 'port_type' not in port or port['port_type'] is None:
-            port_type = None
-            continue
-        port['port_type'] = query_port_type(port['port_type'])
+        if 'port_type' in port and port['port_type'] is not None:
+            port['port_type'] = query_port_type(port['port_type'])
 
         # Create port object with given parameter
         port_obj = PortModel(**port)
