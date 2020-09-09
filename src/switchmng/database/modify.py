@@ -10,7 +10,7 @@ def modify_switch_model(resource_id, **kwargs):
 
     # Replace list of ports with list of port objects
     if 'ports' in kwargs:
-        kwargs['ports'] = ports_models_from_dict(kwargs['ports'])
+        kwargs['ports'] = port_models_from_dict(kwargs['ports'])
 
     # Check all arguments before making any changes
     kwargs = SwitchModel.check_params(**kwargs)
