@@ -1,5 +1,8 @@
-from . import *
-from .helper import *
+from switchmng.schema import *
+
+import switchmng.database
+from switchmng.database.helper import *
+from switchmng.database.query import *
 
 def set_switch_model(resource_id, **kwargs):
     # Replace list of ports with list of port objects
@@ -25,7 +28,7 @@ def set_switch_model(resource_id, **kwargs):
             kwargs.update({'name': resource_id})
 
         target_sm = SwitchModel(**kwargs)
-        session = Session()
+        session = switchmng.database.Session()
         session.add(target_sm)
         session.commit()
         return target_sm
@@ -45,7 +48,7 @@ def set_switch_model(resource_id, **kwargs):
         # and replace old object with it
         target_sm = SwitchModel(**kwargs)
 
-        session = Session()
+        session = switchmng.database.Session()
         session.delete(source_sm)
         session.flush()
         session.add(target_sm)
@@ -80,7 +83,7 @@ def set_switch(resource_id, **kwargs):
             kwargs.update({'name': resource_id})
 
         target_sw = Switch(**kwargs)
-        session = Session()
+        session = switchmng.database.Session()
         session.add(target_sw)
         session.commit()
         return target_sw
@@ -100,7 +103,7 @@ def set_switch(resource_id, **kwargs):
         # and replace old object with it
         target_sw = Switch(**kwargs)
 
-        session = Session()
+        session = switchmng.database.Session()
         session.delete(source_sw)
         session.flush()
         session.add(target_sw)
@@ -127,7 +130,7 @@ def set_port_type(resource_id, **kwargs):
             kwargs.update({'description': resource_id})
 
         target_pt = PortType(**kwargs)
-        session = Session()
+        session = switchmng.database.Session()
         session.add(target_pt)
         session.commit()
         return target_pt
@@ -147,7 +150,7 @@ def set_port_type(resource_id, **kwargs):
         # and replace old object with it
         target_pt  = PortType(**kwargs)
 
-        session = Session()
+        session = switchmng.database.Session()
         session.delete(source_pt)
         session.flush()
         session.add(target_pt)
@@ -174,7 +177,7 @@ def set_vlan(resource_id, **kwargs):
             kwargs.update({'tag': resource_id})
 
         target_vl = Vlan(**kwargs)
-        session = Session()
+        session = switchmng.database.Session()
         session.add(target_vl)
         session.commit()
         return target_vl
@@ -194,7 +197,7 @@ def set_vlan(resource_id, **kwargs):
         # and replace old object with it
         target_vl = Vlan(**kwargs)
 
-        session = Session()
+        session = switchmng.database.Session()
         session.delete(source_vl)
         session.flush()
         session.add(target_vl)

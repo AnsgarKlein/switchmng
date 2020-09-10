@@ -1,4 +1,7 @@
-from . import *
+from switchmng.schema import *
+
+import switchmng.database
+from switchmng.database.query import *
 
 def delete_switch_model(resource_id):
     # Check switch model
@@ -14,7 +17,7 @@ def delete_switch_model(resource_id):
         raise ValueError('Given switch model is still in use')
 
     # Delete switch model
-    session = Session()
+    session = switchmng.database.Session()
     session.delete(sm)
     session.commit()
 
@@ -25,7 +28,7 @@ def delete_switch(resource_id):
         raise ValueError('Given switch does not exist')
 
     # Delete switch
-    session = Session()
+    session = switchmng.database.Session()
     session.delete(sw)
     session.commit()
 
@@ -43,7 +46,7 @@ def delete_port_type(resource_id):
         raise ValueError('Given port type is still in use')
 
     # Delete port type
-    session = Session()
+    session = switchmng.database.Session()
     session.delete(pt)
     session.commit()
 
@@ -61,7 +64,7 @@ def delete_vlan(resource_id):
         raise ValueError('Given vlan is still in use')
 
     # Delete vlan
-    session = Session()
+    session = switchmng.database.Session()
     session.delete(vl)
     session.commit()
 

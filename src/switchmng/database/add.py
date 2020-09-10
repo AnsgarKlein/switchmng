@@ -1,5 +1,8 @@
-from . import *
-from .helper import *
+from switchmng.schema import *
+
+import switchmng.database
+from switchmng.database.helper import *
+from switchmng.database.query import *
 
 def add_switch_model(**kwargs):
     # Check if switch model already exists
@@ -16,7 +19,7 @@ def add_switch_model(**kwargs):
 
     # Create switch model
     sm = SwitchModel(**kwargs)
-    session = Session()
+    session = switchmng.database.Session()
     session.add(sm)
     session.commit()
     return sm
@@ -40,7 +43,7 @@ def add_switch(**kwargs):
 
     # Create switch
     sw = Switch(**kwargs)
-    session = Session()
+    session = switchmng.database.Session()
     session.add(sw)
     session.commit()
     return sw
@@ -56,7 +59,7 @@ def add_port_type(**kwargs):
 
     # Add port type
     pt = PortType(**kwargs)
-    session = Session()
+    session = switchmng.database.Session()
     session.add(pt)
     session.commit()
     return pt
@@ -72,7 +75,7 @@ def add_vlan(**kwargs):
 
     # Add vlan
     vl = Vlan(**kwargs)
-    session = Session()
+    session = switchmng.database.Session()
     session.add(vl)
     session.commit()
     return vl

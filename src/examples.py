@@ -4,7 +4,8 @@ import pprint
 
 import json
 
-import switchmng.database as db
+from switchmng import database as db
+from switchmng import config
 
 def input_examples():
     # Create vlans
@@ -77,5 +78,7 @@ def input_examples():
         pprint.PrettyPrinter(indent=4).pprint(sw.jsonify())
 
 if __name__ == '__main__':
+    config.parse_arguments([])
+    db.init_db()
     input_examples()
 

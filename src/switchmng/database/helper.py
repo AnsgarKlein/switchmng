@@ -1,4 +1,6 @@
-from .query import *
+from switchmng.schema import *
+
+from switchmng.database.query import *
 
 def port_models_from_dict(ports):
     """

@@ -1,10 +1,12 @@
-from . import *
+from switchmng.schema import *
+
+import switchmng.database
 
 def query_switch_model(resource_id):
     if type(resource_id) is not str:
         raise TypeError('Cannot query switch model with resource id not of type str')
 
-    session = Session()
+    session = switchmng.database.Session()
     model = session.query(SwitchModel)
     model = model.filter_by(_name = resource_id)
 
@@ -17,7 +19,7 @@ def query_switch(resource_id):
     if type(resource_id) is not str:
         raise TypeError('Cannot query switch with resource id not of type str')
 
-    session = Session()
+    session = switchmng.database.Session()
     sw = session.query(Switch)
     sw = sw.filter_by(_name = resource_id)
 
@@ -30,7 +32,7 @@ def query_port_type(resource_id):
     if type(resource_id) is not str:
         raise TypeError('Cannot query port type with resource id not of type str')
 
-    session = Session()
+    session = switchmng.database.Session()
     pt = session.query(PortType)
     pt = pt.filter_by(_description = resource_id)
 
@@ -43,7 +45,7 @@ def query_vlan(resource_id):
     if type(resource_id) is not int:
         raise TypeError('Cannot query vlan with resource id not of type int')
 
-    session = Session()
+    session = switchmng.database.Session()
     vl = session.query(Vlan)
     vl = vl.filter_by(_tag = resource_id)
 
@@ -57,7 +59,7 @@ def query_switch_models(**kwargs):
     SwitchModel.check_params(**kwargs)
 
     # Query
-    session = Session()
+    session = switchmng.database.Session()
     models = session.query(SwitchModel)
 
     # Filter with SQL
@@ -100,7 +102,7 @@ def query_switches(**kwargs):
     Switch.check_params(**kwargs)
 
     # Query
-    session = Session()
+    session = switchmng.database.Session()
     switches = session.query(Switch)
 
     # Filter with SQL
@@ -152,7 +154,7 @@ def query_port_types(**kwargs):
     PortType.check_params(**kwargs)
 
     # Query
-    session = Session()
+    session = switchmng.database.Session()
     pts = session.query(PortType)
 
     # Filter
@@ -170,7 +172,7 @@ def query_vlans(**kwargs):
     Vlan.check_params(**kwargs)
 
     # Query
-    session = Session()
+    session = switchmng.database.Session()
     vls = session.query(Vlan)
 
     # Filter

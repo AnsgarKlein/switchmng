@@ -1,5 +1,8 @@
-from . import *
-from .helper import *
+from switchmng.schema import *
+
+import switchmng.database
+from switchmng.database.helper import *
+from switchmng.database.query import *
 
 def modify_switch_model(resource_id, **kwargs):
     # Check if switch model exists
@@ -22,7 +25,7 @@ def modify_switch_model(resource_id, **kwargs):
     for key, val in kwargs.items():
         setattr(sm, key, val)
 
-    session = Session()
+    session = switchmng.database.Session()
     session.add(sm)
     session.commit()
 
@@ -53,7 +56,7 @@ def modify_switch(resource_id, **kwargs):
     for key, val in kwargs.items():
         setattr(sw, key, val)
 
-    session = Session()
+    session = switchmng.database.Session()
     session.add(sw)
     session.commit()
 
@@ -73,7 +76,7 @@ def modify_port_type(resource_id, **kwargs):
     for key, val in kwargs.items():
         setattr(pt, key, val)
 
-    session = Session()
+    session = switchmng.database.Session()
     session.add(pt)
     session.commit()
 
@@ -93,7 +96,7 @@ def modify_vlan(resource_id, **kwargs):
     for key, val in kwargs.items():
         setattr(vl, key, val)
 
-    session = Session()
+    session = switchmng.database.Session()
     session.add(vl)
     session.commit()
 
