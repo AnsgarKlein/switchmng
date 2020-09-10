@@ -60,6 +60,7 @@ class PortType(Base):
     def __repr__(self):
         return self.__str__()
 
+    @staticmethod
     def check_params(**kwargs):
         for key, val in kwargs.items():
             if key == 'description':

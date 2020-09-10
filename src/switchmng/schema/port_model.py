@@ -40,6 +40,7 @@ class PortModel(Base):
         return { 'name': self.name,
                  'port_type': None if self.port_type is None else str(self.port_type) }
 
+    @staticmethod
     def check_params(**kwargs):
         for key, val in kwargs.items():
             if key == 'name':
