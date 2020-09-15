@@ -16,7 +16,7 @@ def patch_switch_model(resource_id):
 
     # Modify in database
     try:
-        sm = db.modify_switch_model(resource_id = resource_id, **req)
+        sm = database.modify_switch_model(resource_id = resource_id, **req)
     except BaseException as e:
         return error_400(message = str(e))
 
@@ -39,7 +39,7 @@ def patch_switch(resource_id):
 
     # Modify in database
     try:
-        sw = db.modify_switch(resource_id = resource_id, **req)
+        sw = database.modify_switch(resource_id = resource_id, **req)
     except BaseException as e:
         return error_400(message = str(e))
 
@@ -62,7 +62,7 @@ def patch_port_type(resource_id):
 
     # Modify in database
     try:
-        pt = db.modify_port_type(resource_id = resource_id, **req)
+        pt = database.modify_port_type(resource_id = resource_id, **req)
     except BaseException as e:
         return error_400(message = str(e))
 
@@ -85,7 +85,7 @@ def patch_vlan(resource_id):
 
     # Modify in database
     try:
-        vl = db.modify_vlan(resource_id = resource_id, **req)
+        vl = database.modify_vlan(resource_id = resource_id, **req)
     except BaseException as e:
         return error_400(message = str(e))
 
