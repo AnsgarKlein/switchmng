@@ -9,7 +9,7 @@ def put_switch_model(resource_id):
         return error_406(message = 'Content-Type application/json is not accepted by client')
     try:
         req = request.json
-        if type(req) is not dict:
+        if not isinstance(req, dict):
             raise BaseException()
     except:
         return error_400(message = 'Request is not a valid json object')
@@ -32,7 +32,7 @@ def put_switch(resource_id):
         return error_406(message = 'Content-Type application/json is not accepted by client')
     try:
         req = request.json
-        if type(req) is not dict:
+        if not isinstance(req, dict):
             raise BaseException()
     except:
         return error_400(message = 'Request is not a valid json object')
@@ -55,7 +55,7 @@ def put_port_type(resource_id):
         return error_406(message = 'Content-Type application/json is not accepted by client')
     try:
         req = request.json
-        if type(req) is not dict:
+        if not isinstance(req, dict):
             raise BaseException()
     except:
         return error_400(message = 'Request is not a valid json object')
@@ -78,7 +78,7 @@ def put_vlan(resource_id):
         return error_406(message = 'Content-Type application/json is not accepted by client')
     try:
         req = request.json
-        if type(req) is not dict:
+        if not isinstance(req, dict):
             raise BaseException()
     except:
         return error_400(message = 'Request is not a valid json object')

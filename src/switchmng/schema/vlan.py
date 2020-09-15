@@ -60,14 +60,14 @@ class Vlan(Base):
     def check_params(**kwargs):
         for key, val in kwargs.items():
             if key == 'tag':
-                if type(val) is not int:
+                if not isinstance(val, int):
                     raise TypeError('Tag of vlan has to be of type int')
                 if val < 1:
                     raise ValueError('Tag of vlan cannot be less than 1')
                 continue
 
             if key == 'description':
-                if type(val) is not str:
+                if not isinstance(val, str):
                     raise TypeError('Description of vlan has to be of type str')
                 continue
 

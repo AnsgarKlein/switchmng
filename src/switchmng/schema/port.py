@@ -50,17 +50,17 @@ class Port(Base):
     def check_params(**kwargs):
         for key, val in kwargs.items():
             if key == 'name':
-                if type(val) is not str:
+                if not isinstance(val, str):
                     raise TypeError('Name of vlan has to be of type str')
                 if len(val) < 1:
                     raise ValueError('Length of name of vlan cannot be zero')
                 continue
 
             if key == 'vlans':
-                if type(val) is not list:
+                if not isinstance(val, list):
                     raise TypeError('List of vlans for port has to be of type list')
                 for vlan in val:
-                    if type(vlan) is not Vlan:
+                    if not isinstance(vlan, Vlan):
                         raise TypeError('Vlan in list of vlans for port has to be of type Vlan')
                 continue
 

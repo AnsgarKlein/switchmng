@@ -37,7 +37,7 @@ class SwitchModel(Base):
 
     def __init__(self, name = None, ports = [], size = None):
         # Assign name from argument
-        if type(name) is not str:
+        if not isinstance(name, str):
             raise TypeError('Expected name of switch model to be of type str')
         self.name = name
 
@@ -46,7 +46,7 @@ class SwitchModel(Base):
 
         # Assign size from argument
         if size is not None:
-            if type(size) is not int:
+            if not isinstance(size, int):
                 raise TypeError('Expected size of switch model to be of type int')
             self.size = size
 
@@ -61,14 +61,10 @@ class SwitchModel(Base):
 
     @property
     def ports(self):
-        # Convert sqlalchemy.orm.collections.InstrumentedList to default
-        # python list
-        l = [ p for p in self._ports ]
-
         # Sort list by name of port
-        l.sort(key = lambda p: p.name)
+        self._ports.sort(key = lambda p: p.name)
 
-        return l
+        return self._ports
 
     @ports.setter
     def ports(self, ports):
@@ -130,7 +126,7 @@ class SwitchModel(Base):
         return True
 
     def _port_by_name(self, port_name):
-        if type(port_name) is not str:
+        if not isinstance(port_name, str):
             return None
 
         # Search for port with specified name
@@ -156,24 +152,24 @@ class SwitchModel(Base):
     def check_params(**kwargs):
         for key, val in kwargs.items():
             if key == 'name':
-                if type(val) is not str:
+                if not isinstance(val, str):
                     raise TypeError('Name of switch model has to be of type string')
                 if len(val) < 1:
                     raise ValueError('Length of name of switch model cannot be zero')
                 continue
 
             if key == 'ports':
-                if type(val) is not list:
+                if not isinstance(val, list):
                     raise TypeError('List of ports for switch model has to be of type list')
                 for port in val:
-                    if type(port) is not PortModel:
+                    if not isinstance(port, PortModel):
                         raise TypeError('Ports in list of ports for switch model has to be of type PortModel')
                 continue
 
             if key == 'size':
                 if val is None:
                     continue
-                if type(val) is not int:
+                if not isinstance(val, int):
                     raise TypeError('Size of switch model has to be of type int')
                 if val < 1:
                     raise ValueError('Size of switch model cannot be less than 1')

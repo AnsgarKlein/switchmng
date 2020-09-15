@@ -9,10 +9,10 @@ def port_models_from_dict(ports):
 
     # Check structure before doing anything in order to reduce
     # database queries.
-    if type(ports) is not list:
+    if not isinstance(ports, list):
         raise TypeError('Given list of ports is not of type list')
     for port in ports:
-        if type(port) is not dict:
+        if not isinstance(port, dict):
             raise TypeError('Given port is not of type dict')
 
     # Convert
@@ -35,10 +35,10 @@ def ports_from_dict(ports):
 
     # Check structure before doing anything in order to reduce
     # database queries.
-    if type(ports) is not list:
+    if not isinstance(ports, list):
         raise TypeError('Given list of ports is not of type list')
     for port in ports:
-        if type(port) is not dict:
+        if not isinstance(port, dict):
             raise TypeError('Given port is not of type dict')
 
     # Convert
@@ -46,7 +46,7 @@ def ports_from_dict(ports):
     for port in ports:
         # Convert vlans from list of str to list of obj
         if 'vlans' in port:
-            if type(port['vlans']) is not list:
+            if not isinstance(port['vlans'], list):
                 raise TypeError('Given list of vlans of port is not of type list')
             port['vlans'] = [ query_vlan(v) for v in port['vlans'] ]
 

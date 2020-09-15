@@ -44,7 +44,7 @@ class PortModel(Base):
     def check_params(**kwargs):
         for key, val in kwargs.items():
             if key == 'name':
-                if type(val) is not str:
+                if not isinstance(val, str):
                     raise TypeError('Name of port model has to be of type str')
                 if len(val) < 1:
                     raise ValueError('Length of name of port model cannot be zero')
@@ -53,8 +53,8 @@ class PortModel(Base):
             if key == 'port_type':
                 if val is None:
                     continue
-                if type(val) is not PortType:
-                    raise TypeError('Port type of port model has to be of type PortModel')
+                if not isinstance(val, PortType):
+                    raise TypeError('Port type of port model has to be of type PortType')
                 continue
 
             raise TypeError("Unexpected attribute '{}' for port model".format(key))

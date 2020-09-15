@@ -64,12 +64,12 @@ class PortType(Base):
     def check_params(**kwargs):
         for key, val in kwargs.items():
             if key == 'description':
-                if type(val) is not str:
+                if not isinstance(val, str):
                     raise TypeError('Description of port type has to be of type str')
                 continue
 
             if key == 'speed':
-                if type(val) is not int and val is not None:
+                if not isinstance(val, int) and val is not None:
                     raise TypeError('Speed of port type has to be of type int')
                 if val < 0:
                     raise ValueError('Speed of port type cannot be less than 0')

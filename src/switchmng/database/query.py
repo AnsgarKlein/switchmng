@@ -3,7 +3,7 @@ from switchmng.schema import *
 import switchmng.database
 
 def query_switch_model(resource_id):
-    if type(resource_id) is not str:
+    if not isinstance(resource_id, str):
         raise TypeError('Cannot query switch model with resource id not of type str')
 
     session = switchmng.database.Session()
@@ -16,7 +16,7 @@ def query_switch_model(resource_id):
     return model.first()
 
 def query_switch(resource_id):
-    if type(resource_id) is not str:
+    if not isinstance(resource_id, str):
         raise TypeError('Cannot query switch with resource id not of type str')
 
     session = switchmng.database.Session()
@@ -29,7 +29,7 @@ def query_switch(resource_id):
     return sw.first()
 
 def query_port_type(resource_id):
-    if type(resource_id) is not str:
+    if not isinstance(resource_id, str):
         raise TypeError('Cannot query port type with resource id not of type str')
 
     session = switchmng.database.Session()
@@ -42,7 +42,7 @@ def query_port_type(resource_id):
     return pt.first()
 
 def query_vlan(resource_id):
-    if type(resource_id) is not int:
+    if not isinstance(resource_id, int):
         raise TypeError('Cannot query vlan with resource id not of type int')
 
     session = switchmng.database.Session()
@@ -108,7 +108,7 @@ def query_switches(**kwargs):
     # Filter with SQL
     for key, val in kwargs.items():
         if key == 'location':
-            if type(val) is not int:
+            if not isinstance(val, int):
                 raise TypeError('Given location of switch is not of type int')
             switches = switches.filter_by(_location = val)
         elif key == 'model':
@@ -118,7 +118,7 @@ def query_switches(**kwargs):
                     "Got invalid switch model '{}' - switch model does not exist")
             switches = switches.filter_by(_model = kwargs['model'])
         elif key == 'vlan':
-            if type(val) is not int:
+            if not isinstance(val, int):
                 raise TypeError('Given vlan of port of switch is not of type int')
         else:
             raise TypeError(
