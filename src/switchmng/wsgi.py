@@ -1,8 +1,7 @@
 from switchmng import config
-from switchmng import database
-from switchmng import app as a
-
-import sys
+from switchmng.schema.base import Base
+from switchmng.database import DatabaseConnection
+from switchmng.routes import create_app
 
 # Entry point for gunicorn
 def app(*args, **kwargs):
@@ -24,8 +23,9 @@ def app(*args, **kwargs):
     config.parse_arguments(params)
 
     # Initialize the database
-    database.init_db()
+    db = DatabaseConnection(config.DB_TYPE, config.DB_PATH, Base)
 
     # Return wsgi app
-    return a
+    app = create_app(db)
+    return app
 

@@ -1,11 +1,10 @@
-#!/bin/env python3
-
+import sys
+import json
 import pprint
 
-import json
-
-from switchmng import database as db
 from switchmng import config
+from switchmng.schema.base import Base
+from switchmng.database import DatabaseConnection
 
 def input_examples():
     # Create vlans
@@ -78,7 +77,7 @@ def input_examples():
         pprint.PrettyPrinter(indent=4).pprint(sw.jsonify())
 
 if __name__ == '__main__':
-    config.parse_arguments([])
-    db.init_db()
+    config.parse_arguments(sys.argv[1:])
+    db = DatabaseConnection(config.DB_TYPE, config.DB_PATH, Base)
     input_examples()
 
