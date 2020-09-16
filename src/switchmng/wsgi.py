@@ -3,8 +3,15 @@ from switchmng.schema.base import Base
 from switchmng.database import DatabaseConnection
 from switchmng.routes import create_app
 
-# Entry point for gunicorn
 def app(*args, **kwargs):
+    """
+    Entry point for wsgi server like `gunicorn` serving this
+    application.
+
+    Parse all command line arguments, initialize application then
+    start this application.
+    """
+
     help_str = 'Possible parameters:\n'\
              + '  config=FILE    Use FILE for configuration file'
 

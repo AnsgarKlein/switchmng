@@ -30,6 +30,21 @@ class DatabaseConnection():
         self.Session = scoped_session(self.sessionm)
 
     def query_switch_model(self, resource_id):
+        """
+        Retrieve :class:`SwitchModel` object from database.
+
+        Query the database for a :class:`SwitchModel` object with given resource
+        identifier and return it.
+
+        :param resource_id: Resource identifier uniquely identifying the
+            switch model to return.
+            (See :class:`SwitchModel` for what attribute is the resource identifier)
+        :type resouce_id: str
+
+        :return: The switch model object matching the given resource identifier
+        :rtype: SwitchModel
+        """
+
         if not isinstance(resource_id, str):
             raise TypeError('Cannot query switch model with resource id not of type str')
 
@@ -43,6 +58,21 @@ class DatabaseConnection():
         return model.first()
 
     def query_switch(self, resource_id):
+        """
+        Retrieve :class:`Switch` object from database.
+
+        Query the database for a :class:`Switch` object with given resource
+        identifier and return it.
+
+        :param resource_id: Resource identifier uniquely identifying the
+            switch to return.
+            (See :class:`Switch` for what attribute is the resource identifier)
+        :type resouce_id: str
+
+        :return: The switch object matching the given resource identifier
+        :rtype: Switch
+        """
+
         if not isinstance(resource_id, str):
             raise TypeError('Cannot query switch with resource id not of type str')
 
@@ -56,6 +86,21 @@ class DatabaseConnection():
         return sw.first()
 
     def query_port_type(self, resource_id):
+        """
+        Retrieve :class:`PortType` object from database.
+
+        Query the database for a :class:`PortType` object with given resource
+        identifier and return it.
+
+        :param resource_id: Resource identifier uniquely identifying the
+            port type to return.
+            (See :class:`PortType` for what attribute is the resource identifier)
+        :type resouce_id: str
+
+        :return: The port type object matching the given resource identifier
+        :rtype: PortType
+        """
+
         if not isinstance(resource_id, str):
             raise TypeError('Cannot query port type with resource id not of type str')
 
@@ -69,6 +114,21 @@ class DatabaseConnection():
         return pt.first()
 
     def query_vlan(self, resource_id):
+        """
+        Retrieve :class:`Vlan` object from database.
+
+        Query the database for a :class:`Vlan` object with given resource
+        identifier and return it.
+
+        :param resource_id: Resource identifier uniquely identifying the
+            vlan to return.
+            (See :class:`Vlan` for what attribute is the resource identifier)
+        :type resouce_id: str
+
+        :return: The vlan object matching the given resource identifier
+        :rtype: Vlan
+        """
+
         if not isinstance(resource_id, int):
             raise TypeError('Cannot query vlan with resource id not of type int')
 
@@ -82,6 +142,12 @@ class DatabaseConnection():
         return vl.first()
 
     def query_switch_models(self, **kwargs):
+        """
+        Retrieve multiple :class:`SwitchModel` objects from database.
+
+        # TODO: Implement and document query_switch_models() correctly
+        """
+
         # Check all arguments before querying
         SwitchModel.check_params(**kwargs)
 
@@ -125,6 +191,12 @@ class DatabaseConnection():
         return models
 
     def query_switches(self, **kwargs):
+        """
+        Retrieve multiple :class:`Switch` objects from database.
+
+        # TODO: Implement and document query_switches() correctly
+        """
+
         # Check all arguments before querying
         Switch.check_params(**kwargs)
 
@@ -177,6 +249,12 @@ class DatabaseConnection():
         return switches
 
     def query_port_types(self, **kwargs):
+        """
+        Retrieve multiple :class:`PortType` objects from database.
+
+        # TODO: Implement and document query_port_types() correctly
+        """
+
         # Check all arguments before querying
         PortType.check_params(**kwargs)
 
@@ -195,6 +273,12 @@ class DatabaseConnection():
         return pts.all()
 
     def query_vlans(self, **kwargs):
+        """
+        Retrieve multiple :class:`Vlan` objects from database.
+
+        # TODO: Implement and document query_vlans() correctly
+        """
+
         # Check all arguments before querying
         Vlan.check_params(**kwargs)
 
@@ -214,6 +298,19 @@ class DatabaseConnection():
 
 
     def delete_switch_model(self, resource_id):
+        """
+        Delete a switch model from the database.
+
+        Can only delete a switch model from the database if it is not still
+        in use by a switch. Will only delete switch model if there is not
+        still a switch which uses the given switch model as its model.
+
+        :param resource_id: Resource identifier uniquely identifying the
+            switch model to delete.
+            (See :class:`SwitchModel` for what attribute is the resource identifier)
+        :type resouce_id: str
+        """
+
         # Check switch model
         sm = self.query_switch_model(resource_id)
         if sm is None:
@@ -232,6 +329,15 @@ class DatabaseConnection():
         session.commit()
 
     def delete_switch(self, resource_id):
+        """
+        Delete a switch from the database.
+
+        :param resource_id: Resource identifier uniquely identifying the
+            switch to delete.
+            (See :class:`Switch` for what attribute is the resource identifier)
+        :type resouce_id: str
+        """
+
         # Check switch
         sw = self.query_switch(resource_id)
         if sw is None:
@@ -243,6 +349,20 @@ class DatabaseConnection():
         session.commit()
 
     def delete_port_type(self, resource_id):
+        """
+        Delete a port type from the database.
+
+        Can only delete a port type from the database if it is not still
+        in use by a port of a switch model.
+        Will only delete port type if there is not still a switch model which
+        uses the given port type on one of its ports.
+
+        :param resource_id: Resource identifier uniquely identifying the
+            port type to delete.
+            (See :class:`PortType` for what attribute is the resource identifier)
+        :type resouce_id: str
+        """
+
         # Check port type
         pt = self.query_port_type(resource_id)
         if pt is None:
@@ -261,6 +381,20 @@ class DatabaseConnection():
         session.commit()
 
     def delete_vlan(self, resource_id):
+        """
+        Delete a vlan from the database.
+
+        Can only delete a vlan from the database if it is not still in use by a
+        port of a switch.
+        Will only delete vlan if there is not still a switch which uses the given
+        vlan on one of its ports.
+
+        :param resource_id: Resource identifier uniquely identifying the vlan to
+            delete.
+            (See :class:`Vlan` for what attribute is the resource identifier)
+        :type resouce_id: str
+        """
+
         # Check vlan
         vl = self.query_vlan(resource_id)
         if vl is None:
@@ -280,6 +414,26 @@ class DatabaseConnection():
 
 
     def modify_switch_model(self, resource_id, **kwargs):
+        """
+        Modify a :class:`SwitchModel` object in the database.
+
+        All given attributes of switch model will be modified.
+        Attributes not given will not be changed and will keep their current
+        state.
+
+        :param resource_id: Resource identifier uniquely identifying the
+            switch model to modify.
+            (See :class:`SwitchModel` for what attribute is the resource identifier)
+        :type resouce_id: str
+
+        :param kwargs: Attributes of switch model to change.
+            Possible parameters are public attributes of :class:`SwitchModel` object
+            but in a json compatible representation (as nested dict structure)
+
+        :return: The modified switch model
+        :rtype: SwitchModel
+        """
+
         # Check if switch model exists
         sm = self.query_switch_model(resource_id)
         if sm is None:
@@ -307,6 +461,26 @@ class DatabaseConnection():
         return sm
 
     def modify_switch(self, resource_id, **kwargs):
+        """
+        Modify a :class:`Switch` object in the database.
+
+        All given attributes of switch will be modified.
+        Attributes not given will not be changed and will keep their current
+        state.
+
+        :param resource_id: Resource identifier uniquely identifying the
+            switch to modify.
+            (See :class:`Switch` for what attribute is the resource identifier)
+        :type resouce_id: str
+
+        :param kwargs: Attributes of switch to change.
+            Possible parameters are public attributes of :class:`Switch` object
+            but in a json compatible representation (as nested dict structure)
+
+        :return: The modified switch
+        :rtype: Switch
+        """
+
         # Check if switch exists
         sw = self.query_switch(resource_id)
         if sw is None:
@@ -338,6 +512,26 @@ class DatabaseConnection():
         return sw
 
     def modify_port_type(self, resource_id, **kwargs):
+        """
+        Modify a :class:`PortType` object in the database.
+
+        All given attributes of port type will be modified.
+        Attributes not given will not be changed and will keep their current
+        state.
+
+        :param resource_id: Resource identifier uniquely identifying the
+            port type to modify.
+            (See :class:`PortType` for what attribute is the resource identifier)
+        :type resouce_id: str
+
+        :param kwargs: Attributes of port type to change.
+            Possible parameters are public attributes of :class:`PortType` object
+            but in a json compatible representation (as nested dict structure)
+
+        :return: The modified port type object
+        :rtype: PortType
+        """
+
         # Check if port type exists
         pt = self.query_port_type(resource_id)
         if pt is None:
@@ -358,6 +552,26 @@ class DatabaseConnection():
         return pt
 
     def modify_vlan(self, resource_id, **kwargs):
+        """
+        Modify a :class:`Vlan` object in the database.
+
+        All given attributes of vlan will be modified.
+        Attributes not given will not be changed and will keep their current
+        state.
+
+        :param resource_id: Resource identifier uniquely identifying the
+            vlan to modify.
+            (See :class:`Vlan` for what attribute is the resource identifier)
+        :type resouce_id: str
+
+        :param kwargs: Attributes of vlan to change.
+            Possible parameters are public attributes of :class:`Vlan` object
+            but in a json compatible representation (as nested dict structure)
+
+        :return: The modified vlan object
+        :rtype: Vlan
+        """
+
         # Check if vlan exists
         vl = self.query_vlan(resource_id)
         if vl is None:
@@ -379,6 +593,30 @@ class DatabaseConnection():
 
 
     def set_switch_model(self, resource_id, **kwargs):
+        """
+        Set a :class:`SwitchModel` corresponding to a given resource identifier
+        to a given state.
+
+        :class:`SwitchModel` identified by given resource identifier may already
+        exist. If it does not already exist it will be created.
+
+        All attributes of switch model will be set to given values.
+        Attributes not given but present in already existing :class:`SwitchModel`
+        will be set to None or [] or other representation of "not set".
+
+        :param resource_id: Resource identifier uniquely identifying the
+            switch model to modify.
+            (See :class:`SwitchModel` for what attribute is the resource identifier)
+        :type resouce_id: str
+
+        :param kwargs: Attributes of switch model to change.
+            Possible parameters are public attributes of :class:`SwitchModel` object
+            but in a json compatible representation (as nested dict structure)
+
+        :return: The modified or created switch model
+        :rtype: SwitchModel
+        """
+
         # Replace list of ports with list of port objects
         if 'ports' in kwargs:
             kwargs['ports'] = self._port_models_from_dict(kwargs['ports'])
@@ -430,6 +668,30 @@ class DatabaseConnection():
             return target_sm
 
     def set_switch(self, resource_id, **kwargs):
+        """
+        Set a :class:`Switch` corresponding to a given resource identifier
+        to a given state.
+
+        :class:`Switch` identified by given resource identifier may already
+        exist. If it does not already exist it will be created.
+
+        All attributes of switch will be set to given values.
+        Attributes not given but present in already existing :class:`Switch`
+        will be set to None or [] or other representation of "not set".
+
+        :param resource_id: Resource identifier uniquely identifying the
+            switch to modify.
+            (See :class:`Switch` for what attribute is the resource identifier)
+        :type resouce_id: str
+
+        :param kwargs: Attributes of switch to change.
+            Possible parameters are public attributes of :class:`Switch` object
+            but in a json compatible representation (as nested dict structure)
+
+        :return: The modified or created switch
+        :rtype: Switch
+        """
+
         # Replace list of ports with list of port objects
         if 'ports' in kwargs:
             kwargs['ports'] = self._ports_from_dict(kwargs['ports'])
@@ -485,6 +747,30 @@ class DatabaseConnection():
             return target_sw
 
     def set_port_type(self, resource_id, **kwargs):
+        """
+        Set a :class:`PortType` corresponding to a given resource identifier
+        to a given state.
+
+        :class:`PortType` identified by given resource identifier may already
+        exist. If it does not already exist it will be created.
+
+        All attributes of port type will be set to given values.
+        Attributes not given but present in already existing :class:`PortType`
+        will be set to None or [] or other representation of "not set".
+
+        :param resource_id: Resource identifier uniquely identifying the
+            port type to modify.
+            (See :class:`PortType` for what attribute is the resource identifier)
+        :type resouce_id: str
+
+        :param kwargs: Attributes of port type to change.
+            Possible parameters are public attributes of :class:`PortType` object
+            but in a json compatible representation (as nested dict structure)
+
+        :return: The modified or created port type
+        :rtype: PortType
+        """
+
         # Check all arguments before making any changes
         PortType.check_params(**kwargs)
 
@@ -532,6 +818,30 @@ class DatabaseConnection():
             return target_pt
 
     def set_vlan(self, resource_id, **kwargs):
+        """
+        Set a :class:`Vlan` corresponding to a given resource identifier
+        to a given state.
+
+        :class:`Vlan` identified by given resource identifier may already
+        exist. If it does not already exist it will be created.
+
+        All attributes of vlan will be set to given values.
+        Attributes not given but present in already existing :class:`Vlan`
+        will be set to None or [] or other representation of "not set".
+
+        :param resource_id: Resource identifier uniquely identifying the
+            vlan to modify.
+            (See :class:`Vlan` for what attribute is the resource identifier)
+        :type resouce_id: str
+
+        :param kwargs: Attributes of vlan to change.
+            Possible parameters are public attributes of :class:`Vlan` object
+            but in a json compatible representation (as nested dict structure)
+
+        :return: The modified or created vlan
+        :rtype: Vlan
+        """
+
         # Check all arguments before making any changes
         Vlan.check_params(**kwargs)
 
@@ -580,6 +890,17 @@ class DatabaseConnection():
 
 
     def add_switch_model(self, **kwargs):
+        """
+        Create a new switch model and add it to the database.
+
+        :param kwargs: Parameters for new switch model.
+            Possible parameters are public attributes of :class:`SwitchModel` object
+            but in a json compatible representation (as nested dict structure)
+
+        :return: The newly added switch model
+        :rtype: SwitchModel
+        """
+
         # Check if switch model already exists
         if 'name' not in kwargs:
             raise KeyError('Missing necessary argument "name" for adding switch model')
@@ -600,6 +921,17 @@ class DatabaseConnection():
         return sm
 
     def add_switch(self, **kwargs):
+        """
+        Create a new switch and add it to the database.
+
+        :param kwargs: Parameters for new switch.
+            Possible parameters are public attributes of :class:`Switch` object
+            but in a json compatible representation (as nested dict structure)
+
+        :return: The newly added switch
+        :rtype: Switch
+        """
+
         # Check if switch already exists
         if 'name' not in kwargs:
             raise KeyError('Missing necessary argument "name" for adding switch')
@@ -624,6 +956,17 @@ class DatabaseConnection():
         return sw
 
     def add_port_type(self, **kwargs):
+        """
+        Create a new port type and add it to the database.
+
+        :param kwargs: Parameters for new port type.
+            Possible parameters are public attributes of :class:`PortType` object
+            but in a json compatible representation (as nested dict structure)
+
+        :return: The newly added port tpye
+        :rtype: PortType
+        """
+
         # Check if port type already exists
         if 'description' not in kwargs:
             raise KeyError('Missing necessary argument "description" for adding port type')
@@ -640,6 +983,17 @@ class DatabaseConnection():
         return pt
 
     def add_vlan(self, **kwargs):
+        """
+        Create a new vlan and add it to the database.
+
+        :param kwargs: Parameters for new vlan.
+            Possible parameters are public attributes of :class:`Vlan` object
+            but in a json compatible representation (as nested dict structure)
+
+        :return: The newly added vlan
+        :rtype: Vlan
+        """
+
         # Check if vlan already exists
         if 'tag' not in kwargs:
             raise KeyError('Missing necessary argument "tag" for adding vlan')

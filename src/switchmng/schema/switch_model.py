@@ -8,15 +8,16 @@ class SwitchModel(Base):
     All contained id fields are private and only used for storing object in
     database.
 
-    Attributes
-    ----------
+    :param name: Name uniquely identifying this switch model
+        Acts as resource identifier.
+    :type name: str
 
-    name : str
-        Name uniquely identifying this switch model
-    size : int
-        Size (number of rack units) this switch takes up in server rack
-    ports : list
-        Ports associated with this switch model
+    :param ports: Ports associated with this switch model
+    :type ports: list
+
+    :param size: Size (number of rack units) this switch takes up in server rack
+    :type size: int
+
     """
 
     __tablename__ = 'switch_models'
@@ -52,6 +53,8 @@ class SwitchModel(Base):
 
     @property
     def name(self):
+        """Name uniquely identifying this switch model"""
+
         return self._name
 
     @name.setter
@@ -61,6 +64,8 @@ class SwitchModel(Base):
 
     @property
     def ports(self):
+        """Ports associated with this switch model"""
+
         # Sort list by name of port
         self._ports.sort(key = lambda p: p.name)
 
@@ -83,8 +88,14 @@ class SwitchModel(Base):
 
     def modify_ports(self, ports):
         """
-        Change only given ports of this switch model.
-        All ports not given but present will not be touched.
+        Modify existing ports of this switch model.
+
+        All ports given but not present will not be added.
+
+        All ports not given but present will not be changed.
+
+        :param ports: List of ports to change
+        :type ports: list
         """
 
         # Check ports
@@ -105,6 +116,8 @@ class SwitchModel(Base):
 
     @property
     def size(self):
+        """Size (number of rack units) this switch takes up in server rack"""
+
         return self._size
 
     @size.setter
@@ -113,6 +126,17 @@ class SwitchModel(Base):
         self._size = size
 
     def _port_by_name(self, port_name):
+        """Return port of this switch model identified by name
+
+        Returns the port for the given name or None if this switch model
+        does not contain a port with given name.
+
+        :param port_name: The name of the port to return object of
+        :type port_name: str
+
+        :return: The :class:`PortModel` object identified by given name
+        """
+
         if not isinstance(port_name, str):
             return None
 
@@ -125,6 +149,20 @@ class SwitchModel(Base):
         return None
 
     def jsonify(self):
+        """
+        Represent this object as a json-ready dict.
+
+        That is a dict which completely consists of json-compatible structures
+        like:
+
+        * dict
+        * list
+        * string
+        * int
+        * bool
+        * None / null
+        """
+
         return { 'name': self.name,
                  'ports': [ p.jsonify() for p in self.ports ],
                  'size': self.size }
@@ -137,6 +175,23 @@ class SwitchModel(Base):
 
     @staticmethod
     def check_params(**kwargs):
+        """
+        Check all given parameters.
+
+        Check if all given parameters have the correct type and are valid
+        parameters for a object of this class at all as well as other
+        basic checks.
+
+        This function gets executed when trying to assign values to object
+        variables but can be called when needing to check multiple parameters
+        at once in order to prevent half changed states.
+
+        :raises TypeError: When type of given parameter does not match
+            expectation
+        :raises ValueError: When value of given parameter does not match
+            expectation
+        """
+
         for key, val in kwargs.items():
             if key == 'name':
                 if not isinstance(val, str):

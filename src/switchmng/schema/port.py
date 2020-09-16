@@ -6,6 +6,20 @@ vlans_ports_mapping = Table('vlan_ports', Base.metadata,
 )
 
 class Port(Base):
+    """
+    Represents a port of a switch.
+
+    That is a concrete port of a concrete switch.
+
+    :param name: The identifier of this port. Must be unique for the
+        containing :class:`Switch`.
+    :type name: str
+
+    :param vlans: A list of vlans that are active on this port
+    :type vlans: list
+
+    """
+
     __tablename__ = 'ports'
     _port_id = Column('id', Integer, primary_key = True, nullable = False)
     _switch_id = Column('switch_id', Integer, ForeignKey('switches.id'),
@@ -20,6 +34,8 @@ class Port(Base):
 
     @property
     def name(self):
+        """The identifier of this port. Must be unique for the containing
+        :class:`Switch`."""
         return self._name
 
     @name.setter
@@ -29,6 +45,7 @@ class Port(Base):
 
     @property
     def vlans(self):
+        """A list of vlans that are active on this port"""
         return self._vlans
 
     @vlans.setter
@@ -37,6 +54,20 @@ class Port(Base):
         self._vlans = vlans
 
     def jsonify(self):
+        """
+        Represent this object as a json-ready dict.
+
+        That is a dict which completely consists of json-compatible structures
+        like:
+
+        * dict
+        * list
+        * string
+        * int
+        * bool
+        * None / null
+        """
+
         return { 'name': self.name,
                  'vlans': [ int(str(v)) for v in self.vlans ] }
 
@@ -48,6 +79,23 @@ class Port(Base):
 
     @staticmethod
     def check_params(**kwargs):
+        """
+        Check all given parameters.
+
+        Check if all given parameters have the correct type and are valid
+        parameters for a object of this class at all as well as other
+        basic checks.
+
+        This function gets executed when trying to assign values to object
+        variables but can be called when needing to check multiple parameters
+        at once in order to prevent half changed states.
+
+        :raises TypeError: When type of given parameter does not match
+            expectation
+        :raises ValueError: When value of given parameter does not match
+            expectation
+        """
+
         for key, val in kwargs.items():
             if key == 'name':
                 if not isinstance(val, str):

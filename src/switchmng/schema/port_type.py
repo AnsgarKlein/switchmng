@@ -8,13 +8,11 @@ class PortType(Base):
     All contained id fields are private and only used for storing object in
     database.
 
-    Attributes
-    ----------
+    :param description: Name uniquely identifying this port type
+    :type description: str
 
-    description : str
-        Name uniquely identifying this port type
-    speed : int
-        Speed of this port type in Mb/s
+    :param speed: Speed of this port type in Mb/s
+    :type speed: int
     """
 
     __tablename__ = 'port_types'
@@ -34,6 +32,7 @@ class PortType(Base):
 
     @property
     def description(self):
+        """Name uniquely identifying this port type"""
         return self._description
 
     @description.setter
@@ -43,6 +42,7 @@ class PortType(Base):
 
     @property
     def speed(self):
+        """Speed of this port type in Mb/s"""
         return self._speed
 
     @speed.setter
@@ -51,6 +51,20 @@ class PortType(Base):
         self._speed = speed
 
     def jsonify(self):
+        """
+        Represent this object as a json-ready dict.
+
+        That is a dict which completely consists of json-compatible structures
+        like:
+
+        * dict
+        * list
+        * string
+        * int
+        * bool
+        * None / null
+        """
+
         return { 'description': self.description,
                  'speed': self.speed }
 
@@ -62,6 +76,23 @@ class PortType(Base):
 
     @staticmethod
     def check_params(**kwargs):
+        """
+        Check all given parameters.
+
+        Check if all given parameters have the correct type and are valid
+        parameters for a object of this class at all as well as other
+        basic checks.
+
+        This function gets executed when trying to assign values to object
+        variables but can be called when needing to check multiple parameters
+        at once in order to prevent half changed states.
+
+        :raises TypeError: When type of given parameter does not match
+            expectation
+        :raises ValueError: When value of given parameter does not match
+            expectation
+        """
+
         for key, val in kwargs.items():
             if key == 'description':
                 if not isinstance(val, str):

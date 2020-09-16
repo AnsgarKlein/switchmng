@@ -4,13 +4,11 @@ class Vlan(Base):
     """
     Represents a VLAN resource consisting of description and VLAN tag id.
 
-    Attributes
-    ----------
+    :param tag: Tag uniquely identifying this VLAN
+    :type tag: int
 
-    tag : int
-        Tag uniquely identifying this VLAN
-    description : str
-        Description of this VLAN
+    :param description: Description of this VLAN
+    :type description: str
     """
 
     __tablename__ = 'vlans'
@@ -30,6 +28,7 @@ class Vlan(Base):
 
     @property
     def tag(self):
+        """Tag uniquely identifying this VLAN"""
         return self._tag
 
     @tag.setter
@@ -39,6 +38,7 @@ class Vlan(Base):
 
     @property
     def description(self):
+        """Description of this VLAN"""
         return self._description
 
     @description.setter
@@ -47,6 +47,20 @@ class Vlan(Base):
         self._description = description
 
     def jsonify(self):
+        """
+        Represent this object as a json-ready dict.
+
+        That is a dict which completely consists of json-compatible structures
+        like:
+
+        * dict
+        * list
+        * string
+        * int
+        * bool
+        * None / null
+        """
+
         return { 'tag': self.tag,
                  'description': self.description }
 
@@ -58,6 +72,23 @@ class Vlan(Base):
 
     @staticmethod
     def check_params(**kwargs):
+        """
+        Check all given parameters.
+
+        Check if all given parameters have the correct type and are valid
+        parameters for a object of this class at all as well as other
+        basic checks.
+
+        This function gets executed when trying to assign values to object
+        variables but can be called when needing to check multiple parameters
+        at once in order to prevent half changed states.
+
+        :raises TypeError: When type of given parameter does not match
+            expectation
+        :raises ValueError: When value of given parameter does not match
+            expectation
+        """
+
         for key, val in kwargs.items():
             if key == 'tag':
                 if not isinstance(val, int):

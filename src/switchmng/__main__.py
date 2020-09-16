@@ -5,7 +5,14 @@ from switchmng.schema.base import Base
 from switchmng.database import DatabaseConnection
 from switchmng import routes
 
-if __name__ == '__main__':
+def main():
+    """
+    Run `switchmng` module directly.
+
+    Parse all command line arguments, initialize application then
+    start this application.
+    """
+
     # Parse command line arguments
     config.parse_arguments(sys.argv[1:])
 
@@ -16,3 +23,5 @@ if __name__ == '__main__':
     app = routes.create_app(db)
     app.run(debug = config.DEBUG, host = config.IP, port = config.PORT)
 
+if __name__ == '__main__':
+    main()

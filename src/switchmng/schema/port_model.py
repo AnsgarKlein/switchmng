@@ -1,6 +1,21 @@
 from . import *
 
 class PortModel(Base):
+    """
+    Represents a port of a switch model.
+
+    That is a port not of a concrete switch but a port of a type of
+    switch. (See :class:`SwitchModel`)
+
+    :param name: The identifier of this port. Must be unique for the
+        containing :class:`SwitchModel`.
+    :type name: str
+
+    :param port_type: The port type of this port
+    :type port_type: class:`PortType`
+
+    """
+
     __tablename__ = 'port_models'
 
     # Database id
@@ -20,6 +35,9 @@ class PortModel(Base):
 
     @property
     def name(self):
+        """The identifier of this port.
+
+        Must be unique for the containing :class:`SwitchModel`"""
         return self._name
 
     @name.setter
@@ -29,6 +47,7 @@ class PortModel(Base):
 
     @property
     def port_type(self):
+        """The port type of this port"""
         return self._port_type
 
     @port_type.setter
@@ -37,6 +56,20 @@ class PortModel(Base):
         self._port_type = port_type
 
     def jsonify(self):
+        """
+        Represent this object as a json-ready dict.
+
+        That is a dict which completely consists of json-compatible structures
+        like:
+
+        * dict
+        * list
+        * string
+        * int
+        * bool
+        * None / null
+        """
+
         return { 'name': self.name,
                  'port_type': None if self.port_type is None else str(self.port_type) }
 
@@ -48,6 +81,23 @@ class PortModel(Base):
 
     @staticmethod
     def check_params(**kwargs):
+        """
+        Check all given parameters.
+
+        Check if all given parameters have the correct type and are valid
+        parameters for a object of this class at all as well as other
+        basic checks.
+
+        This function gets executed when trying to assign values to object
+        variables but can be called when needing to check multiple parameters
+        at once in order to prevent half changed states.
+
+        :raises TypeError: When type of given parameter does not match
+            expectation
+        :raises ValueError: When value of given parameter does not match
+            expectation
+        """
+
         for key, val in kwargs.items():
             if key == 'name':
                 if not isinstance(val, str):

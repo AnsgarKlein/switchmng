@@ -8,17 +8,17 @@ class Switch(Base):
     All contained id fields are private and only used for storing object in
     database.
 
-    Attributes
-    ----------
+    :param name: Name uniquely identifying this switch
+    :type name: str
 
-    name : str
-        Name uniquely identifying this switch
-    model : SwitchModel
-        Model of this switch
-    ports : list
-        Ports associated with this switch
-    location : int
-        Location of this switch in server rack
+    :param model: Model of this switch
+    :type model: :class:`SwitchModel`
+
+    :param ports: Ports associated with this switch
+    :type ports: list
+
+    :param location: Location of this switch in server rack
+    :type location: int
     """
 
     __tablename__ = 'switches'
@@ -57,6 +57,8 @@ class Switch(Base):
 
     @property
     def name(self):
+        """Name uniquely identifying this switch"""
+
         return self._name
 
     @name.setter
@@ -66,6 +68,8 @@ class Switch(Base):
 
     @property
     def model(self):
+        """Model of this switch"""
+
         return self._model
 
     @model.setter
@@ -79,6 +83,14 @@ class Switch(Base):
 
     @property
     def ports(self):
+        """Ports associated with this switch.
+
+        The list of ports always contains ports for all :class:`PortModel`
+        ports of this switches :class:`SwitchModel`.
+        If this switches :class:`SwitchModel` gets modified this switches
+        list of ports gets modified as well.
+        """
+
         # Sort list by name of port
         self._ports.sort(key = lambda p: p.name)
 
@@ -110,8 +122,15 @@ class Switch(Base):
 
     def modify_ports(self, ports):
         """
-        Change only given ports of this switch.
-        All ports not given but present will not be touched.
+        Modify existing ports of this switch.
+
+        This will not add any new ports that are not already present on this
+        switch. (Modify ports of :class:`SwitchModel` for that)
+
+        All ports not given but present will not be changed.
+
+        :param ports: List of ports to change
+        :type ports: list
         """
 
         # Check ports
@@ -134,6 +153,8 @@ class Switch(Base):
 
     @property
     def location(self):
+        """Location of this switch in server rack"""
+
         return self._location
 
     @location.setter
@@ -166,6 +187,17 @@ class Switch(Base):
         self._ports = nports1 + nports2
 
     def _port_by_name(self, port_name):
+        """Return port of this switch identified by name
+
+        Returns the port for the given name or None if this switch
+        does not contain a port with given name.
+
+        :param port_name: The name of the port to return object of
+        :type port_name: str
+
+        :return: The :class:`Port` object identified by given name
+        """
+
         if not isinstance(port_name, str):
             return None
 
@@ -178,6 +210,20 @@ class Switch(Base):
         return None
 
     def jsonify(self):
+        """
+        Represent this object as a json-ready dict.
+
+        That is a dict which completely consists of json-compatible structures
+        like:
+
+        * dict
+        * list
+        * string
+        * int
+        * bool
+        * None / null
+        """
+
         return { 'name': self.name,
                  'location': self.location,
                  'model': str(self.model),
@@ -191,6 +237,23 @@ class Switch(Base):
 
     @staticmethod
     def check_params(**kwargs):
+        """
+        Check all given parameters.
+
+        Check if all given parameters have the correct type and are valid
+        parameters for a object of this class at all as well as other
+        basic checks.
+
+        This function gets executed when trying to assign values to object
+        variables but can be called when needing to check multiple parameters
+        at once in order to prevent half changed states.
+
+        :raises TypeError: When type of given parameter does not match
+            expectation
+        :raises ValueError: When value of given parameter does not match
+            expectation
+        """
+
         for key, val in kwargs.items():
             if key == 'name':
                 if not isinstance(val, str):
