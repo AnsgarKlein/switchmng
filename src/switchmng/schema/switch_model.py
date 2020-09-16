@@ -112,19 +112,6 @@ class SwitchModel(Base):
         SwitchModel.check_params(size = size)
         self._size = size
 
-    def modify_port(self, port, name = None, port_type = None):
-        port = self.port(port)
-        if port is None:
-            return False
-
-        if name is not None:
-            port.name = name
-
-        if port_type is not None:
-            port.port_type = port_type
-
-        return True
-
     def _port_by_name(self, port_name):
         if not isinstance(port_name, str):
             return None
