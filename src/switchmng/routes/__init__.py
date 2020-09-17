@@ -2,6 +2,8 @@ from flask import Flask
 from flask import abort
 from flask import request
 
+from switchmng import database
+
 from .errors import *
 
 from .delete import _configure_delete

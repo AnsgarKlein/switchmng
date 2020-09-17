@@ -1,8 +1,10 @@
 from . import *
 
-def _configure_post(app, database):
+def _configure_post(app, database_connection):
     @app.route('/switch_models', methods = ['POST'])
     def post_switch_model():
+        session = database_connection.Session()
+
         # Check request
         if request.content_type != 'application/json':
             return error_415(message = 'Expected Content-Type to be application/json')
@@ -17,7 +19,7 @@ def _configure_post(app, database):
 
         # Add to database
         try:
-            sm = database.add_switch_model(**req)
+            sm = database.add_switch_model(session, **req)
         except BaseException as e:
             return error_400(message = str(e))
 
@@ -26,6 +28,8 @@ def _configure_post(app, database):
 
     @app.route('/switches', methods = ['POST'])
     def post_switch():
+        session = database_connection.Session()
+
         # Check request
         if request.content_type != 'application/json':
             return error_415(message = 'Expected Content-Type to be application/json')
@@ -40,7 +44,7 @@ def _configure_post(app, database):
 
         # Add to database
         try:
-            sw = database.add_switch(**req)
+            sw = database.add_switch(session, **req)
         except BaseException as e:
             return error_400(message = str(e))
 
@@ -49,6 +53,8 @@ def _configure_post(app, database):
 
     @app.route('/port_types', methods = ['POST'])
     def post_port_types():
+        session = database_connection.Session()
+
         # Check request
         if request.content_type != 'application/json':
             return error_415(message = 'Expected Content-Type to be application/json')
@@ -63,7 +69,7 @@ def _configure_post(app, database):
 
         # Add to database
         try:
-            pt = database.add_port_type(**req)
+            pt = database.add_port_type(session, **req)
         except BaseException as e:
             return error_400(message = str(e))
 
@@ -72,6 +78,8 @@ def _configure_post(app, database):
 
     @app.route('/vlans', methods = ['POST'])
     def post_vlans():
+        session = database_connection.Session()
+
         # Check request
         if request.content_type != 'application/json':
             return error_415(message = 'Expected Content-Type to be application/json')
@@ -86,7 +94,7 @@ def _configure_post(app, database):
 
         # Add to database
         try:
-            vl = database.add_vlan(**req)
+            vl = database.add_vlan(session, **req)
         except BaseException as e:
             return error_400(message = str(e))
 
