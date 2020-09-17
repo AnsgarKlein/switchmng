@@ -10,7 +10,7 @@ def query_switch_model(session, resource_id):
     :param resource_id: Resource identifier uniquely identifying the
         switch model to return.
         (See :class:`SwitchModel` for what attribute is the resource identifier)
-    :type resouce_id: str
+    :type resource_id: str
 
     :return: The switch model object matching the given resource identifier
     :rtype: SwitchModel
@@ -37,7 +37,7 @@ def query_switch(session, resource_id):
     :param resource_id: Resource identifier uniquely identifying the
         switch to return.
         (See :class:`Switch` for what attribute is the resource identifier)
-    :type resouce_id: str
+    :type resource_id: str
 
     :return: The switch object matching the given resource identifier
     :rtype: Switch
@@ -64,7 +64,7 @@ def query_port_type(session, resource_id):
     :param resource_id: Resource identifier uniquely identifying the
         port type to return.
         (See :class:`PortType` for what attribute is the resource identifier)
-    :type resouce_id: str
+    :type resource_id: str
 
     :return: The port type object matching the given resource identifier
     :rtype: PortType
@@ -91,7 +91,7 @@ def query_vlan(session, resource_id):
     :param resource_id: Resource identifier uniquely identifying the
         vlan to return.
         (See :class:`Vlan` for what attribute is the resource identifier)
-    :type resouce_id: str
+    :type resource_id: str
 
     :return: The vlan object matching the given resource identifier
     :rtype: Vlan
