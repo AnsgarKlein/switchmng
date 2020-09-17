@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import scoped_session
+from sqlalchemy.pool import StaticPool
 
 from switchmng.schema import *
 
@@ -18,16 +19,24 @@ class DatabaseConnection():
         if dbtype == 'sqlite':
             if dbstr == '':
                 # Warn when creating an in-memory sqlite database
-                print('WARNING: Using an in-memory sqlite database!\n'
-                    + '         Changes will not be persistent!')
+                print('##################################################\n'
+                    + '#                    WARNING                     #\n'
+                    + '#      Using an in-memory sqlite database!       #\n'
+                    + '#        Changes will not be persistent!         #\n'
+                    + '##################################################')
 
-                dbstr = 'sqlite://'
+                # Make sure that access to in-memory sqlite database only
+                # happens from one single connection (StaticPool)
+                self.engine = create_engine('sqlite://',
+                                            echo = False,
+                                            connect_args = {
+                                                "check_same_thread": False },
+                                            poolclass = StaticPool)
             else:
                 dbstr = 'sqlite:///' + dbstr
+                self.engine = create_engine(dbstr, echo = False)
         else:
             raise NotImplementedError('Databases other than sqlite are not yet supported')
-
-        self.engine = create_engine(dbstr, echo = False)
 
         self.base = base
         self.base.metadata.create_all(self.engine)
