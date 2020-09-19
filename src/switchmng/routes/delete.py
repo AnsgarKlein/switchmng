@@ -19,7 +19,7 @@ def delete_switch_model(resource_id):
     except BaseException as e:
         return error_400(message = str(e))
 
-    return { 'result': True,
+    return { 'status': 200,
              'data:': None }, 200
 
 @restbp.route('/switches/<string:resource_id>', methods = ['DELETE'])
@@ -39,7 +39,7 @@ def delete_switch(resource_id):
     except BaseException as e:
         return error_400(message = str(e))
 
-    return { 'result': True,
+    return { 'status': 200,
              'data:': None }, 200
 
 @restbp.route('/port_types/<string:resource_id>', methods = ['DELETE'])
@@ -59,7 +59,7 @@ def delete_port_type(resource_id):
     except BaseException as e:
         return error_400(message = str(e))
 
-    return { 'result': True,
+    return { 'status': 200,
              'data:': None }, 200
 
 @restbp.route('/vlans/<int:resource_id>', methods = ['DELETE'])
@@ -79,6 +79,6 @@ def delete_vlan(resource_id):
     except BaseException as e:
         return error_400(message = str(e))
 
-    return { 'result': True,
+    return { 'status': 200,
              'data:': None }, 200
 

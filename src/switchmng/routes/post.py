@@ -25,7 +25,7 @@ def post_switch_model():
     except BaseException as e:
         return error_400(message = str(e))
 
-    return { 'result': True,
+    return { 'status': 201,
              'data': sm.jsonify() }, 201
 
 @restbp.route('/switches', methods = ['POST'])
@@ -51,7 +51,7 @@ def post_switch():
     except BaseException as e:
         return error_400(message = str(e))
 
-    return { 'result': True,
+    return { 'status': 201,
              'data': sw.jsonify() }, 201
 
 @restbp.route('/port_types', methods = ['POST'])
@@ -77,7 +77,7 @@ def post_port_types():
     except BaseException as e:
         return error_400(message = str(e))
 
-    return { 'result': True,
+    return { 'status': 201,
              'data': pt.jsonify() }, 201
 
 @restbp.route('/vlans', methods = ['POST'])
@@ -103,6 +103,6 @@ def post_vlans():
     except BaseException as e:
         return error_400(message = str(e))
 
-    return { 'result': True,
+    return { 'status': 201,
              'data': vl.jsonify() }, 201
 

@@ -241,8 +241,7 @@ def _error(code = 500, message = None):
     if not isinstance(code, int):
         code = 500
 
-    return { 'data': None,
-             'result': False,
-             'error': code,
+    return { 'status': code,
+             'data': None,
              'message': message }, code
 

@@ -25,7 +25,7 @@ def patch_switch_model(resource_id):
     except BaseException as e:
         return error_400(message = str(e))
 
-    return { 'result': True,
+    return { 'status': 200,
              'data:': sm.jsonify() }, 200
 
 @restbp.route('/switches/<string:resource_id>', methods = ['PATCH'])
@@ -51,7 +51,7 @@ def patch_switch(resource_id):
     except BaseException as e:
         return error_400(message = str(e))
 
-    return { 'result': True,
+    return { 'status': 200,
              'data:': sw.jsonify() }, 200
 
 @restbp.route('/port_types/<string:resource_id>', methods = ['PATCH'])
@@ -77,7 +77,7 @@ def patch_port_type(resource_id):
     except BaseException as e:
         return error_400(message = str(e))
 
-    return { 'result': True,
+    return { 'status': 200,
              'data:': pt.jsonify() }, 200
 
 @restbp.route('/vlans/<int:resource_id>', methods = ['PATCH'])
@@ -103,6 +103,6 @@ def patch_vlan(resource_id):
     except BaseException as e:
         return error_400(message = str(e))
 
-    return { 'result': True,
+    return { 'status': 200,
              'data:': vl.jsonify() }, 200
 
