@@ -1,3 +1,5 @@
+import ipaddress
+
 from . import *
 
 class Switch(Base):
@@ -35,8 +37,9 @@ class Switch(Base):
     _model = relationship('SwitchModel', uselist = False)
     _ports = relationship('Port', uselist = True, cascade = 'all, delete-orphan')
     _location = Column('location', Integer, nullable = True)
+    _ip = Column('ip', String, nullable = True)
 
-    def __init__(self, name = None, model = None, ports = None, location = None):
+    def __init__(self, name = None, model = None, ports = None, location = None, ip = None):
         # Assign name from argument
         if not isinstance(name, str):
             raise TypeError('Expected name of switch to be of type str')
@@ -54,6 +57,10 @@ class Switch(Base):
         # Assign location from argument
         if location is not None:
             self.location = location
+
+        # Assign ip from argument
+        if ip is not None:
+            self.ip = ip
 
     @property
     def name(self):
@@ -163,6 +170,18 @@ class Switch(Base):
             raise TypeError('Expected location of switch to be of type int')
         self._location = location
 
+    @property
+    def ip(self):
+        """Ip of this switch"""
+
+        return self._ip
+
+    @ip.setter
+    def ip(self, ip):
+        if not isinstance(ip, str):
+            raise TypeError('Expected ip of switch to be of type str')
+        self._ip = ip
+
     def _sync_ports_from_model(self):
         """
         Synchronize ports from switch model.
@@ -225,9 +244,10 @@ class Switch(Base):
         """
 
         return { 'name': self.name,
-                 'location': self.location,
                  'model': str(self.model),
-                 'ports': [ p.jsonify() for p in self.ports ] }
+                 'ports': [ p.jsonify() for p in self.ports ],
+                 'location': self.location,
+                 'ip': self.ip }
 
     def __str__(self):
         return self.name
@@ -280,6 +300,22 @@ class Switch(Base):
                     continue
                 if not isinstance(val, int):
                     raise TypeError('Given location of switch has to be of type int')
+                continue
+
+            if key == 'ip':
+                if val is None:
+                    continue
+
+                if not isinstance(val, str):
+                    raise TypeError('Given ip of switch has to be of type int')
+
+                is_ip = True
+                try:
+                    ipaddress.ip_address(val)
+                except ValueError:
+                    is_ip = False
+                if not is_ip:
+                    raise ValueError('Given ip of switch has to be a valid IPv4 address')
                 continue
 
             raise TypeError("Unexpected attribute '{}' for switch".format(key))
