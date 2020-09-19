@@ -1,109 +1,109 @@
 from . import *
 
-def _configure_errors(app):
-    @app.errorhandler(400)
-    def ierror_400(error):
-        return error_400()
+@restbp.errorhandler(400)
+def ierror_400(error):
+    return error_400()
 
-    @app.errorhandler(401)
-    def ierror_401(error):
-        return error_401()
+@restbp.errorhandler(401)
+def ierror_401(error):
+    return error_401()
 
-    @app.errorhandler(403)
-    def ierror_403(error):
-        return error_403()
+@restbp.errorhandler(403)
+def ierror_403(error):
+    return error_403()
 
-    @app.errorhandler(404)
-    def ierror_404(error):
-        return error_404()
+@restbp.errorhandler(404)
+def ierror_404(error):
+    return error_404()
 
-    @app.errorhandler(405)
-    def ierror_405(error):
-        return error_405()
+@restbp.errorhandler(405)
+def ierror_405(error):
+    return error_405()
 
-    @app.errorhandler(406)
-    def ierror_406(error):
-        return error_406()
+@restbp.errorhandler(406)
+def ierror_406(error):
+    return error_406()
 
-    def ierror_407(error):
-        return error_407()
+def ierror_407(error):
+    return error_407()
 
-    @app.errorhandler(408)
-    def ierror_408(error):
-        return error_408()
+@restbp.errorhandler(408)
+def ierror_408(error):
+    return error_408()
 
-    @app.errorhandler(409)
-    def ierror_409(error):
-        return error_409()
+@restbp.errorhandler(409)
+def ierror_409(error):
+    return error_409()
 
-    @app.errorhandler(410)
-    def ierror_410(error):
-        return error_410()
+@restbp.errorhandler(410)
+def ierror_410(error):
+    return error_410()
 
-    @app.errorhandler(411)
-    def ierror_411(error):
-        return error_411()
+@restbp.errorhandler(411)
+def ierror_411(error):
+    return error_411()
 
-    @app.errorhandler(412)
-    def ierror_412(error):
-        return error_412()
+@restbp.errorhandler(412)
+def ierror_412(error):
+    return error_412()
 
-    @app.errorhandler(413)
-    def ierror_413(error):
-        return error_413()
+@restbp.errorhandler(413)
+def ierror_413(error):
+    return error_413()
 
-    @app.errorhandler(414)
-    def ierror_414(error):
-        return error_414()
+@restbp.errorhandler(414)
+def ierror_414(error):
+    return error_414()
 
-    @app.errorhandler(415)
-    def ierror_415(error):
-        return error_415()
+@restbp.errorhandler(415)
+def ierror_415(error):
+    return error_415()
 
-    @app.errorhandler(416)
-    def ierror_416(error):
-        return error_416()
+@restbp.errorhandler(416)
+def ierror_416(error):
+    return error_416()
 
-    @app.errorhandler(417)
-    def ierror_417(error):
-        return error_417()
+@restbp.errorhandler(417)
+def ierror_417(error):
+    return error_417()
 
-    @app.errorhandler(418)
-    def ierror_418(error):
-        return error_418()
+@restbp.errorhandler(418)
+def ierror_418(error):
+    return error_418()
 
-    def ierror_421(error):
-        return error_412()
+def ierror_421(error):
+    return error_412()
 
-    def ierror_425(error):
-        return error_425()
+def ierror_425(error):
+    return error_425()
 
-    def ierror_426(error):
-        return error_425()
+def ierror_426(error):
+    return error_425()
 
-    @app.errorhandler(428)
-    def ierror_428(error):
-        return error_428()
+@restbp.errorhandler(428)
+def ierror_428(error):
+    return error_428()
 
-    @app.errorhandler(429)
-    def ierror_429(error):
-        return error_429()
+@restbp.errorhandler(429)
+def ierror_429(error):
+    return error_429()
 
-    @app.errorhandler(431)
-    def ierror_431(error):
-        return error_431()
+@restbp.errorhandler(431)
+def ierror_431(error):
+    return error_431()
 
-    @app.errorhandler(451)
-    def ierror_451(error):
-        return error_451()
+@restbp.errorhandler(451)
+def ierror_451(error):
+    return error_451()
 
-    @app.errorhandler(500)
-    def ierror_500(error):
-        return error_500()
+@restbp.errorhandler(500)
+def ierror_500(error):
+    return error_500()
 
-    @app.errorhandler(Exception)
-    def ierror_unknown(error):
-        return _error(code = 500, message = 'Unknown Internal Server Error')
+@restbp.errorhandler(Exception)
+def ierror_unknown(error):
+    return _error(code = 500, message = 'Unknown Internal Server Error')
+
 
 def error_400(message = None):
     if not isinstance(message, str) or len(message) < 1:
