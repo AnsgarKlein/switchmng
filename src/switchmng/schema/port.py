@@ -21,16 +21,21 @@ class Port(Base):
     """
 
     __tablename__ = 'ports'
+
+    # Database id
     _port_id = Column('id', Integer, primary_key = True, nullable = False)
     _switch_id = Column('switch_id', Integer, ForeignKey('switches.id'),
                        nullable = False)
 
+    # Resource state
     _name = Column('name', String, nullable = False)
     _vlans = relationship('Vlan', secondary = vlans_ports_mapping, uselist = True)
+    _target = Column('target', String, nullable = True)
 
-    def __init__(self, name = None, vlans = []):
+    def __init__(self, name = None, vlans = [], target = None):
         self.name = name
         self.vlans = vlans
+        self.target = target
 
     @property
     def name(self):
@@ -53,6 +58,21 @@ class Port(Base):
         Port.check_params(vlans = vlans)
         self._vlans = vlans
 
+    @property
+    def target(self):
+        """Device that is connected to this port
+
+        Some representation (FQDN / description / ip) of the device that is
+        connected to this port.
+        """
+
+        return self._target
+
+    @target.setter
+    def target(self, target):
+        Port.check_params(target = target)
+        self._target = target
+
     def jsonify(self):
         """
         Represent this object as a json-ready dict.
@@ -69,7 +89,8 @@ class Port(Base):
         """
 
         return { 'name': self.name,
-                 'vlans': [ int(str(v)) for v in self.vlans ] }
+                 'vlans': [ int(str(v)) for v in self.vlans ],
+                 'target': self.target }
 
     def __str__(self):
         return self.name
@@ -110,6 +131,15 @@ class Port(Base):
                 for vlan in val:
                     if not isinstance(vlan, Vlan):
                         raise TypeError('Vlan in list of vlans for port has to be of type Vlan')
+                continue
+
+            if key == 'target':
+                if val is None:
+                    continue
+                if not isinstance(val, str):
+                    raise TypeError('Target of port has to be of type str')
+                if len(val) < 1:
+                    raise ValueError('Target of port cannot be empty')
                 continue
 
             raise TypeError("Unexpected attribute '{}' for port".format(key))
