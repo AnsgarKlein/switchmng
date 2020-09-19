@@ -1,9 +1,12 @@
+from flask import current_app
+
 from . import *
 
-def _configure_patch(app, database_connection):
+def _configure_patch(app):
     @app.route('/switch_models/<string:resource_id>', methods = ['PATCH'])
     def patch_switch_model(resource_id):
-        session = database_connection.Session()
+        db = current_app.config['SWITCHMNG_DB_CONNECTION']
+        session = db.Session()
 
         # Check request
         if request.content_type != 'application/merge-patch+json':
@@ -28,7 +31,8 @@ def _configure_patch(app, database_connection):
 
     @app.route('/switches/<string:resource_id>', methods = ['PATCH'])
     def patch_switch(resource_id):
-        session = database_connection.Session()
+        db = current_app.config['SWITCHMNG_DB_CONNECTION']
+        session = db.Session()
 
         # Check request
         if request.content_type != 'application/merge-patch+json':
@@ -53,7 +57,8 @@ def _configure_patch(app, database_connection):
 
     @app.route('/port_types/<string:resource_id>', methods = ['PATCH'])
     def patch_port_type(resource_id):
-        session = database_connection.Session()
+        db = current_app.config['SWITCHMNG_DB_CONNECTION']
+        session = db.Session()
 
         # Check request
         if request.content_type != 'application/merge-patch+json':
@@ -78,7 +83,8 @@ def _configure_patch(app, database_connection):
 
     @app.route('/vlans/<int:resource_id>', methods = ['PATCH'])
     def patch_vlan(resource_id):
-        session = database_connection.Session()
+        db = current_app.config['SWITCHMNG_DB_CONNECTION']
+        session = db.Session()
 
         # Check request
         if request.content_type != 'application/merge-patch+json':

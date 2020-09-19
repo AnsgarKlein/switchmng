@@ -1,9 +1,12 @@
+from flask import current_app
+
 from . import *
 
-def _configure_post(app, database_connection):
+def _configure_post(app):
     @app.route('/switch_models', methods = ['POST'])
     def post_switch_model():
-        session = database_connection.Session()
+        db = current_app.config['SWITCHMNG_DB_CONNECTION']
+        session = db.Session()
 
         # Check request
         if request.content_type != 'application/json':
@@ -28,7 +31,8 @@ def _configure_post(app, database_connection):
 
     @app.route('/switches', methods = ['POST'])
     def post_switch():
-        session = database_connection.Session()
+        db = current_app.config['SWITCHMNG_DB_CONNECTION']
+        session = db.Session()
 
         # Check request
         if request.content_type != 'application/json':
@@ -53,7 +57,8 @@ def _configure_post(app, database_connection):
 
     @app.route('/port_types', methods = ['POST'])
     def post_port_types():
-        session = database_connection.Session()
+        db = current_app.config['SWITCHMNG_DB_CONNECTION']
+        session = db.Session()
 
         # Check request
         if request.content_type != 'application/json':
@@ -78,7 +83,8 @@ def _configure_post(app, database_connection):
 
     @app.route('/vlans', methods = ['POST'])
     def post_vlans():
-        session = database_connection.Session()
+        db = current_app.config['SWITCHMNG_DB_CONNECTION']
+        session = db.Session()
 
         # Check request
         if request.content_type != 'application/json':
