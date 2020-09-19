@@ -40,27 +40,11 @@ class Switch(Base):
     _ip = Column('ip', String, nullable = True)
 
     def __init__(self, name = None, model = None, ports = None, location = None, ip = None):
-        # Assign name from argument
-        if not isinstance(name, str):
-            raise TypeError('Expected name of switch to be of type str')
         self.name = name
-
-        # Assign model from argument
-        if not isinstance(model, SwitchModel):
-            raise TypeError('Expected switch model of switch to be of type SwitchModel')
         self.model = model
-
-        # Adopt ports from switch model and then assign
-        if ports is not None:
-            self.ports = ports
-
-        # Assign location from argument
-        if location is not None:
-            self.location = location
-
-        # Assign ip from argument
-        if ip is not None:
-            self.ip = ip
+        self.ports = ports
+        self.location = location
+        self.ip = ip
 
     @property
     def name(self):
@@ -166,8 +150,7 @@ class Switch(Base):
 
     @location.setter
     def location(self, location):
-        if not isinstance(location, int):
-            raise TypeError('Expected location of switch to be of type int')
+        Switch.check_params(location = location)
         self._location = location
 
     @property
@@ -178,8 +161,7 @@ class Switch(Base):
 
     @ip.setter
     def ip(self, ip):
-        if not isinstance(ip, str):
-            raise TypeError('Expected ip of switch to be of type str')
+        Switch.check_params(ip = ip)
         self._ip = ip
 
     def _sync_ports_from_model(self):

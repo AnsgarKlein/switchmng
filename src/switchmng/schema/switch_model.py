@@ -37,19 +37,9 @@ class SwitchModel(Base):
     _switches = relationship('Switch', uselist = True, cascade = 'all, delete-orphan')
 
     def __init__(self, name = None, ports = [], size = None):
-        # Assign name from argument
-        if not isinstance(name, str):
-            raise TypeError('Expected name of switch model to be of type str')
         self.name = name
-
-        # Assign ports from argument
         self.ports = ports
-
-        # Assign size from argument
-        if size is not None:
-            if not isinstance(size, int):
-                raise TypeError('Expected size of switch model to be of type int')
-            self.size = size
+        self.size = size
 
     @property
     def name(self):
