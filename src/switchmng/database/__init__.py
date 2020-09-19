@@ -3,10 +3,6 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.pool import StaticPool
 
-from switchmng.schema import *
-
-from .helper import *
-
 from .query  import *
 from .delete import *
 from .modify import *

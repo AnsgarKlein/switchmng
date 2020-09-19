@@ -1,6 +1,8 @@
-from . import *
+from switchmng.schema import *
 
-def _port_models_from_dict(session, ports):
+from .query import *
+
+def port_models_from_dict(session, ports):
     """
     Convert port models from list of dict of strings to list of port model objects.
     """
@@ -26,7 +28,7 @@ def _port_models_from_dict(session, ports):
 
     return port_objs
 
-def _ports_from_dict(session, ports):
+def ports_from_dict(session, ports):
     """
     Convert ports from list of dict of strings to list of port objects.
     """

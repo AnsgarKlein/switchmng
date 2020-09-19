@@ -1,4 +1,4 @@
-from . import *
+from switchmng.schema import *
 
 def query_switch_model(session, resource_id):
     """

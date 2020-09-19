@@ -1,4 +1,7 @@
-from . import *
+from switchmng.schema import *
+
+from .query import *
+from .helper import *
 
 def set_switch_model(session, resource_id, **kwargs):
     """
@@ -27,7 +30,7 @@ def set_switch_model(session, resource_id, **kwargs):
 
     # Replace list of ports with list of port objects
     if 'ports' in kwargs:
-        kwargs['ports'] = _port_models_from_dict(session, kwargs['ports'])
+        kwargs['ports'] = port_models_from_dict(session, kwargs['ports'])
 
     # Check all arguments before making any changes
     SwitchModel.check_params(**kwargs)
@@ -100,7 +103,7 @@ def set_switch(session, resource_id, **kwargs):
 
     # Replace list of ports with list of port objects
     if 'ports' in kwargs:
-        kwargs['ports'] = _ports_from_dict(session, kwargs['ports'])
+        kwargs['ports'] = ports_from_dict(session, kwargs['ports'])
 
     # Replace switch model string with switch model object
     if 'model' in kwargs:

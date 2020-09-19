@@ -1,4 +1,6 @@
-from . import *
+from switchmng.schema import *
+
+from .query import *
 
 def delete_switch_model(session, resource_id):
     """
