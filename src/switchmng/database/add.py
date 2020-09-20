@@ -67,31 +67,57 @@ def add_switch(session, **kwargs):
     session.commit()
     return sw
 
-def add_port_type(session, **kwargs):
+def add_network_protocol(session, **kwargs):
     """
-    Create a new port type and add it to the database.
+    Create a new network protocol and add it to the database.
 
-    :param kwargs: Parameters for new port type.
-        Possible parameters are public attributes of :class:`PortType` object
-        but in a json compatible representation (as nested dict structure)
+    :param kwargs: Parameters for new network protocol.
+        Possible parameters are public attributes of :class:`NetworkProtocol`
+        object but in a json compatible representation (as nested dict structure)
 
-    :return: The newly added port tpye
-    :rtype: PortType
+    :return: The newly added network protocol
+    :rtype: NetworkProtocol
     """
 
-    # Check if port type already exists
-    if 'description' not in kwargs:
-        raise KeyError('Missing necessary argument "description" for adding port type')
-    if query_port_type(session, kwargs['description']) is not None:
+    # Check if network protocol already exists
+    if 'name' not in kwargs:
+        raise KeyError("Missing necessary argument 'name' for adding network protocol")
+    if query_network_protocol(session, kwargs['name']) is not None:
         raise ValueError(
-            'Cannot add port type with description {} - port type already exists'
-            .format(kwargs['description']))
+            'Cannot add network protocol with name {} - network protocol already exists'
+            .format(kwargs['name']))
 
-    # Add port type
-    pt = PortType(**kwargs)
-    session.add(pt)
+    # Add network protocol
+    np = NetworkProtocol(**kwargs)
+    session.add(np)
     session.commit()
-    return pt
+    return np
+
+def add_connector(session, **kwargs):
+    """
+    Create a new connector and add it to the database.
+
+    :param kwargs: Parameters for new connector.
+        Possible parameters are public attributes of :class:`Connector`
+        object but in a json compatible representation (as nested dict structure)
+
+    :return: The newly added connector
+    :rtype: Connector
+    """
+
+    # Check if connector already exists
+    if 'name' not in kwargs:
+        raise KeyError("Missing necessary argument 'name' for adding connector")
+    if query_connector(session, kwargs['name']) is not None:
+        raise ValueError(
+            'Cannot add connector with name {} - connector already exists'
+            .format(kwargs['name']))
+
+    # Add connector
+    cn = Connector(**kwargs)
+    session.add(cn)
+    session.commit()
+    return cn
 
 def add_vlan(session, **kwargs):
     """

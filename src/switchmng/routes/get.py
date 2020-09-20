@@ -26,17 +26,29 @@ def get_switch(resource_id):
     return { 'status': 200,
              'data': sw.jsonify() }, 200
 
-@restbp.route('/port_types/<string:resource_id>', methods = ['GET'])
-def get_port_type(resource_id):
+@restbp.route('/network_protocols/<string:resource_id>', methods = ['GET'])
+def get_network_protocol(resource_id):
     db = current_app.config['SWITCHMNG_DB_CONNECTION']
     session = db.Session()
 
-    pt = database.query_port_type(session, resource_id)
-    if pt is None:
+    np = database.query_network_protocol(session, resource_id)
+    if np is None:
         abort(404)
 
     return { 'status': 200,
-             'data': pt.jsonify() }, 200
+             'data': np.jsonify() }, 200
+
+@restbp.route('/connectors/<string:resource_id>', methods = ['GET'])
+def get_connector(resource_id):
+    db = current_app.config['SWITCHMNG_DB_CONNECTION']
+    session = db.Session()
+
+    cn = database.query_connector(session, resource_id)
+    if cn is None:
+        abort(404)
+
+    return { 'status': 200,
+             'data': cn.jsonify() }, 200
 
 @restbp.route('/vlans/<int:resource_id>', methods = ['GET'])
 def get_vlan(resource_id):
@@ -64,12 +76,19 @@ def get_switches():
     return { 'status': 200,
              'data': [ sw.jsonify() for sw in database.query_switches(session) ] }, 200
 
-@restbp.route('/port_types', methods = ['GET'])
-def get_port_types():
+@restbp.route('/network_protocols', methods = ['GET'])
+def get_network_protocols():
     db = current_app.config['SWITCHMNG_DB_CONNECTION']
     session = db.Session()
     return { 'status': 200,
-             'data': [ pt.jsonify() for pt in database.query_port_types(session) ] }, 200
+             'data': [ np.jsonify() for np in database.query_network_protocols(session) ] }, 200
+
+@restbp.route('/connectors', methods = ['GET'])
+def get_connectors():
+    db = current_app.config['SWITCHMNG_DB_CONNECTION']
+    session = db.Session()
+    return { 'status': 200,
+             'data': [ cn.jsonify() for cn in database.query_connectors(session) ] }, 200
 
 @restbp.route('/vlans', methods = ['GET'])
 def get_vlans():

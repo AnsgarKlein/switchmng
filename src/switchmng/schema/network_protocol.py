@@ -1,53 +1,55 @@
 from . import *
 
-class PortType(Base):
+class NetworkProtocol(Base):
     """
-    Represents a port type resource.
+    Represents a network protocol resource.
 
-    This resource is uniquely identified by its description.
+    This resource is uniquely identified by its name.
     All contained id fields are private and only used for storing object in
     database.
 
-    :param description: Name uniquely identifying this port type
-    :type description: str
+    :param name: Name uniquely identifying this network protocol
+    :type name: str
 
-    :param speed: Speed of this port type in Mb/s
+    :param speed: Maximum possible speed of this network protocol in Mb/s
     :type speed: int
     """
 
-    __tablename__ = 'port_types'
+    __tablename__ = 'network_protocols'
 
     # Database id
-    _port_type_id = Column('id', Integer, primary_key = True, nullable = False)
+    _network_protocol_id = Column('id', Integer, primary_key = True, nullable = False)
 
     # Resource identifier
-    _description = Column('description', String, nullable = False, unique = True)
+    _name = Column('name', String, nullable = False, unique = True)
 
     # Resource state
     _speed = Column('speed', Integer, nullable = True)
 
-    def __init__(self, description = None, speed = None):
-        self.description = description
+    def __init__(self, name = None, speed = None):
+        self.name = name
         self.speed = speed
 
     @property
-    def description(self):
-        """Name uniquely identifying this port type"""
-        return self._description
+    def name(self):
+        """Name uniquely identifying this network protocol"""
 
-    @description.setter
-    def description(self, description):
-        PortType.check_params(description = description)
-        self._description = description
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        NetworkProtocol.check_params(name = name)
+        self._name = name
 
     @property
     def speed(self):
-        """Speed of this port type in Mb/s"""
+        """Maximum possible speed of this network protocol in Mb/s"""
+
         return self._speed
 
     @speed.setter
     def speed(self, speed):
-        PortType.check_params(speed = speed)
+        NetworkProtocol.check_params(speed = speed)
         self._speed = speed
 
     def jsonify(self):
@@ -65,11 +67,11 @@ class PortType(Base):
         * None / null
         """
 
-        return { 'description': self.description,
+        return { 'name': self.name,
                  'speed': self.speed }
 
     def __str__(self):
-        return self.description
+        return self.name
 
     def __repr__(self):
         return self.__str__()
@@ -94,19 +96,21 @@ class PortType(Base):
         """
 
         for key, val in kwargs.items():
-            if key == 'description':
+            if key == 'name':
                 if not isinstance(val, str):
-                    raise TypeError('Description of port type has to be of type str')
+                    raise TypeError('Name of network protocol has to be of type str')
+                if len(val) < 1:
+                    raise ValueError('Name of network protocol cannot be empty')
                 continue
 
             if key == 'speed':
                 if not isinstance(val, int) and val is not None:
-                    raise TypeError('Speed of port type has to be of type int')
+                    raise TypeError('Speed of network protocol has to be of type int')
                 if val < 0:
-                    raise ValueError('Speed of port type cannot be less than 0')
+                    raise ValueError('Speed of network protocol cannot be less than 0')
                 continue
 
-            raise TypeError("Unexpected attribute '{}' for port type".format(key))
+            raise TypeError("Unexpected attribute '{}' for network protocol".format(key))
 
         return kwargs
 

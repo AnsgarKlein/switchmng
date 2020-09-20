@@ -42,20 +42,40 @@ def delete_switch(resource_id):
     return { 'status': 200,
              'data:': None }, 200
 
-@restbp.route('/port_types/<string:resource_id>', methods = ['DELETE'])
-def delete_port_type(resource_id):
+@restbp.route('/network_protocols/<string:resource_id>', methods = ['DELETE'])
+def delete_network_protocol(resource_id):
     db = current_app.config['SWITCHMNG_DB_CONNECTION']
     session = db.Session()
 
-    # Check if port type exists
-    pt = database.query_port_type(session, resource_id)
+    # Check if network protocol exists
+    np = database.query_network_protocol(session, resource_id)
 
-    if pt is None:
+    if np is None:
         abort(404)
 
     # Delete from database
     try:
-        database.delete_port_type(session, resource_id)
+        database.delete_network_protocol(session, resource_id)
+    except BaseException as e:
+        return error_400(message = str(e))
+
+    return { 'status': 200,
+             'data:': None }, 200
+
+@restbp.route('/connectors/<string:resource_id>', methods = ['DELETE'])
+def delete_connector(resource_id):
+    db = current_app.config['SWITCHMNG_DB_CONNECTION']
+    session = db.Session()
+
+    # Check if network protocol exists
+    cn = database.query_connector(session, resource_id)
+
+    if cn is None:
+        abort(404)
+
+    # Delete from database
+    try:
+        database.delete_connector(session, resource_id)
     except BaseException as e:
         return error_400(message = str(e))
 

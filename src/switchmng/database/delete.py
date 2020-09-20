@@ -51,35 +51,66 @@ def delete_switch(session, resource_id):
     session.delete(sw)
     session.commit()
 
-def delete_port_type(session, resource_id):
+def delete_network_protocol(session, resource_id):
     """
-    Delete a port type from the database.
+    Delete a network protocol from the database.
 
-    Can only delete a port type from the database if it is not still
+    Can only delete a network protocol from the database if it is not still
     in use by a port of a switch model.
-    Will only delete port type if there is not still a switch model which
-    uses the given port type on one of its ports.
+    Will only delete network protocol if there is not still a switch model
+    which uses the given network protocol on one of its ports.
 
     :param resource_id: Resource identifier uniquely identifying the
-        port type to delete.
-        (See :class:`PortType` for what attribute is the resource identifier)
+        network protocol to delete.
+        (See :class:`NetworkProtocol` for what attribute is the resource identifier)
     :type resouce_id: str
     """
 
-    # Check port type
-    pt = query_port_type(session, resource_id)
-    if pt is None:
-        raise ValueError('Given port type does not exist')
+    # Check network protocol
+    np = query_network_protocol(session, resource_id)
+    if np is None:
+        raise ValueError('Given network protocol does not exist')
 
-    # Check if there are switch models still using this port type
-    affected_sm = query_switch_models(session, port_type = resource_id)
+    # Check if there are switch models still using this network protocol
+    affected_sm = query_switch_models(session, network_protocol = resource_id)
     if not isinstance(affected_sm, list):
         raise TypeError('Expected list of switch models to be of type list')
     if len(affected_sm) > 0:
-        raise ValueError('Given port type is still in use')
+        raise ValueError('Given network protocol is still in use')
 
-    # Delete port type
-    session.delete(pt)
+    # Delete network protocol
+    session.delete(np)
+    session.commit()
+
+def delete_connector(session, resource_id):
+    """
+    Delete a connector from the database.
+
+    Can only delete a connector from the database if it is not still
+    in use by a port of a switch model.
+    Will only delete connector if there is not still a switch model
+    which uses the given connector on one of its ports.
+
+    :param resource_id: Resource identifier uniquely identifying the
+        connector to delete.
+        (See :class:`Connector` for what attribute is the resource identifier)
+    :type resouce_id: str
+    """
+
+    # Check connector
+    cn = query_connector(session, resource_id)
+    if cn is None:
+        raise ValueError('Given connector does not exist')
+
+    # Check if there are switch models still using this connector
+    affected_sm = query_switch_models(session, connector = resource_id)
+    if not isinstance(affected_sm, list):
+        raise TypeError('Expected list of switch models to be of type list')
+    if len(affected_sm) > 0:
+        raise ValueError('Given connector is still in use')
+
+    # Delete connector
+    session.delete(cn)
     session.commit()
 
 def delete_vlan(session, resource_id):

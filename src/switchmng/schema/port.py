@@ -1,8 +1,18 @@
 from . import *
 
-vlans_ports_mapping = Table('vlan_ports', Base.metadata,
-    Column('port_id', Integer, ForeignKey('ports.id'), primary_key = True),
-    Column('vlan_id', Integer, ForeignKey('vlans.id'), primary_key = True),
+vlans_ports_mapping = Table(
+    'vlan_ports',
+    Base.metadata,
+    Column(
+        'port_id',
+        Integer,
+        ForeignKey('ports.id'),
+        primary_key = True),
+    Column(
+        'vlan_id',
+        Integer,
+        ForeignKey('vlans.id'),
+        primary_key = True),
 )
 
 class Port(Base):

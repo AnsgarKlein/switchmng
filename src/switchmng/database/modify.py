@@ -14,7 +14,7 @@ def modify_switch_model(session, resource_id, **kwargs):
     :param resource_id: Resource identifier uniquely identifying the
         switch model to modify.
         (See :class:`SwitchModel` for what attribute is the resource identifier)
-    :type resouce_id: str
+    :type resource_id: str
 
     :param kwargs: Attributes of switch model to change.
         Possible parameters are public attributes of :class:`SwitchModel` object
@@ -60,7 +60,7 @@ def modify_switch(session, resource_id, **kwargs):
     :param resource_id: Resource identifier uniquely identifying the
         switch to modify.
         (See :class:`Switch` for what attribute is the resource identifier)
-    :type resouce_id: str
+    :type resource_id: str
 
     :param kwargs: Attributes of switch to change.
         Possible parameters are public attributes of :class:`Switch` object
@@ -96,47 +96,84 @@ def modify_switch(session, resource_id, **kwargs):
 
     session.add(sw)
     session.commit()
-
     return sw
 
-def modify_port_type(session, resource_id, **kwargs):
+def modify_network_protocol(session, resource_id, **kwargs):
     """
-    Modify a :class:`PortType` object in the database.
+    Modify a :class:`NetworkProtocol` object in the database.
 
-    All given attributes of port type will be modified.
+    All given attributes of network protocol will be modified.
     Attributes not given will not be changed and will keep their current
     state.
 
     :param resource_id: Resource identifier uniquely identifying the
-        port type to modify.
-        (See :class:`PortType` for what attribute is the resource identifier)
-    :type resouce_id: str
+        network protocol to modify.
+        (See :class:`NetworkProtocol` for what attribute is the resource identifier)
+    :type resource_id: str
 
-    :param kwargs: Attributes of port type to change.
-        Possible parameters are public attributes of :class:`PortType` object
+    :param kwargs: Attributes of network protocol to change.
+        Possible parameters are public attributes of :class:`NetworkProtocol` object
         but in a json compatible representation (as nested dict structure)
 
-    :return: The modified port type object
-    :rtype: PortType
+    :return: The modified network protocol object
+    :rtype: NetworkProtocol
     """
 
-    # Check if port type exists
-    pt = query_port_type(session, resource_id)
-    if pt is None:
-        raise ValueError("Given port type '{}' does not exist"
+    # Check if network protocol exists
+    np = query_network_protocol(session, resource_id)
+    if np is None:
+        raise ValueError("Given network protocol '{}' does not exist"
             .format(resource_id))
 
     # Check all arguments before making any changes
-    kwargs = PortType.check_params(**kwargs)
+    kwargs = NetworkProtocol.check_params(**kwargs)
 
     # Apply modifications
     for key, val in kwargs.items():
-        setattr(pt, key, val)
+        setattr(np, key, val)
 
-    session.add(pt)
+    session.add(np)
     session.commit()
 
-    return pt
+    return np
+
+def modify_connector(session, resource_id, **kwargs):
+    """
+    Modify a :class:`Connector` object in the database.
+
+    All given attributes of connector will be modified.
+    Attributes not given will not be changed and will keep their
+    current state.
+
+    :param resource_id: Resource identifier uniquely identifying the
+        connector to modify
+    :type resource_id: str
+
+    :param kwargs: Attributes of connector to change.
+        Possible parameters are public attributes of :class:`Connector` object
+        but in a json compatible representation (as nested dict structure)
+
+    :return: The modified connector object
+    :rtype: Connector
+    """
+
+    # Check if connector exists
+    cn = query_connector(session, resource_id)
+    if cn is None:
+        raise ValueError("Given connector '{}' does not exist"
+            .format(resource_id))
+
+    # Check all arguments before making any changes
+    kwargs = Connector.check_params(**kwargs)
+
+    # Apply modifications
+    for key, val in kwargs.items():
+        setattr(cn, key, val)
+
+    session.add(cn)
+    session.commit()
+
+    return cn
 
 def modify_vlan(session, resource_id, **kwargs):
     """
@@ -149,7 +186,7 @@ def modify_vlan(session, resource_id, **kwargs):
     :param resource_id: Resource identifier uniquely identifying the
         vlan to modify.
         (See :class:`Vlan` for what attribute is the resource identifier)
-    :type resouce_id: str
+    :type resource_id: str
 
     :param kwargs: Attributes of vlan to change.
         Possible parameters are public attributes of :class:`Vlan` object

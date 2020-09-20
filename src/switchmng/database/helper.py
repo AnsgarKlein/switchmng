@@ -18,9 +18,20 @@ def port_models_from_dict(session, ports):
     # Convert
     port_objs = []
     for port in ports:
-        # Convert port type from str to obj
-        if 'port_type' in port and port['port_type'] is not None:
-            port['port_type'] = query_port_type(session, port['port_type'])
+        # Convert network protocols from list[str] to list[obj]
+        if 'network_protocols' in port and port['network_protocols'] is not None:
+            if not isinstance(port['network_protocols'], list):
+                raise TypeError('Given list of network protocols is not of type list')
+            port['network_protocols'] = [ query_network_protocol(session, p)
+                                          for p in port['network_protocols'] ]
+            if None in port['network_protocols']:
+                raise ValueError('Given network protocol in list of network protocols does not exist')
+
+        # Convert connector from str to obj
+        if 'connector' in port and port['connector'] is not None:
+            port['connector'] = query_connector(session, port['connector'])
+            if port['connector'] is None:
+                raise ValueError('Given connector of port model does not exist')
 
         # Create port object with given parameter
         port_obj = PortModel(**port)

@@ -54,32 +54,59 @@ def query_switch(session, resource_id):
 
     return sw.first()
 
-def query_port_type(session, resource_id):
+def query_network_protocol(session, resource_id):
     """
-    Retrieve :class:`PortType` object from database.
+    Retrieve :class:`NetworkProtocol` object from database.
 
-    Query the database for a :class:`PortType` object with given resource
-    identifier and return it.
+    Query the database for a :class:`NetworkProtocol` object with given
+    resource identifier and return it.
 
     :param resource_id: Resource identifier uniquely identifying the
-        port type to return.
-        (See :class:`PortType` for what attribute is the resource identifier)
+        network protocol to return.
+        (See :class:`NetworkProtocol` for what attribute is the resource identifier)
     :type resource_id: str
 
-    :return: The port type object matching the given resource identifier
-    :rtype: PortType
+    :return: The network protocol object matching the given resource identifier
+    :rtype: NetworkProtocol
     """
 
     if not isinstance(resource_id, str):
-        raise TypeError('Cannot query port type with resource id not of type str')
+        raise TypeError('Cannot query network protocol with resource id not of type str')
 
-    pt = session.query(PortType)
-    pt = pt.filter_by(_description = resource_id)
+    pt = session.query(NetworkProtocol)
+    pt = pt.filter_by(_name = resource_id)
 
     if len(pt.all()) > 1:
         raise TypeError('DB query resulted in multiple elements but only one was requested')
 
     return pt.first()
+
+def query_connector(session, resource_id):
+    """
+    Retrieve :class:`Connector` object from database.
+
+    Query the database for a :class:`Connector` object with given
+    resource identifier and return it.
+
+    :param resource_id: Resource identifier uniquely identifying the
+        connector to return.
+        (See :class:`Connector` for what attribute is the resource identifier)
+    :type resource_id: str
+
+    :return: The connector object matching the given resource identifier
+    :rtype: Connector
+    """
+
+    if not isinstance(resource_id, str):
+        raise TypeError('Cannot query connector with resource id not of type str')
+
+    cn = session.query(Connector)
+    cn = cn.filter_by(_name = resource_id)
+
+    if len(cn.all()) > 1:
+        raise TypeError('DB query resulted in multiple elements but only one was requested')
+
+    return cn.first()
 
 def query_vlan(session, resource_id):
     """
@@ -125,10 +152,10 @@ def query_switch_models(session, **kwargs):
     for key, val in kwargs.items():
         if key == 'size':
             models = models.filter_by(_size = val)
-        elif key == 'port_type':
-            val = self.query_port_type(val)
+        elif key == 'network_protocol':
+            val = self.query_network_protocols(val)
             if val is None:
-                raise ValueError('Given port type does not exist')
+                raise ValueError('Given network protocol does not exist')
         else:
             raise TypeError(
                 "Cannot query switch models with unexpected filter '{}'".format(key))
@@ -141,12 +168,12 @@ def query_switch_models(session, **kwargs):
     for key, val in kwargs.items():
         if key == 'size':
             pass
-        elif key == 'port_type':
+        elif key == 'network_protocol':
             new_models = list()
-            pt = val
+            np = val
             for model in models:
                 for port in model.ports:
-                    if port['port_type'] == pt:
+                    if np in port['network_protocols']:
                         new_models.append(model)
                         break
             models = new_models
@@ -213,28 +240,51 @@ def query_switches(session, **kwargs):
 
     return switches
 
-def query_port_types(session, **kwargs):
+def query_network_protocols(session, **kwargs):
     """
-    Retrieve multiple :class:`PortType` objects from database.
+    Retrieve multiple :class:`NetworkProtocol` objects from database.
 
-    # TODO: Implement and document query_port_types() correctly
+    # TODO: Implement and document query_network_protocols() correctly
     """
 
     # Check all arguments before querying
-    PortType.check_params(**kwargs)
+    NetworkProtocol.check_params(**kwargs)
 
     # Query
-    pts = session.query(PortType)
+    nps = session.query(NetworkProtocol)
 
     # Filter
     for key, val in kwargs.items():
         if key == 'speed':
-            pts = pts.filter_by(_speed = val)
+            nps = nps.filter_by(_speed = val)
         else:
             raise TypeError(
-                "Cannot query port types with unexpected filter '{}'".format(key))
+                "Cannot query network protocols with unexpected filter '{}'".format(key))
 
-    return pts.all()
+    return nps.all()
+
+def query_connectors(session, **kwargs):
+    """
+    Retrieve multiple :class:`Connector` objects from database.
+
+    # TODO: Implement and document query_connectors() correctly
+    """
+
+    # Check all arguments before querying
+    Connector.check_params(**kwargs)
+
+    # Query
+    cns = session.query(Connector)
+
+    # Filter
+    for key, val in kwargs.items():
+        if False:
+            pass
+        else:
+            raise TypeError(
+                "Cannot query connectors with unexpected filter '{}'".format(key))
+
+    return cns.all()
 
 def query_vlans(session, **kwargs):
     """
@@ -255,7 +305,7 @@ def query_vlans(session, **kwargs):
             vls = vls.filter_by(_description = val)
         else:
             raise TypeError(
-                "Cannot query port types with unexpected filter '{}'".format(key))
+                "Cannot query vlans with unexpected filter '{}'".format(key))
 
     return vls.all()
 

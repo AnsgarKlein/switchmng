@@ -153,74 +153,145 @@ def set_switch(session, resource_id, **kwargs):
         session.commit()
         return target_sw
 
-def set_port_type(session, resource_id, **kwargs):
+def set_network_protocol(session, resource_id, **kwargs):
     """
-    Set a :class:`PortType` corresponding to a given resource identifier
+    Set a :class:`NetworkProtocol` corresponding to a given resource identifier
     to a given state.
 
-    :class:`PortType` identified by given resource identifier may already
+    :class:`NetworkProtocol` identified by given resource identifier may already
     exist. If it does not already exist it will be created.
 
-    All attributes of port type will be set to given values.
-    Attributes not given but present in already existing :class:`PortType`
+    All attributes of network protocol will be set to given values.
+    Attributes not given but present in already existing :class:`NetworkProtocol`
     will be set to None or [] or other representation of "not set".
 
     :param resource_id: Resource identifier uniquely identifying the
-        port type to modify.
-        (See :class:`PortType` for what attribute is the resource identifier)
+        network protocol to modify.
+        (See :class:`NetworkProtocol` for what attribute is the resource identifier)
     :type resouce_id: str
 
-    :param kwargs: Attributes of port type to change.
-        Possible parameters are public attributes of :class:`PortType` object
+    :param kwargs: Attributes of network protocol to change.
+        Possible parameters are public attributes of :class:`NetworkProtocol` object
         but in a json compatible representation (as nested dict structure)
 
-    :return: The modified or created port type
-    :rtype: PortType
+    :return: The modified or created network protocol
+    :rtype: NetworkProtocol
     """
 
     # Check all arguments before making any changes
-    PortType.check_params(**kwargs)
+    NetworkProtocol.check_params(**kwargs)
 
-    # Check if source port type exists
-    source_pt = query_port_type(session, resource_id)
+    # Check if source network protocol exists
+    source_np = query_network_protocol(session, resource_id)
 
-    if source_pt is None:
-        # Source port type does not exist:
-        # We are creating a new port type
+    if source_np is None:
+        # Source network protocol does not exist:
+        # We are creating a new network protocol
 
-        # Port type description is either resource specifier or not set at
+        # Network protocol name is either resource specifier or not set at
         # all (in which case it will be set automatically)
-        if 'description' in kwargs:
-            if kwargs['description'] != resource_id:
-                raise ValueError('Resource identifier "description" of port type is ambiguous')
+        if 'name' in kwargs:
+            if kwargs['name'] != resource_id:
+                raise ValueError('Resource identifier "name" of network protocol is ambiguous')
         else:
-            kwargs.update({'description': resource_id})
+            kwargs.update({'name': resource_id})
 
-        target_pt = PortType(**kwargs)
-        session.add(target_pt)
+        target_np = NetworkProtocol(**kwargs)
+        session.add(target_np)
         session.commit()
-        return target_pt
+        return target_np
     else:
-        # Source port type exists
+        # Source network protocol exists
 
-        # Source port type exists so target port type must not also exist
-        if 'description' not in kwargs:
-            raise KeyError('Missing necessary argument "description" for setting port type')
-        if resource_id != kwargs['description']:
-            if query_port_type(session, kwargs['description']) is not None:
+        # Source network protocol exists so target network protocol must not also exist
+        if 'name' not in kwargs:
+            raise KeyError('Missing necessary argument "name" for setting network protocol')
+        if resource_id != kwargs['name']:
+            if query_network_protocol(session, kwargs['name']) is not None:
                 raise ValueError(
-                    'Cannot set port type with description {} - port type already exists'
-                    .format(kwargs['description']))
+                        'Cannot set network protocol with name {} ' + \
+                        '- network protocol already exists'
+                    .format(kwargs['name']))
 
-        # Create a new port type object with given state
+        # Create a new network protocol object with given state
         # and replace old object with it
-        target_pt  = PortType(**kwargs)
+        target_np  = NetworkProtocol(**kwargs)
 
-        session.delete(source_pt)
+        session.delete(source_np)
         session.flush()
-        session.add(target_pt)
+        session.add(target_np)
         session.commit()
-        return target_pt
+        return target_np
+
+def set_connector(session, resource_id, **kwargs):
+    """
+    Set a :class:`Connector` corresponding to a given resource identifier
+    to a given state.
+
+    :class:`Connector` identified by given resource identifier may already
+    exist. If it does not already exist it will be created.
+
+    All attributes of connector will be set to given values.
+    Attributes not given but present in already existing :class:`Connector`
+    will be set to None or [] or other representation of "not set".
+
+    :param resource_id: Resource identifier uniquely identifying the
+        connector to modify.
+        (See :class:`Connector` for what attribute is the resource identifier)
+    :type resouce_id: str
+
+    :param kwargs: Attributes of connector to change.
+        Possible parameters are public attributes of :class:`Connector` object
+        but in a json compatible representation (as nested dict structure)
+
+    :return: The modified or created connector
+    :rtype: Connector
+    """
+
+    # Check all arguments before making any changes
+    Connector.check_params(**kwargs)
+
+    # Check if source connector exists
+    source_cn = query_connector(session, resource_id)
+
+    if source_cn is None:
+        # Source connector does not exist:
+        # We are creating a new connector
+
+        # Connector name is either resource specifier or not set at
+        # all (in which case it will be set automatically)
+        if 'name' in kwargs:
+            if kwargs['name'] != resource_id:
+                raise ValueError('Resource identifier "name" of connector is ambiguous')
+        else:
+            kwargs.update({'name': resource_id})
+
+        target_cn = Connector(**kwargs)
+        session.add(target_cn)
+        session.commit()
+        return target_cn
+    else:
+        # Source connector exists
+
+        # Source connector exists so target connector must not also exist
+        if 'name' not in kwargs:
+            raise KeyError('Missing necessary argument "name" for setting connector')
+        if resource_id != kwargs['name']:
+            if query_connector(session, kwargs['name']) is not None:
+                raise ValueError(
+                        'Cannot set connector with name {} ' + \
+                        '- connector already exists'
+                    .format(kwargs['name']))
+
+        # Create a new connector object with given state
+        # and replace old object with it
+        target_cn  = Connector(**kwargs)
+
+        session.delete(source_cn)
+        session.flush()
+        session.add(target_cn)
+        session.commit()
+        return target_cn
 
 def set_vlan(session, resource_id, **kwargs):
     """

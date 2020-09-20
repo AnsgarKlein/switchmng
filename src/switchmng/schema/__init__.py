@@ -3,7 +3,8 @@ from sqlalchemy import Column, ForeignKey, Table
 from sqlalchemy.orm import relationship
 
 from .base import Base
-from .port_type import PortType
+from .network_protocol import NetworkProtocol
+from .connector import Connector
 from .vlan import Vlan
 from .port_model import PortModel
 from .switch_model import SwitchModel

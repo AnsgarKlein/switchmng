@@ -1,5 +1,20 @@
 from . import *
 
+network_protocols_port_models_mapping = Table(
+    'network_protocols_port_moels',
+    Base.metadata,
+    Column(
+        'port_model_id',
+        Integer,
+        ForeignKey('port_models.id'),
+        primary_key = True),
+    Column(
+        'network_protocol_id',
+        Integer,
+        ForeignKey('network_protocols.id'),
+        primary_key = True),
+)
+
 class PortModel(Base):
     """
     Represents a port of a switch model.
@@ -11,8 +26,11 @@ class PortModel(Base):
         containing :class:`SwitchModel`.
     :type name: str
 
-    :param port_type: The port type of this port
-    :type port_type: class:`PortType`
+    :param network_protocols: List of possible network protocols of this port
+    :type network_protocols: list
+
+    :param connector: Physical connector of this port
+    :type connector: :class:`Connector`
 
     """
 
@@ -22,22 +40,28 @@ class PortModel(Base):
     _port_model_id = Column('id', Integer, primary_key = True, nullable = False)
     _switch_model_id = Column('switch_model_id', Integer,
                              ForeignKey('switch_models.id'), nullable = False)
-    port_type_id = Column('port_type_id', Integer,
-                          ForeignKey('port_types.description'), nullable = True)
+    connector_id = Column('connector_id', Integer,
+                          ForeignKey('connectors.id'), nullable = True)
 
-    # Attributes
+    # Resource state
     _name = Column('name', String, nullable = False)
-    _port_type = relationship('PortType', uselist = False)
+    _network_protocols = relationship(
+        'NetworkProtocol',
+        secondary = network_protocols_port_models_mapping,
+        uselist = True)
+    _connector = relationship('Connector')
 
-    def __init__(self, name = None, port_type = None):
+    def __init__(self, name = None, network_protocols = [], connector = None):
         self.name = name
-        self.port_type = port_type
+        self.network_protocols = network_protocols
+        self.connector = connector
 
     @property
     def name(self):
         """The identifier of this port.
 
         Must be unique for the containing :class:`SwitchModel`"""
+
         return self._name
 
     @name.setter
@@ -46,14 +70,26 @@ class PortModel(Base):
         self._name = name
 
     @property
-    def port_type(self):
-        """The port type of this port"""
-        return self._port_type
+    def network_protocols(self):
+        """List of possible network protocols of this port"""
 
-    @port_type.setter
-    def port_type(self, port_type):
-        PortModel.check_params(port_type = port_type)
-        self._port_type = port_type
+        return self._network_protocols
+
+    @network_protocols.setter
+    def network_protocols(self, network_protocols):
+        PortModel.check_params(network_protocols = network_protocols)
+        self._network_protocols = network_protocols
+
+    @property
+    def connector(self):
+        """Physical connector of this port"""
+
+        return self._connector
+
+    @connector.setter
+    def connector(self, connector):
+        PortModel.check_params(connector = connector)
+        self._connector = connector
 
     def jsonify(self):
         """
@@ -71,7 +107,8 @@ class PortModel(Base):
         """
 
         return { 'name': self.name,
-                 'port_type': None if self.port_type is None else str(self.port_type) }
+                 'network_protocols': [ str(np) for np in self.network_protocols ],
+                 'connector': None if self.connector is None else str(self.connector) }
 
     def __str__(self):
         return self.name
@@ -106,11 +143,24 @@ class PortModel(Base):
                     raise ValueError('Length of name of port model cannot be zero')
                 continue
 
-            if key == 'port_type':
+            if key == 'network_protocols':
+                if not isinstance(val, list):
+                    raise TypeError(
+                        'List of network protocols for port model has to ' + \
+                        'be of type list')
+                for network_protocol in val:
+                    if not isinstance(network_protocol, NetworkProtocol):
+                        raise TypeError(
+                            'Network protocol in list of network ' + \
+                            'protocols for port has to be of type ' + \
+                            'NetworkProtocol')
+                continue
+
+            if key == 'connector':
                 if val is None:
                     continue
-                if not isinstance(val, PortType):
-                    raise TypeError('Port type of port model has to be of type PortType')
+                if not isinstance(val, Connector):
+                    raise TypeError('Connector of port model has to be of type Connector')
                 continue
 
             raise TypeError("Unexpected attribute '{}' for port model".format(key))
