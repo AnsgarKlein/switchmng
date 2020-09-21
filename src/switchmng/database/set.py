@@ -5,8 +5,7 @@ from .helper import *
 
 def set_switch_model(session, resource_id, **kwargs):
     """
-    Set a :class:`SwitchModel` corresponding to a given resource identifier
-    to a given state.
+    Set a :class:`SwitchModel` in the database to a given state.
 
     :class:`SwitchModel` identified by given resource identifier may already
     exist. If it does not already exist it will be created.
@@ -61,7 +60,7 @@ def set_switch_model(session, resource_id, **kwargs):
         if 'name' not in kwargs:
             raise KeyError('Missing necessary argument "name" for setting switch model')
         if resource_id != kwargs['name']:
-            if query_switch(session, kwargs['name']) is not None:
+            if query_switch_model(session, kwargs['name']) is not None:
                 raise ValueError(
                     'Cannot set switch model with name {} - switch model already exists'
                     .format(kwargs['name']))
@@ -75,6 +74,101 @@ def set_switch_model(session, resource_id, **kwargs):
         session.add(target_sm)
         session.commit()
         return target_sm
+
+def set_port_model(session, switch_model_resource_id, port_model_resource_id, **kwargs):
+    """
+    Set a :class:`PortModel` in the database to a given state.
+
+    :class:`PortModel` identified by given resource identifier on switch model
+    identified by given resource identifier may already exist. If it does not
+    already exist it will be created.
+
+    All attributes of port model will be set to given values.
+    Attributes not given but present in already existing :class:`PortModel`
+    will be set to None or [] or other representation of "not set".
+
+    :param switch_model_resource_id: Resource identifier uniquely identifying
+        the switch model containing the port model to modify.
+        (See :class:`SwitchModel` for what attribute is the resource identifier)
+    :type: switch_model_resource_id: str
+
+    :param port_model_resource_id: Resource identifier together with switch model
+        uniquely identifying the port model to modify.
+        (See :class:`PortModel` for what attribute is the resource identifier)
+    :type: port_model_resource_id: str
+
+    :param kwargs: Attributes of port model to change.
+        Possible parameters are public attributes of :class:`PortModel` object
+        but in a json compatible representation (as nested dict structure)
+
+    :return: The modified or created port model
+    :rtype: PortModel
+    """
+
+    # Check if switch model exists
+    sm = query_switch_model(session, switch_model_resource_id)
+    if sm is None:
+        raise ValueError('Given switch model does not exist')
+
+    # Replace list of network protocol strings with list of network protocol objects
+    if 'network_protocols' in kwargs:
+        kwargs['network_protocols'] = [ query_network_protocol(session, proto)
+                                        for proto in kwargs['network_protocols'] ]
+
+    # Replace connector string with connector object
+    if 'connector' in kwargs:
+        kwargs['connector'] = query_connector(session, kwargs['connector'])
+
+    # Check all arguments before making any changes
+    PortModel.check_params(**kwargs)
+
+    # Check if port model exists
+    source_pm = query_port_model(session, switch_model_resource_id, port_model_resource_id)
+
+    if source_pm is None:
+        # Source port model does not exist:
+        # We are creating a new port model
+
+        # Port model name is either resource specifier or not set at all
+        # (in which case it will be set automatically)
+        if 'name' in kwargs:
+            if kwargs['name'] != port_model_resource_id:
+                raise ValueError('Resource identifier "name" of port model is ambiguous')
+        else:
+            kwargs.update({'name': port_model_resource_id})
+
+        # Create new port model object and add it
+        # to existing ports of switch model
+        target_pm = PortModel(**kwargs)
+
+        ports = [ port for port in sm.ports ]
+        ports.append(target_pm)
+        sm.ports = ports
+
+        session.commit()
+        return target_pm
+    else:
+        # Source port model exists
+
+        # Source port model exists so target port model must not also exist
+        if 'name' not in kwargs:
+            raise KeyError('Missing necessary argument "name" for setting port model')
+        if port_model_resource_id != kwargs['name']:
+            if query_port_model(session, switch_model_resource_id, kwargs['name']) is not None:
+                raise ValueError(
+                    'Cannot set port model with name {} - port model already exists'
+                    .format(kwargs['name']))
+
+        # Create new port model object with given state
+        # and replace old object with it
+        target_pm = PortModel(**kwargs)
+
+        ports = [ port for port in sm.ports if port != source_pm ]
+        ports.append(target_pm)
+        sm.ports = ports
+
+        session.commit()
+        return target_pm
 
 def set_switch(session, resource_id, **kwargs):
     """
@@ -155,8 +249,7 @@ def set_switch(session, resource_id, **kwargs):
 
 def set_network_protocol(session, resource_id, **kwargs):
     """
-    Set a :class:`NetworkProtocol` corresponding to a given resource identifier
-    to a given state.
+    Set a :class:`NetworkProtocol` in the database to a given state.
 
     :class:`NetworkProtocol` identified by given resource identifier may already
     exist. If it does not already exist it will be created.
@@ -225,8 +318,7 @@ def set_network_protocol(session, resource_id, **kwargs):
 
 def set_connector(session, resource_id, **kwargs):
     """
-    Set a :class:`Connector` corresponding to a given resource identifier
-    to a given state.
+    Set a :class:`Connector` in the database to a given state.
 
     :class:`Connector` identified by given resource identifier may already
     exist. If it does not already exist it will be created.
@@ -295,8 +387,7 @@ def set_connector(session, resource_id, **kwargs):
 
 def set_vlan(session, resource_id, **kwargs):
     """
-    Set a :class:`Vlan` corresponding to a given resource identifier
-    to a given state.
+    Set a :class:`Vlan` in the database to a given state.
 
     :class:`Vlan` identified by given resource identifier may already
     exist. If it does not already exist it will be created.

@@ -14,6 +14,21 @@ def get_switch_model(resource_id):
     return { 'status': 200,
              'data': sm.jsonify() }, 200
 
+@restbp.route('/switch_models/<string:switch_model_resource_id>/ports/<string:port_model_resource_id>', methods = ['GET'])
+def get_port_model(switch_model_resource_id, port_model_resource_id):
+    db = current_app.config['SWITCHMNG_DB_CONNECTION']
+    session = db.Session()
+
+    sm = database.query_switch_model(session, switch_model_resource_id)
+    if sm is None:
+        abort(404)
+    pm = sm.port(port_model_resource_id)
+    if pm is None:
+        abort(404)
+
+    return { 'status': 200,
+             'data': pm.jsonify() }, 200
+
 @restbp.route('/switches/<string:resource_id>', methods = ['GET'])
 def get_switch(resource_id):
     db = current_app.config['SWITCHMNG_DB_CONNECTION']
@@ -68,6 +83,15 @@ def get_switch_models():
     session = db.Session()
     return { 'status': 200,
              'data': [ sm.jsonify() for sm in database.query_switch_models(session) ] }, 200
+
+@restbp.route('/switch_models/<string:switch_model_resource_id>/ports', methods = ['GET'])
+def get_port_models(switch_model_resource_id):
+    db = current_app.config['SWITCHMNG_DB_CONNECTION']
+    session = db.Session()
+    return { 'status': 200,
+             'data': [ pm.jsonify()
+                       for pm in
+                       database.query_port_models(session, switch_model_resource_id) ] }, 200
 
 @restbp.route('/switches', methods = ['GET'])
 def get_switches():

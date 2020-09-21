@@ -99,7 +99,7 @@ class Switch(Base):
 
         # Check if given ports exist in the switch model
         for p in ports:
-            if self.model._port_by_name(p.name) is None:
+            if self.model.port(p.name) is None:
                 raise ValueError(
                     "Port '{}' does not exist in switch model '{}' of switch '{}'"
                     .format(str(p), str(self.model), str(self)))
@@ -129,7 +129,7 @@ class Switch(Base):
 
         # Check if given ports exist in the switch model
         for p in ports:
-            if self.model._port_by_name(p.name) is None:
+            if self.model.port(p.name) is None:
                 raise ValueError(
                     "Port '{}' does not exist in switch model '{}' of switch '{}'"
                     .format(str(p), str(self.model), str(self)))
@@ -177,34 +177,34 @@ class Switch(Base):
         # Port list 1: Ports currently set that also exist in switch model
         nports1 = [ p
                     for p in self._ports
-                    if self.model._port_by_name(p.name) is not None ]
+                    if self.model.port(p.name) is not None ]
 
         # Port list 2: Ports from switch model that do not currently exist
         nports2 = [ Port(name = p.name)
                     for p in self.model._ports
-                    if self._port_by_name(p.name) is None ]
+                    if self.port(p.name) is None ]
 
         # Set ports of this switch to concatenation of generated two lists
         self._ports = nports1 + nports2
 
-    def _port_by_name(self, port_name):
-        """Return port of this switch identified by name
+    def port(self, resource_id):
+        """Return port of this switch identified by resource identifier
 
-        Returns the port for the given name or None if this switch
-        does not contain a port with given name.
+        Returns the port for the given resource identifier or None if this
+        switch does not contain a matching port.
 
-        :param port_name: The name of the port to return object of
-        :type port_name: str
+        :param resource_id: The resource id of the port to return object of
+        :type resource_id: str
 
-        :return: The :class:`Port` object identified by given name
+        :return: The :class:`Port` object identified by given resource id
         """
 
-        if not isinstance(port_name, str):
+        if not isinstance(resource_id, str):
             return None
 
         # Search for port with specified name
         for port in self._ports:
-            if port.name == port_name:
+            if port.name == resource_id:
                 return port
 
         # Did not find port for given port name

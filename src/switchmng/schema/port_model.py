@@ -17,10 +17,12 @@ network_protocols_port_models_mapping = Table(
 
 class PortModel(Base):
     """
-    Represents a port of a switch model.
+    Represents a port model resource.
 
-    That is a port not of a concrete switch but a port of a type of
-    switch. (See :class:`SwitchModel`)
+    This resource is uniquely identified by the switch model (See
+    :class:`SwitchModel`) containing it in combination with its name.
+    All contained id fields are private and only used for storing object in
+    database.
 
     :param name: The identifier of this port. Must be unique for the
         containing :class:`SwitchModel`.
@@ -31,7 +33,6 @@ class PortModel(Base):
 
     :param connector: Physical connector of this port
     :type connector: :class:`Connector`
-
     """
 
     __tablename__ = 'port_models'

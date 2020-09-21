@@ -28,6 +28,32 @@ def post_switch_model():
     return { 'status': 201,
              'data': sm.jsonify() }, 201
 
+@restbp.route('/switch_models/<string:switch_model_resource_id>/ports', methods = ['POST'])
+def post_port_model(switch_model_resource_id):
+    db = current_app.config['SWITCHMNG_DB_CONNECTION']
+    session = db.Session()
+
+    # Check request
+    if request.content_type != 'application/json':
+        return error_415(message = 'Expected Content-Type to be application/json')
+    if not request.accept_mimetypes.accept_json:
+        return error_406(message = 'Content-Type application/json is not accepted by client')
+    try:
+        req = request.json
+        if not isinstance(req, dict):
+            raise BaseException()
+    except:
+        return error_400(message = 'Request is not a valid json object')
+
+    # Add to database
+    try:
+        pm = database.add_port_model(session, switch_model_resource_id, **req)
+    except BaseException as e:
+        return error_400(message = str(e))
+
+    return { 'status': 201,
+             'data': pm.jsonify() }, 201
+
 @restbp.route('/switches', methods = ['POST'])
 def post_switch():
     db = current_app.config['SWITCHMNG_DB_CONNECTION']

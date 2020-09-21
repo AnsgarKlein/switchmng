@@ -22,7 +22,7 @@ def delete_switch_model(session, resource_id):
         raise ValueError('Given switch model does not exist')
 
     # Check if there are switches still using this model
-    affected_sw = query_switches(session, model = resource_id)
+    affected_sw = sm._switches
     if not isinstance(affected_sw, list):
         raise TypeError('Expected list of switches to be of type list')
     if len(affected_sw) > 0:
@@ -30,6 +30,40 @@ def delete_switch_model(session, resource_id):
 
     # Delete switch model
     session.delete(sm)
+    session.commit()
+
+def delete_port_model(session, switch_model_resource_id, port_model_resource_id):
+    """
+    Delete a port model from a switch model from the database.
+
+    :param switch_model_resource_id: Resource identifier uniquely identifying
+        the switch model containing the port model to delete.
+        (See :class:`SwitchModel` for what attribute is the resource identifier)
+    :type switch_model_resource_id: str
+
+    :param port_model_resource_id: Resource identifier together with switch model
+        uniquely identifying the port model to delete.
+        (See :class:`PortModel` for what attribute is the resource identifier)
+    :type port_model_resource_id: str
+    """
+
+    # Check switch model
+    sm = query_switch_model(session, switch_model_resource_id)
+    if sm is None:
+        raise ValueError('Given switch model does not exist')
+
+    # Check port model
+    pm = sm.port(port_model_resource_id)
+    if pm is None:
+        raise ValueError('Given port model of given switch model does not exist')
+
+    # Remove port model from switch model.
+    # Removing port model from switch model will remove port from all
+    # switches using the switch model.
+    sm.ports = [ port for port in sm.ports if port is not pm ]
+
+    # Removing port model from switch model will automatically delete orphan
+    # port model object. We just have to commit changes in our session.
     session.commit()
 
 def delete_switch(session, resource_id):

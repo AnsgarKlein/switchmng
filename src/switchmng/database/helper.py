@@ -2,13 +2,34 @@ from switchmng.schema import *
 
 from .query import *
 
+def port_model_from_dict(session, **kwargs):
+    """
+    Create port model.
+    """
+
+    # Convert network protocols from list[str] to list[obj]
+    if 'network_protocols' in kwargs and kwargs['network_protocols'] is not None:
+        if not isinstance(kwargs['network_protocols'], list):
+            raise TypeError('Given list of network protocols is not of type list')
+        kwargs['network_protocols'] = [ query_network_protocol(session, p)
+                                      for p in kwargs['network_protocols'] ]
+        if None in kwargs['network_protocols']:
+            raise ValueError('Given network protocol in list of network protocols does not exist')
+
+    # Convert connector from str to obj
+    if 'connector' in kwargs and kwargs['connector'] is not None:
+        kwargs['connector'] = query_connector(session, kwargs['connector'])
+        if kwargs['connector'] is None:
+            raise ValueError('Given connector of port model does not exist')
+
+    return PortModel(**kwargs)
+
 def port_models_from_dict(session, ports):
     """
     Convert port models from list of dict of strings to list of port model objects.
     """
 
-    # Check structure before doing anything in order to reduce
-    # database queries.
+    # Check parameter
     if not isinstance(ports, list):
         raise TypeError('Given list of ports is not of type list')
     for port in ports:
@@ -16,28 +37,12 @@ def port_models_from_dict(session, ports):
             raise TypeError('Given port is not of type dict')
 
     # Convert
-    port_objs = []
+    objs = []
     for port in ports:
-        # Convert network protocols from list[str] to list[obj]
-        if 'network_protocols' in port and port['network_protocols'] is not None:
-            if not isinstance(port['network_protocols'], list):
-                raise TypeError('Given list of network protocols is not of type list')
-            port['network_protocols'] = [ query_network_protocol(session, p)
-                                          for p in port['network_protocols'] ]
-            if None in port['network_protocols']:
-                raise ValueError('Given network protocol in list of network protocols does not exist')
+        obj = port_model_from_dict(session, **port)
+        objs.append(obj)
 
-        # Convert connector from str to obj
-        if 'connector' in port and port['connector'] is not None:
-            port['connector'] = query_connector(session, port['connector'])
-            if port['connector'] is None:
-                raise ValueError('Given connector of port model does not exist')
-
-        # Create port object with given parameter
-        port_obj = PortModel(**port)
-        port_objs.append(port_obj)
-
-    return port_objs
+    return objs
 
 def ports_from_dict(session, ports):
     """
@@ -53,7 +58,7 @@ def ports_from_dict(session, ports):
             raise TypeError('Given port is not of type dict')
 
     # Convert
-    port_objs = []
+    objs = []
     for port in ports:
         # Convert vlans from list of str to list of obj
         if 'vlans' in port:
@@ -66,8 +71,8 @@ def ports_from_dict(session, ports):
 
 
         # Create port object with given parameter
-        port_obj = Port(**port)
-        port_objs.append(port_obj)
+        obj = Port(**port)
+        objs.append(obj)
 
-    return port_objs
+    return objs
 

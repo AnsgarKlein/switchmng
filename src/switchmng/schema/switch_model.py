@@ -17,7 +17,6 @@ class SwitchModel(Base):
 
     :param size: Size (number of rack units) this switch takes up in server rack
     :type size: int
-
     """
 
     __tablename__ = 'switch_models'
@@ -115,24 +114,24 @@ class SwitchModel(Base):
         SwitchModel.check_params(size = size)
         self._size = size
 
-    def _port_by_name(self, port_name):
-        """Return port of this switch model identified by name
+    def port(self, resource_id):
+        """Return port of this switch model identified by resource identifier
 
-        Returns the port for the given name or None if this switch model
-        does not contain a port with given name.
+        Returns the port for the given resource identifier or None if this
+        switch model does not contain a matching port.
 
-        :param port_name: The name of the port to return object of
-        :type port_name: str
+        :param resource_id: The resource id of the port to return object of
+        :type resource_id: str
 
-        :return: The :class:`PortModel` object identified by given name
+        :return: The :class:`PortModel` object identified by given resource id
         """
 
-        if not isinstance(port_name, str):
+        if not isinstance(resource_id, str):
             return None
 
         # Search for port with specified name
         for port in self._ports:
-            if port.name == port_name:
+            if port.name == resource_id:
                 return port
 
         # Did not find port for given port name

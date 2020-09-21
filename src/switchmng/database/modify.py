@@ -49,6 +49,63 @@ def modify_switch_model(session, resource_id, **kwargs):
 
     return sm
 
+def modify_port_model(session, switch_model_resource_id, port_model_resource_id, **kwargs):
+    """
+    Modify a :class:`PortModel` object in the database.
+
+    All given attributes of port model will be modified.
+    Attributes not given will not be changed and will keep their current
+    state.
+
+    :param switch_model_resource_id: Resource identifier uniquely identifying
+        the switch model containing the port model to modify.
+        (See :class:`SwitchModel` for what attribute is the resource identifier)
+    :type: switch_model_resource_id: str
+
+    :param port_model_resource_id: Resource identifier together with switch model
+        uniquely identifying the port model to modify.
+        (See :class:`PortModel` for what attribute is the resource identifier)
+    :type: port_model_resource_id: str
+
+    :param kwargs: Attributes of port model to change.
+        Possible parameters are public attributes of :class:`PortModel` object
+        but in a json compatible representation (as nested dict structure)
+
+    :return: The modified port model
+    :rtype: PortModel
+    """
+
+    # Check if port model exists
+    sm = query_switch_model(session, switch_model_resource_id)
+    if sm is None:
+        raise ValueError("Given switch model '{}' does not exist"
+            .format(resource_id))
+    pm = sm.port(port_model_resource_id)
+    if pm is None:
+        raise ValueError(
+            "Given port model '{}' of given switch model '{}' does not exist"
+            .format(port_model_resource_id, switch_model_resource_id))
+
+    # Replace list of network protocol strings with list of network protocol objects
+    if 'network_protocols' in kwargs:
+        kwargs['network_protocols'] = [ query_network_protocol(session, proto)
+                                        for proto in kwargs['network_protocols'] ]
+
+    # Replace connector string with connector object
+    if 'connector' in kwargs:
+        kwargs['connector'] = query_connector(session, kwargs['connector'])
+
+    # Check all arguments before making any changes
+    PortModel.check_params(**kwargs)
+
+    # Apply modifications
+    for key, val in kwargs.items():
+        setattr(pm, key, val)
+
+    session.add(pm)
+    session.commit()
+    return pm
+
 def modify_switch(session, resource_id, **kwargs):
     """
     Modify a :class:`Switch` object in the database.
@@ -76,7 +133,7 @@ def modify_switch(session, resource_id, **kwargs):
         raise ValueError("Given switch '{}' does not exist"
             .format(resource_id))
 
-    # Replace list of ports with list of port objects
+    # Replace list of port dicts with list of port objects
     if 'ports' in kwargs:
         kwargs['ports'] = ports_from_dict(session, kwargs['ports'])
 

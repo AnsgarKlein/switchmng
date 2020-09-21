@@ -22,6 +22,30 @@ def delete_switch_model(resource_id):
     return { 'status': 200,
              'data:': None }, 200
 
+@restbp.route('/switch_models/<string:switch_model_resource_id>/ports/<string:port_model_resource_id>', methods = ['DELETE'])
+def delete_port_model(switch_model_resource_id, port_model_resource_id):
+    db = current_app.config['SWITCHMNG_DB_CONNECTION']
+    session = db.Session()
+
+    # Check if switch model exists
+    sm = database.query_switch_model(session, switch_model_resource_id)
+    if sm is None:
+        abort(404)
+
+    # Check if port model exists
+    pm = sm.port(port_model_resource_id)
+    if pm is None:
+        abort(404)
+
+    # Delete from database
+    try:
+        database.delete_port_model(session, switch_model_resource_id, port_model_resource_id)
+    except BaseException as e:
+        return error_400(message = str(e))
+
+    return { 'status': 200,
+             'data': None }, 200
+
 @restbp.route('/switches/<string:resource_id>', methods = ['DELETE'])
 def delete_switch(resource_id):
     db = current_app.config['SWITCHMNG_DB_CONNECTION']

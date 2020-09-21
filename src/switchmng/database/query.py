@@ -27,6 +27,20 @@ def query_switch_model(session, resource_id):
 
     return model.first()
 
+def query_port_model(session, switch_model_resource_id, port_model_resource_id):
+    """
+    Retrieve :class:`PortModel` object from database.
+
+    Query the database for a :class:`PortModel` object with given resource
+    identifier on switch model with given resource identifier and return it.
+    """
+
+    sm = query_switch_model(session, switch_model_resource_id)
+    if sm is None:
+        raise ValueError('Given switch model does not exist')
+
+    return sm.port(port_model_resource_id)
+
 def query_switch(session, resource_id):
     """
     Retrieve :class:`Switch` object from database.
@@ -182,6 +196,31 @@ def query_switch_models(session, **kwargs):
                 "Cannot query switch models with unexpected filter '{}'".format(key))
 
     return models
+
+def query_port_models(session, switch_model_resource_id, **kwargs):
+    """
+    Retrieve multiple :class:`PortModel` objects from database.
+
+    # TODO: Implement and document query_port_models() correctly
+    """
+
+    # Check all arguments before querying
+    PortModel.check_params(**kwargs)
+
+    # Query switch model
+    sm = query_switch_model(session, switch_model_resource_id)
+    if sm is None:
+        raise ValueError('Given switch model does not exist')
+
+    # Query
+    port_models = session.query(PortModel)
+    port_models = port_models.filter_by(_switch_model_id = sm._switch_model_id)
+
+    # Filter
+    for key, val in kwargs.items():
+        raise NotImplementedError('query_port_models() is not yet implemented')
+
+    return port_models.all()
 
 def query_switches(session, **kwargs):
     """

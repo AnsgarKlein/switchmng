@@ -33,6 +33,48 @@ def add_switch_model(session, **kwargs):
     session.commit()
     return sm
 
+def add_port_model(session, switch_model_resource_id, **kwargs):
+    """
+    Add a new port model to a switch model and add it to the database.
+
+    :param switch_model_resource_id: Resource identifier uniquely identifying
+        the switch model to add the new port model to.
+        (See :class:`SwitchModel` for what attribute is the resource identifier)
+    :type switch_model_resource_id: str
+
+    :param kwargs: Parameters for new port model.
+        Possible parameters are public attributes of :class:`PortModel` object
+        but in a json compatible representation (as nested dict structure)
+
+    :return: The newly added port model
+    :rtype: PortModel
+    """
+
+    # Check if switch model exists
+    sm = query_switch_model(session, switch_model_resource_id)
+    if sm is None:
+        raise ValueError('Given switch model does not exist')
+
+    # Check if port model already exists on given switch model
+    if 'name' not in kwargs:
+        raise KeyError("Missing necessary argument 'name' for adding port model")
+    if query_port_model(session, switch_model_resource_id, kwargs['name']) is not None:
+        raise ValueError(
+            "Cannot add port model '{}' on switch model '{}' - port model already exists"
+            .format(kwargs['name'], str(sm)))
+
+    # Create port model
+    pm = port_model_from_dict(session, **kwargs)
+
+    # Add port model to switch model
+    ports = sm.ports
+    ports.append(pm)
+    sm.ports = ports
+
+    session.commit()
+
+    return pm
+
 def add_switch(session, **kwargs):
     """
     Create a new switch and add it to the database.
