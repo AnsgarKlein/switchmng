@@ -4,8 +4,7 @@ from . import *
 
 @restbp.route('/switch_models', methods = ['POST'])
 def post_switch_model():
-    db = current_app.config['SWITCHMNG_DB_CONNECTION']
-    session = db.Session()
+    session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
     if request.content_type != 'application/json':
@@ -30,8 +29,7 @@ def post_switch_model():
 
 @restbp.route('/switch_models/<string:switch_model_resource_id>/ports', methods = ['POST'])
 def post_port_model(switch_model_resource_id):
-    db = current_app.config['SWITCHMNG_DB_CONNECTION']
-    session = db.Session()
+    session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
     if request.content_type != 'application/json':
@@ -56,8 +54,7 @@ def post_port_model(switch_model_resource_id):
 
 @restbp.route('/switches', methods = ['POST'])
 def post_switch():
-    db = current_app.config['SWITCHMNG_DB_CONNECTION']
-    session = db.Session()
+    session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
     if request.content_type != 'application/json':
@@ -82,8 +79,7 @@ def post_switch():
 
 @restbp.route('/network_protocols', methods = ['POST'])
 def post_network_protocol():
-    db = current_app.config['SWITCHMNG_DB_CONNECTION']
-    session = db.Session()
+    session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
     if request.content_type != 'application/json':
@@ -108,8 +104,7 @@ def post_network_protocol():
 
 @restbp.route('/connectors', methods = ['POST'])
 def post_connector():
-    db = current_app.config['SWITCHMNG_DB_CONNECTION']
-    session = db.Session()
+    session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
     if request.content_type != 'application/json':
@@ -134,8 +129,7 @@ def post_connector():
 
 @restbp.route('/vlans', methods = ['POST'])
 def post_vlan():
-    db = current_app.config['SWITCHMNG_DB_CONNECTION']
-    session = db.Session()
+    session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
     if request.content_type != 'application/json':

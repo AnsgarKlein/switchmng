@@ -4,8 +4,7 @@ from . import *
 
 @restbp.route('/switch_models/<string:resource_id>', methods = ['PATCH'])
 def patch_switch_model(resource_id):
-    db = current_app.config['SWITCHMNG_DB_CONNECTION']
-    session = db.Session()
+    session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
     if request.content_type != 'application/merge-patch+json':
@@ -30,8 +29,7 @@ def patch_switch_model(resource_id):
 
 @restbp.route('/switch_models/<string:switch_model_resource_id>/ports/<string:port_model_resource_id>', methods = ['PATCH'])
 def patch_port_model(switch_model_resource_id, port_model_resource_id):
-    db = current_app.config['SWITCHMNG_DB_CONNECTION']
-    session = db.Session()
+    session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
     if request.content_type != 'application/merge-patch+json':
@@ -60,8 +58,7 @@ def patch_port_model(switch_model_resource_id, port_model_resource_id):
 
 @restbp.route('/switches/<string:resource_id>', methods = ['PATCH'])
 def patch_switch(resource_id):
-    db = current_app.config['SWITCHMNG_DB_CONNECTION']
-    session = db.Session()
+    session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
     if request.content_type != 'application/merge-patch+json':
@@ -86,8 +83,7 @@ def patch_switch(resource_id):
 
 @restbp.route('/network_protocols/<string:resource_id>', methods = ['PATCH'])
 def patch_network_protocols(resource_id):
-    db = current_app.config['SWITCHMNG_DB_CONNECTION']
-    session = db.Session()
+    session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
     if request.content_type != 'application/merge-patch+json':
@@ -112,8 +108,7 @@ def patch_network_protocols(resource_id):
 
 @restbp.route('/connectors/<string:resource_id>', methods = ['PATCH'])
 def patch_connector(resource_id):
-    db = current_app.config['SWITCHMNG_DB_CONNECTION']
-    session = db.Session()
+    session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
     if request.content_type != 'application/merge-patch+json':
@@ -138,8 +133,7 @@ def patch_connector(resource_id):
 
 @restbp.route('/vlans/<int:resource_id>', methods = ['PATCH'])
 def patch_vlan(resource_id):
-    db = current_app.config['SWITCHMNG_DB_CONNECTION']
-    session = db.Session()
+    session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
     if request.content_type != 'application/merge-patch+json':
