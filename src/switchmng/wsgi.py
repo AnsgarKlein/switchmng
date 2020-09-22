@@ -30,7 +30,7 @@ def app(*args, **kwargs):
     config.parse_arguments(params)
 
     # Initialize the database
-    db = DatabaseConnection(config.DB_TYPE, config.DB_PATH, Base)
+    db = DatabaseConnection(config.DB_TYPE, config.DB_PATH, config.DB_VERBOSE, Base)
 
     # Return wsgi app
     app = create_app(db)

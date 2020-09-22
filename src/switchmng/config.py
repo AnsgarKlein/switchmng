@@ -10,6 +10,7 @@ _DEFAULT_CONFIG_FILE = None
 
 _DEFAULT_DB_TYPE     = 'sqlite'
 _DEFAULT_DB_PATH     = 'example.db'
+_DEFAULT_DB_VERBOSE  = False
 
 _DEFAULT_DEBUG       = False
 _DEFAULT_IP          = '127.0.0.1'
@@ -22,6 +23,7 @@ def _default_config():
 
     global DB_TYPE
     global DB_PATH
+    global DB_VERBOSE
 
     global DEBUG
     global IP
@@ -33,6 +35,7 @@ def _default_config():
 
     DB_TYPE     = _DEFAULT_DB_TYPE
     DB_PATH     = _DEFAULT_DB_PATH
+    DB_VERBOSE  = _DEFAULT_DB_VERBOSE
 
     DEBUG       = _DEFAULT_DEBUG
     IP          = _DEFAULT_IP
@@ -96,6 +99,15 @@ def parse_arguments(arguments):
     pg3.add_argument('-h', '--help',
                      help = 'Show this help message and exit',
                      action = 'help')
+    pg3.add_argument('-v', '--verbose',
+                     help = 'Make given subsystem verbose and print more\
+                            information to stdout. Can be supplied multiple\
+                            times. Possible values: sql',
+                     metavar = 'SUBSYSTEM',
+                     choices = ('sql', None),
+                     action = 'append',
+                     default = argparse.SUPPRESS)
+
 
     # Parser for options for internal webserver
     pg4 = parser.add_argument_group('WEBSERVER')
@@ -156,6 +168,11 @@ def parse_arguments(arguments):
     if 'dbpath' in args:
         global DB_PATH
         DB_PATH = args.dbpath
+
+    if 'verbose' in args:
+        if 'sql' in args.verbose:
+            global DB_VERBOSE
+            DB_VERBOSE = True
 
     # Apply arguments from WEBSERVER group
     if 'debug' in args:

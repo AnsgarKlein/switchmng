@@ -10,10 +10,10 @@ from .set    import *
 from .add    import *
 
 class DatabaseConnection():
-    def __init__(self, dbtype, dbstr, base):
+    def __init__(self, db_type, db_str, db_verbose, base):
         # Initialize db engine
-        if dbtype == 'sqlite':
-            if dbstr == '':
+        if db_type == 'sqlite':
+            if db_str == '':
                 # Warn when creating an in-memory sqlite database
                 print('##################################################\n'
                     + '#                    WARNING                     #\n'
@@ -24,13 +24,13 @@ class DatabaseConnection():
                 # Make sure that access to in-memory sqlite database only
                 # happens from one single connection (StaticPool)
                 self.engine = create_engine('sqlite://',
-                                            echo = False,
+                                            echo = db_verbose,
                                             connect_args = {
                                                 "check_same_thread": False },
                                             poolclass = StaticPool)
             else:
-                dbstr = 'sqlite:///' + dbstr
-                self.engine = create_engine(dbstr, echo = False)
+                db_str = 'sqlite:///' + db_str
+                self.engine = create_engine(db_str, echo = db_verbose)
         else:
             raise NotImplementedError('Databases other than sqlite are not yet supported')
 

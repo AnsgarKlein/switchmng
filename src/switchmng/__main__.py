@@ -17,7 +17,7 @@ def main():
     config.parse_arguments(sys.argv[1:])
 
     # Initialize database
-    db = DatabaseConnection(config.DB_TYPE, config.DB_PATH, Base)
+    db = DatabaseConnection(config.DB_TYPE, config.DB_PATH, config.DB_VERBOSE, Base)
 
     # Run with builtin flask webserver
     app = routes.create_app(db)
