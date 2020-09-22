@@ -81,6 +81,35 @@ def put_switch(resource_id):
     return { 'status': 200,
              'data:': sw.jsonify() }, 200
 
+@restbp.route('/switches/<string:switch_resource_id>/ports/<string:port_resource_id>', methods = ['PUT'])
+def put_port(switch_resource_id, port_resource_id):
+    session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
+
+    # Check request
+    if request.content_type != 'application/json':
+        return error_415(message = 'Expected Content-Type to be application/json')
+    if not request.accept_mimetypes.accept_json:
+        return error_406(message = 'Content-Type application/json is not accepted by client')
+    try:
+        req = request.json
+        if not isinstance(req, dict):
+            raise BaseException()
+    except:
+        return error_400(message = 'Request is not a valid json object')
+
+    # Modify in database
+    try:
+        pt = database.set_port(
+            session,
+            switch_resource_id = switch_resource_id,
+            port_resource_id = port_resource_id,
+            **req)
+    except BaseException as e:
+        return error_400(message = str(e))
+
+    return { 'status': 200,
+             'data:': pt.jsonify() }, 200
+
 @restbp.route('/network_protocols/<string:resource_id>', methods = ['PUT'])
 def put_network_protocols(resource_id):
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()

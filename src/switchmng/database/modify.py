@@ -155,6 +155,64 @@ def modify_switch(session, resource_id, **kwargs):
     session.commit()
     return sw
 
+def modify_port(session, switch_resource_id, port_resource_id, **kwargs):
+    """
+    Modify a :class:`Port` object in the database.
+
+    All given attributes of port will be modified.
+    Attributes not given will not be changed and will keep their current
+    state.
+
+    :param switch_resource_id: Resource identifier uniquely identifying the
+        switch containing the port to modify.
+        (See :class:`Switch` for what attribute is the resource identifier)
+    :type: switch_resource_id: str
+
+    :param port_resource_id: Resource identifier together with switch uniquely
+        identifying the port to modify.
+        (See :class:`Port` for what attribute is the resource identifier)
+    :type: port_resource_id: str
+
+    :param kwargs: Attributes of port to change.
+        Possible parameters are public attributes of :class:`Port` object
+        but in a json compatible representation (as nested dict structure)
+
+    :return: The modified port
+    :rtype: Port
+    """
+
+    # Check if port exists
+    sw = query_switch(session, switch_resource_id)
+    if sw is None:
+        raise ValueError("Given switch '{}' does not exist"
+            .format(resource_id))
+    pt = sw.port(port_resource_id)
+    if pt is None:
+        raise ValueError(
+            "Given port '{}' of given switch '{}' does not exist"
+            .format(port_model_resource_id, switch_model_resource_id))
+
+    # Replace list of vlan strings with list of vlan objects
+    if 'vlans' in kwargs:
+        kwargs['vlans'] = [ query_vlan(session, v) for v in kwargs['vlans'] ]
+        if None in kwargs['vlans']:
+            raise ValueError('Given vlan in list of vlans of port does not exist')
+
+    # Check all arguments before making any changes
+    Port.check_params(**kwargs)
+
+    # Apply modifications
+    for key, val in kwargs.items():
+        setattr(pt, key, val)
+
+    # Pseudo-set ports of switch in order to make sure all modify ports
+    # exist in switch model.
+    sw.ports = sw.ports
+
+    session.add(pt)
+    session.commit()
+    return pt
+
 def modify_network_protocol(session, resource_id, **kwargs):
     """
     Modify a :class:`NetworkProtocol` object in the database.

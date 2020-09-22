@@ -38,6 +38,20 @@ def get_switch(resource_id):
     return { 'status': 200,
              'data': sw.jsonify() }, 200
 
+@restbp.route('/switches/<string:switch_resource_id>/ports/<string:port_resource_id>', methods = ['GET'])
+def get_port(switch_resource_id, port_resource_id):
+    session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
+
+    sw = database.query_switch(session, switch_resource_id)
+    if sw is None:
+        abort(404)
+    pt = sw.port(port_resource_id)
+    if pt is None:
+        abort(404)
+
+    return { 'status': 200,
+             'data': pt.jsonify() }, 200
+
 @restbp.route('/network_protocols/<string:resource_id>', methods = ['GET'])
 def get_network_protocol(resource_id):
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
@@ -93,6 +107,15 @@ def get_switches():
 
     return { 'status': 200,
              'data': [ sw.jsonify() for sw in database.query_switches(session) ] }, 200
+
+@restbp.route('/switches/<string:switch_resource_id>/ports', methods = ['GET'])
+def get_ports(switch_resource_id):
+    session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
+
+    return { 'status': 200,
+             'data': [ pt.jsonify()
+                       for pt in
+                       database.query_ports(session, switch_resource_id) ] }, 200
 
 @restbp.route('/network_protocols', methods = ['GET'])
 def get_network_protocols():

@@ -68,6 +68,20 @@ def query_switch(session, resource_id):
 
     return sw.first()
 
+def query_port(session, switch_resource_id, port_resource_id):
+    """
+    Retrieve :class:`Port` object from database.
+
+    Query the database for a :class:`Port` object with given resource
+    identifier on switch with given resource identifier and return it.
+    """
+
+    sw = query_switch(session, switch_resource_id)
+    if sw is None:
+        raise ValueError('Given switch does not exist')
+
+    return sw.port(port_resource_id)
+
 def query_network_protocol(session, resource_id):
     """
     Retrieve :class:`NetworkProtocol` object from database.
@@ -278,6 +292,31 @@ def query_switches(session, **kwargs):
                 "Cannot query switches with unexpected filter '{}'".format(key))
 
     return switches
+
+def query_ports(session, switch_resource_id, **kwargs):
+    """
+    Retrieve multiple :class:`Port` objects from database.
+
+    # TODO: Implement and document query_ports() correctly
+    """
+
+    # Check all arguments before querying
+    Port.check_params(**kwargs)
+
+    # Query switch
+    sw = query_switch(session, switch_resource_id)
+    if sw is None:
+        raise ValueError('Given switch does not exist')
+
+    # Query
+    pts = session.query(Port)
+    pts = pts.filter_by(_switch_id = sw._switch_id)
+
+    # Filter
+    for key, val in kwargs.items():
+        raise NotImplementedError('query_ports() is not yet implemented')
+
+    return pts.all()
 
 def query_network_protocols(session, **kwargs):
     """

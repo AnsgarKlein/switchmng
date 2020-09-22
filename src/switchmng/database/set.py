@@ -253,6 +253,98 @@ def set_switch(session, resource_id, **kwargs):
         session.commit()
         return target_sw
 
+def set_port(session, switch_resource_id, port_resource_id, **kwargs):
+    """
+    Set a :class:`Port` in the database to a given state.
+
+    :class:`Port` identified by given resource identifier on switch identified
+    by given resource identifier may already exist. If it does not already
+    exist it will be created.
+
+    All attributes of port will be set to given values.
+    Attributes not given but present in already existing :class:`Port`
+    will be set to None or [] or other representation of "not set".
+
+    :param switch_resource_id: Resource identifier uniquely identifying the
+        switch containing the port to modify.
+        (See :class:`Switch` for what attribute is the resource identifier)
+    :type: switch_resource_id: str
+
+    :param port_resource_id: Resource identifier together with switch uniquely
+        identifying the port to modify.
+        (See :class:`Port` for what attribute is the resource identifier)
+    :type: port_resource_id: str
+
+    :param kwargs: Attributes of port to change.
+        Possible parameters are public attributes of :class:`Port` object
+        but in a json compatible representation (as nested dict structure)
+
+    :return: The modified or created port
+    :rtype: Port
+    """
+
+    # Check if switch model exists
+    sw = query_switch(session, switch_resource_id)
+    if sw is None:
+        raise ValueError('Given switch does not exist')
+
+    # Replace list of vlan strings with list of vlan objects
+    if 'vlans' in kwargs:
+        kwargs['vlans'] = [ query_vlan(session, v) for v in kwargs['vlans'] ]
+        if None in kwargs['vlans']:
+            raise ValueError('Given vlan in list of vlans of port does not exist')
+
+    # Check all arguments before making any changes
+    Port.check_params(**kwargs)
+
+    # Check if port model exists
+    source_pt = query_port(session, switch_resource_id, port_resource_id)
+
+    if source_pt is None:
+        # Source port does not exist:
+        # We are creating a new port
+
+        # Port name is either resource specifier or not set at all
+        # (in which case it will be set automatically)
+        if 'name' in kwargs:
+            if kwargs['name'] != port_resource_id:
+                raise ValueError('Resource identifier "name" of port is ambiguous')
+        else:
+            kwargs.update({'name': port_resource_id})
+
+        # Create new port model object and add it
+        # to existing ports of switch model
+        target_pt = Port(**kwargs)
+
+        ports = [ port for port in sw.ports ]
+        ports.append(target_pt)
+        sm.ports = ports
+
+        session.commit()
+        return target_pt
+    else:
+        # Source port exists
+
+        # Source port exists so target port must not also exist
+        if 'name' not in kwargs:
+            raise KeyError('Missing necessary argument "name" for setting port')
+        if port_resource_id != kwargs['name']:
+            if query_port(session, switch_resource_id, kwargs['name']) is not None:
+                raise ValueError(
+                    'Cannot set port with name {} - port already exists'
+                    .format(kwargs['name']))
+
+        # Create new port object with given state
+        # and replace old object with it
+        target_pt = Port(**kwargs)
+
+        ports = [ port for port in sw.ports if port != source_pt ]
+        ports.append(target_pt)
+        sw.ports = ports
+
+        session.commit()
+        return target_pt
+
 def set_network_protocol(session, resource_id, **kwargs):
     """
     Set a :class:`NetworkProtocol` in the database to a given state.
