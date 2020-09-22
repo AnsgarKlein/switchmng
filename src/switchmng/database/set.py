@@ -114,10 +114,14 @@ def set_port_model(session, switch_model_resource_id, port_model_resource_id, **
     if 'network_protocols' in kwargs:
         kwargs['network_protocols'] = [ query_network_protocol(session, proto)
                                         for proto in kwargs['network_protocols'] ]
+        if None in kwargs['network_protocols']:
+            raise ValueError('Given network protocol in list of network protocols of port does not exist')
 
     # Replace connector string with connector object
     if 'connector' in kwargs:
         kwargs['connector'] = query_connector(session, kwargs['connector'])
+        if kwargs['connector'] is None:
+            raise ValueError('Given connector of port does not exist')
 
     # Check all arguments before making any changes
     PortModel.check_params(**kwargs)
@@ -202,6 +206,8 @@ def set_switch(session, resource_id, **kwargs):
     # Replace switch model string with switch model object
     if 'model' in kwargs:
         kwargs['model'] = query_switch_model(session, kwargs['model'])
+        if None in kwargs['model']:
+            raise ValueError('Given switch model of switch does not exist')
 
     # Check all arguments before making any changes
     Switch.check_params(**kwargs)
