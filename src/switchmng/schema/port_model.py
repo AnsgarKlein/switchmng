@@ -1,7 +1,7 @@
 from . import *
 
 network_protocols_port_models_mapping = Table(
-    'network_protocols_port_moels',
+    'network_protocols_port_models',
     Base.metadata,
     Column(
         'port_model_id',
