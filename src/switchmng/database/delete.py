@@ -167,11 +167,11 @@ def delete_vlan(session, resource_id):
     if vl is None:
         raise ValueError('Given vlan does not exist')
 
-    # Check if there are switch ports still using this vlan
-    affected_sw = query_switches(session, vlan = resource_id)
-    if not isinstance(affected_sw, list):
-        raise TypeError('Expected list of switches to be of type list')
-    if len(affected_sw) > 0:
+    # Check if this vlan is still in use
+    affected_pts = query_ports(session, None, vlans = [ vl ])
+    if not isinstance(affected_pts, list):
+        raise TypeError('Expected list of ports to be of type list')
+    if len(affected_pts) > 0:
         raise ValueError('Given vlan is still in use')
 
     # Delete vlan

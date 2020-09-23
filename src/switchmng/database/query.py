@@ -297,24 +297,32 @@ def query_ports(session, switch_resource_id, **kwargs):
     """
     Retrieve multiple :class:`Port` objects from database.
 
+    switch_resource_id is optional
+
     # TODO: Implement and document query_ports() correctly
     """
 
     # Check all arguments before querying
     Port.check_params(**kwargs)
 
-    # Query switch
-    sw = query_switch(session, switch_resource_id)
-    if sw is None:
-        raise ValueError('Given switch does not exist')
-
     # Query
     pts = session.query(Port)
-    pts = pts.filter_by(_switch_id = sw._switch_id)
+
+    # Filter by switch if given
+    if switch_resource_id is not None:
+        sw = query_switch(session, switch_resource_id)
+        if sw is None:
+            raise ValueError('Given switch does not exist')
+
+        pts = pts.filter_by(_switch_id = sw._switch_id)
 
     # Filter
     for key, val in kwargs.items():
-        raise NotImplementedError('query_ports() is not yet implemented')
+        if key == 'vlans':
+            for vlan in val:
+                pts = pts.filter(Port._vlans.contains(vlan))
+        else:
+            raise NotImplementedError('query_ports() is not yet implemented')
 
     return pts.all()
 
