@@ -1,22 +1,8 @@
-import switchmng
-from switchmng import database
-from switchmng.schema import *
-
-from switchmng import config
-from switchmng.schema.base import Base
-from switchmng.database import DatabaseConnection
-from switchmng import routes
-
-import helper
-from helper import default_headers
-from helper import patch_headers
-
-import unittest
-from unittest import TestCase
+from test_rest import Test_REST
 
 import json
 
-class Test_REST_Vlan(TestCase):
+class Test_REST_Vlan(Test_REST):
 
     example_switch = {
         'name':     'example_switch',
@@ -27,56 +13,17 @@ class Test_REST_Vlan(TestCase):
     }
 
     def setUp(self):
-        switchmng.config.parse_arguments([])
-        db = DatabaseConnection('sqlite', '', False, Base)
-        self.session = db.Session()
-        self.app = routes.create_app(db)
-        self.client = self.app.test_client()
+        super().setUp()
 
         # Add some default values
-        helper.setUp_vlans(self.client)
-        helper.setUp_connectors(self.client)
-        helper.setUp_network_protocols(self.client)
-        helper.setUp_switch_models(self.client)
+        self.setUp_vlans()
+        self.setUp_connectors()
+        self.setUp_network_protocols()
+        self.setUp_switch_models()
 
         # Add a switch
         rv = self._post('/switches', 201, json.dumps(self.example_switch))
         self.example_switch = rv['data']
-
-    def _req(self, func, url, expected_code, data, headers, unpack):
-        rv = func(
-            url,
-            data = data,
-            headers = headers)
-
-        self.assertEqual(rv.status_code, expected_code)
-
-        if unpack:
-            rv = json.loads(rv.data.decode())
-            self.assertEqual(rv['status'], expected_code)
-
-        return rv
-
-    def _options(self, url, expected_code, data = None, headers = default_headers, unpack = False):
-        return self._req(self.client.options, url, expected_code, data, headers, unpack)
-
-    def _head(self, url, expected_code, data = None, headers = default_headers, unpack = False):
-        return self._req(self.client.head, url, expected_code, data, headers, unpack)
-
-    def _get(self, url, expected_code, data = None, headers = default_headers, unpack = True):
-        return self._req(self.client.get, url, expected_code, data, headers, unpack)
-
-    def _delete(self, url, expected_code, data = None, headers = default_headers, unpack = True):
-        return self._req(self.client.delete, url, expected_code, data, headers, unpack)
-
-    def _patch(self, url, expected_code, data = None, headers = patch_headers, unpack = True):
-        return self._req(self.client.patch, url, expected_code, data, headers, unpack)
-
-    def _put(self, url, expected_code, data = None, headers = default_headers, unpack = True):
-        return self._req(self.client.put, url, expected_code, data, headers, unpack)
-
-    def _post(self, url, expected_code, data = None, headers = default_headers, unpack = True):
-        return self._req(self.client.post, url, expected_code, data, headers, unpack)
 
     def test_options1(self):
         """OPTIONS verb for vlans"""
@@ -170,7 +117,7 @@ class Test_REST_Vlan(TestCase):
     def test_delete_fail_header(self):
         """DELETE switch with missing 'Accept' header"""
 
-        headers = default_headers.copy()
+        headers = self.default_headers.copy()
         headers.pop('Accept')
         self._delete('/switches/example_switch', 406, None, headers)
 
@@ -196,7 +143,7 @@ class Test_REST_Vlan(TestCase):
         """PATCH switch with missing 'Accept' header"""
 
         patch = {}
-        headers = patch_headers.copy()
+        headers = self.patch_headers.copy()
         headers.pop('Accept')
         self._patch('/switches/example_switch', 406, json.dumps(patch), headers)
 
@@ -204,7 +151,7 @@ class Test_REST_Vlan(TestCase):
         """PATCH switch with missing 'Content-Type' header"""
 
         patch = {}
-        headers = patch_headers.copy()
+        headers = self.patch_headers.copy()
         headers.pop('Content-Type')
         self._patch('/switches/example_switch', 415, json.dumps(patch), headers)
 
@@ -281,7 +228,7 @@ class Test_REST_Vlan(TestCase):
             'ip': '10.0.0.1',
         }
 
-        headers = default_headers.copy()
+        headers = self.default_headers.copy()
         headers.pop('Accept')
         self._put('/switches/example_switch', 406, json.dumps(replacement), headers)
 
@@ -293,7 +240,7 @@ class Test_REST_Vlan(TestCase):
             'ip': '10.0.0.1',
         }
 
-        headers = default_headers.copy()
+        headers = self.default_headers.copy()
         headers.pop('Content-Type')
         self._put('/switches/example_switch', 415, json.dumps(replacement), headers)
 
@@ -411,7 +358,7 @@ class Test_REST_Vlan(TestCase):
             'model':    'small_switch',
         }
 
-        headers = default_headers.copy()
+        headers = self.default_headers.copy()
         headers.pop('Accept')
         self._post('/switches', 406, json.dumps(new_switch), headers)
 
@@ -423,7 +370,7 @@ class Test_REST_Vlan(TestCase):
             'model':    'small_switch',
         }
 
-        headers = default_headers.copy()
+        headers = self.default_headers.copy()
         headers.pop('Content-Type')
         self._post('/switches', 415, json.dumps(new_switch), headers)
 
