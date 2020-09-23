@@ -8,7 +8,6 @@ def delete_switch_model(resource_id):
 
     # Check if switch model exists
     sm = database.query_switch_model(session, resource_id)
-
     if sm is None:
         abort(404)
 
@@ -50,7 +49,6 @@ def delete_switch(resource_id):
 
     # Check if switch exists
     sw = database.query_switch(session, resource_id)
-
     if sw is None:
         abort(404)
 
@@ -69,7 +67,6 @@ def delete_network_protocol(resource_id):
 
     # Check if network protocol exists
     np = database.query_network_protocol(session, resource_id)
-
     if np is None:
         abort(404)
 
@@ -86,9 +83,8 @@ def delete_network_protocol(resource_id):
 def delete_connector(resource_id):
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
-    # Check if network protocol exists
+    # Check if connector exists
     cn = database.query_connector(session, resource_id)
-
     if cn is None:
         abort(404)
 
@@ -107,7 +103,6 @@ def delete_vlan(resource_id):
 
     # Check if vlan exists
     vl = database.query_vlan(session, resource_id)
-
     if vl is None:
         abort(404)
 

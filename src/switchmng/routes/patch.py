@@ -18,6 +18,11 @@ def patch_switch_model(resource_id):
     except:
         return error_400(message = 'Request is not a valid json object')
 
+    # Check if switch model exists
+    sm = database.query_switch_model(session, resource_id)
+    if sm is None:
+        abort(404)
+
     # Modify in database
     try:
         sm = database.modify_switch_model(session, resource_id = resource_id, **req)
@@ -42,6 +47,13 @@ def patch_port_model(switch_model_resource_id, port_model_resource_id):
             raise BaseException()
     except:
         return error_400(message = 'Request is not a valid json object')
+
+    # Check if port model exists
+    pm = database.query_port_model(session,
+                                   switch_model_resource_id,
+                                   port_model_resource_id)
+    if sm is None:
+        abort(404)
 
     # Modify in database
     try:
@@ -72,6 +84,11 @@ def patch_switch(resource_id):
     except:
         return error_400(message = 'Request is not a valid json object')
 
+    # Check if switch exists
+    sw = database.query_switch(session, resource_id)
+    if sw is None:
+        abort(404)
+
     # Modify in database
     try:
         sw = database.modify_switch(session, resource_id = resource_id, **req)
@@ -96,6 +113,13 @@ def patch_port(switch_resource_id, port_resource_id):
             raise BaseException()
     except:
         return error_400(message = 'Request is not a valid json object')
+
+    # Check if port exists
+    pt = database.query_port(session,
+                             switch_resource_id,
+                             port_resource_id)
+    if pt is None:
+        abort(404)
 
     # Modify in database
     try:
@@ -126,6 +150,11 @@ def patch_network_protocols(resource_id):
     except:
         return error_400(message = 'Request is not a valid json object')
 
+    # Check if network protocol exists
+    np = database.query_network_protocol(session, resource_id)
+    if np is None:
+        abort(404)
+
     # Modify in database
     try:
         np = database.modify_network_protocol(session, resource_id = resource_id, **req)
@@ -151,6 +180,11 @@ def patch_connector(resource_id):
     except:
         return error_400(message = 'Request is not a valid json object')
 
+    # Check if connector exists
+    cn = database.query_connector(session, resource_id)
+    if cn is None:
+        abort(404)
+
     # Modify in database
     try:
         cn = database.modify_connector(session, resource_id = resource_id, **req)
@@ -175,6 +209,11 @@ def patch_vlan(resource_id):
             raise BaseException()
     except:
         return error_400(message = 'Request is not a valid json object')
+
+    # Check if vlan exists
+    vl = database.query_vlan(session, resource_id)
+    if vl is None:
+        abort(404)
 
     # Modify in database
     try:
