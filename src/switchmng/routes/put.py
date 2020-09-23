@@ -25,7 +25,7 @@ def put_switch_model(resource_id):
         return error_400(message = str(e))
 
     return { 'status': 200,
-             'data:': sm.jsonify() }, 200
+             'data': sm.jsonify() }, 200
 
 @restbp.route('/switch_models/<string:switch_model_resource_id>/ports/<string:port_model_resource_id>', methods = ['PUT'])
 def put_port_model(switch_model_resource_id, port_model_resource_id):
@@ -54,7 +54,7 @@ def put_port_model(switch_model_resource_id, port_model_resource_id):
         return error_400(message = str(e))
 
     return { 'status': 200,
-             'data:': pm.jsonify() }, 200
+             'data': pm.jsonify() }, 200
 
 @restbp.route('/switches/<string:resource_id>', methods = ['PUT'])
 def put_switch(resource_id):
@@ -79,7 +79,7 @@ def put_switch(resource_id):
         return error_400(message = str(e))
 
     return { 'status': 200,
-             'data:': sw.jsonify() }, 200
+             'data': sw.jsonify() }, 200
 
 @restbp.route('/switches/<string:switch_resource_id>/ports/<string:port_resource_id>', methods = ['PUT'])
 def put_port(switch_resource_id, port_resource_id):
@@ -108,7 +108,7 @@ def put_port(switch_resource_id, port_resource_id):
         return error_400(message = str(e))
 
     return { 'status': 200,
-             'data:': pt.jsonify() }, 200
+             'data': pt.jsonify() }, 200
 
 @restbp.route('/network_protocols/<string:resource_id>', methods = ['PUT'])
 def put_network_protocols(resource_id):
@@ -133,7 +133,7 @@ def put_network_protocols(resource_id):
         return error_400(message = str(e))
 
     return { 'status': 200,
-             'data:': np.jsonify() }, 200
+             'data': np.jsonify() }, 200
 
 @restbp.route('/connectors/<string:resource_id>', methods = ['PUT'])
 def put_connector(resource_id):
@@ -158,7 +158,7 @@ def put_connector(resource_id):
         return error_400(message = str(e))
 
     return { 'status': 200,
-             'data:': cn.jsonify() }, 200
+             'data': cn.jsonify() }, 200
 
 @restbp.route('/vlans/<int:resource_id>', methods = ['PUT'])
 def put_vlan(resource_id):
@@ -183,5 +183,5 @@ def put_vlan(resource_id):
         return error_400(message = str(e))
 
     return { 'status': 200,
-             'data:': vl.jsonify() }, 200
+             'data': vl.jsonify() }, 200
 

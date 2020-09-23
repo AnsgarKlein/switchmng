@@ -19,7 +19,7 @@ def delete_switch_model(resource_id):
         return error_400(message = str(e))
 
     return { 'status': 200,
-             'data:': None }, 200
+             'data': None }, 200
 
 @restbp.route('/switch_models/<string:switch_model_resource_id>/ports/<string:port_model_resource_id>', methods = ['DELETE'])
 def delete_port_model(switch_model_resource_id, port_model_resource_id):
@@ -61,7 +61,7 @@ def delete_switch(resource_id):
         return error_400(message = str(e))
 
     return { 'status': 200,
-             'data:': None }, 200
+             'data': None }, 200
 
 @restbp.route('/network_protocols/<string:resource_id>', methods = ['DELETE'])
 def delete_network_protocol(resource_id):
@@ -80,7 +80,7 @@ def delete_network_protocol(resource_id):
         return error_400(message = str(e))
 
     return { 'status': 200,
-             'data:': None }, 200
+             'data': None }, 200
 
 @restbp.route('/connectors/<string:resource_id>', methods = ['DELETE'])
 def delete_connector(resource_id):
@@ -99,7 +99,7 @@ def delete_connector(resource_id):
         return error_400(message = str(e))
 
     return { 'status': 200,
-             'data:': None }, 200
+             'data': None }, 200
 
 @restbp.route('/vlans/<int:resource_id>', methods = ['DELETE'])
 def delete_vlan(resource_id):
@@ -118,5 +118,5 @@ def delete_vlan(resource_id):
         return error_400(message = str(e))
 
     return { 'status': 200,
-             'data:': None }, 200
+             'data': None }, 200
 
