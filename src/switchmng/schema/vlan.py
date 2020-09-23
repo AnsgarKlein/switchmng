@@ -20,7 +20,7 @@ class Vlan(Base):
     _tag = Column('tag', Integer, nullable = False, unique = True)
 
     # Resource state
-    _description = Column('name', String, nullable = False)
+    _description = Column('name', String, nullable = True)
 
     def __init__(self, tag = None, description = None):
         self.tag = tag
@@ -98,6 +98,8 @@ class Vlan(Base):
                 continue
 
             if key == 'description':
+                if val is None:
+                    continue
                 if not isinstance(val, str):
                     raise TypeError('Description of vlan has to be of type str')
                 continue
