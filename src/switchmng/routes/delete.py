@@ -6,6 +6,10 @@ from . import *
 def delete_switch_model(resource_id):
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
+    # Check request
+    if not request.accept_mimetypes.accept_json:
+        return error_406(message = 'Content-Type application/json is not accepted by client')
+
     # Check if switch model exists
     sm = database.query_switch_model(session, resource_id)
     if sm is None:
@@ -23,6 +27,10 @@ def delete_switch_model(resource_id):
 @restbp.route('/switch_models/<string:switch_model_resource_id>/ports/<string:port_model_resource_id>', methods = ['DELETE'])
 def delete_port_model(switch_model_resource_id, port_model_resource_id):
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
+
+    # Check request
+    if not request.accept_mimetypes.accept_json:
+        return error_406(message = 'Content-Type application/json is not accepted by client')
 
     # Check if switch model exists
     sm = database.query_switch_model(session, switch_model_resource_id)
@@ -47,6 +55,10 @@ def delete_port_model(switch_model_resource_id, port_model_resource_id):
 def delete_switch(resource_id):
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
+    # Check request
+    if not request.accept_mimetypes.accept_json:
+        return error_406(message = 'Content-Type application/json is not accepted by client')
+
     # Check if switch exists
     sw = database.query_switch(session, resource_id)
     if sw is None:
@@ -64,6 +76,10 @@ def delete_switch(resource_id):
 @restbp.route('/network_protocols/<string:resource_id>', methods = ['DELETE'])
 def delete_network_protocol(resource_id):
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
+
+    # Check request
+    if not request.accept_mimetypes.accept_json:
+        return error_406(message = 'Content-Type application/json is not accepted by client')
 
     # Check if network protocol exists
     np = database.query_network_protocol(session, resource_id)
@@ -83,6 +99,10 @@ def delete_network_protocol(resource_id):
 def delete_connector(resource_id):
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
+    # Check request
+    if not request.accept_mimetypes.accept_json:
+        return error_406(message = 'Content-Type application/json is not accepted by client')
+
     # Check if connector exists
     cn = database.query_connector(session, resource_id)
     if cn is None:
@@ -100,6 +120,10 @@ def delete_connector(resource_id):
 @restbp.route('/vlans/<int:resource_id>', methods = ['DELETE'])
 def delete_vlan(resource_id):
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
+
+    # Check request
+    if not request.accept_mimetypes.accept_json:
+        return error_406(message = 'Content-Type application/json is not accepted by client')
 
     # Check if vlan exists
     vl = database.query_vlan(session, resource_id)
