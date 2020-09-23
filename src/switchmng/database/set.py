@@ -206,7 +206,7 @@ def set_switch(session, resource_id, **kwargs):
     # Replace switch model string with switch model object
     if 'model' in kwargs:
         kwargs['model'] = query_switch_model(session, kwargs['model'])
-        if None in kwargs['model']:
+        if kwargs['model'] is None:
             raise ValueError('Given switch model of switch does not exist')
 
     # Check all arguments before making any changes
