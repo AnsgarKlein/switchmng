@@ -18,7 +18,7 @@ def put_switch_model(resource_id):
     except:
         return error_400(message = 'Request is not a valid json object')
 
-    # Modify in database
+    # Set in database
     try:
         sm = database.set_switch_model(session, resource_id = resource_id, **req)
     except BaseException as e:
@@ -43,7 +43,7 @@ def put_port_model(switch_model_resource_id, port_model_resource_id):
     except:
         return error_400(message = 'Request is not a valid json object')
 
-    # Modify in database
+    # Set in database
     try:
         pm = database.set_port_model(
             session,
@@ -72,7 +72,7 @@ def put_switch(resource_id):
     except:
         return error_400(message = 'Request is not a valid json object')
 
-    # Modify in database
+    # Set in database
     try:
         sw = database.set_switch(session, resource_id = resource_id, **req)
     except BaseException as e:
@@ -97,7 +97,7 @@ def put_port(switch_resource_id, port_resource_id):
     except:
         return error_400(message = 'Request is not a valid json object')
 
-    # Modify in database
+    # Set in database
     try:
         pt = database.set_port(
             session,
@@ -126,7 +126,7 @@ def put_network_protocols(resource_id):
     except:
         return error_400(message = 'Request is not a valid json object')
 
-    # Modify in database
+    # Set in database
     try:
         np = database.set_network_protocol(session, resource_id = resource_id, **req)
     except BaseException as e:
@@ -151,7 +151,7 @@ def put_connector(resource_id):
     except:
         return error_400(message = 'Request is not a valid json object')
 
-    # Modify in database
+    # Set in database
     try:
         cn = database.set_connector(session, resource_id = resource_id, **req)
     except BaseException as e:
@@ -176,7 +176,7 @@ def put_vlan(resource_id):
     except:
         return error_400(message = 'Request is not a valid json object')
 
-    # Modify in database
+    # Set in database
     try:
         vl = database.set_vlan(session, resource_id = resource_id, **req)
     except BaseException as e:
