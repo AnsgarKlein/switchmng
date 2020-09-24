@@ -318,7 +318,7 @@ def set_port(session, switch_resource_id, port_resource_id, **kwargs):
 
         ports = [ port for port in sw.ports ]
         ports.append(target_pt)
-        sm.ports = ports
+        sw.ports = ports
 
         session.commit()
         return target_pt

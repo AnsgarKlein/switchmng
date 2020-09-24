@@ -52,7 +52,7 @@ def patch_port_model(switch_model_resource_id, port_model_resource_id):
     pm = database.query_port_model(session,
                                    switch_model_resource_id,
                                    port_model_resource_id)
-    if sm is None:
+    if pm is None:
         abort(404)
 
     # Modify in database
