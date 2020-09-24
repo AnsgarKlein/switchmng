@@ -1,4 +1,8 @@
-from . import *
+from sqlalchemy import Integer
+from sqlalchemy import String
+from sqlalchemy import Column
+
+from .base import Base
 
 class Connector(Base):
     """

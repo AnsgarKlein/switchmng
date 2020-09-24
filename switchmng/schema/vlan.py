@@ -1,4 +1,7 @@
-from . import *
+from sqlalchemy import Integer, String
+from sqlalchemy import Column
+
+from .base import Base
 
 class Vlan(Base):
     """

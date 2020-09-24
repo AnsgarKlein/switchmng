@@ -1,6 +1,14 @@
 import ipaddress
 
-from . import *
+from sqlalchemy import Integer
+from sqlalchemy import String
+from sqlalchemy import Column
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship
+
+from .base import Base
+from .switch_model import SwitchModel
+from .port import Port
 
 class Switch(Base):
     """

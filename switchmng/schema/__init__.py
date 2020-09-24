@@ -1,7 +1,3 @@
-from sqlalchemy import Integer, String
-from sqlalchemy import Column, ForeignKey, Table
-from sqlalchemy.orm import relationship
-
 from .base import Base
 from .network_protocol import NetworkProtocol
 from .connector import Connector

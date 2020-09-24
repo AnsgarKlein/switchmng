@@ -1,4 +1,9 @@
-from . import *
+from sqlalchemy import Integer, String
+from sqlalchemy import Column, ForeignKey, Table
+from sqlalchemy.orm import relationship
+
+from .base import Base
+from .vlan import Vlan
 
 vlans_ports_mapping = Table(
     'vlan_ports',
