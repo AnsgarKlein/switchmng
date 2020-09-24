@@ -33,5 +33,4 @@ def app(*args, **kwargs):
     db = DatabaseConnection(config.DB_TYPE, config.DB_PATH, config.DB_VERBOSE, Base)
 
     # Return wsgi app
-    app = create_app(db)
-    return app
+    return create_app(db)
