@@ -550,4 +550,3 @@ def set_vlan(session, resource_id, **kwargs):
         session.add(target_vl)
         session.commit()
         return target_vl
-

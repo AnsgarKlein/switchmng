@@ -35,4 +35,3 @@ def app(*args, **kwargs):
     # Return wsgi app
     app = create_app(db)
     return app
-

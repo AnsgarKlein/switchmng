@@ -87,4 +87,3 @@ class Connector(Base):
             raise TypeError("Unexpected attribute '{}' for connector".format(key))
 
         return kwargs
-

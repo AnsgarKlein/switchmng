@@ -303,4 +303,3 @@ class Switch(Base):
             raise TypeError("Unexpected attribute '{}' for switch".format(key))
 
         return kwargs
-

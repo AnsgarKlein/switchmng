@@ -177,4 +177,3 @@ def delete_vlan(session, resource_id):
     # Delete vlan
     session.delete(vl)
     session.commit()
-

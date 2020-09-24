@@ -151,4 +151,3 @@ def post_vlan():
 
     return { 'status': 201,
              'data': vl.jsonify() }, 201
-

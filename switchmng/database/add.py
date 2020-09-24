@@ -186,4 +186,3 @@ def add_vlan(session, **kwargs):
     session.add(vl)
     session.commit()
     return vl
-

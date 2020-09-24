@@ -244,4 +244,3 @@ def _error(code = 500, message = None):
     return { 'status': code,
              'data': None,
              'message': message }, code
-

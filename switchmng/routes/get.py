@@ -158,4 +158,3 @@ def get_vlans():
 
     return { 'status': 200,
              'data': [ vl.jsonify() for vl in database.query_vlans(session) ] }, 200
-

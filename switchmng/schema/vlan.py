@@ -107,4 +107,3 @@ class Vlan(Base):
             raise TypeError("Unexpected attribute '{}' for vlan".format(key))
 
         return kwargs
-

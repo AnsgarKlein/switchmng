@@ -186,4 +186,3 @@ def parse_arguments(arguments):
     if 'port' in args:
         global PORT
         PORT = args.port
-

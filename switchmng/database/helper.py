@@ -75,4 +75,3 @@ def ports_from_dict(session, ports):
         objs.append(obj)
 
     return objs
-

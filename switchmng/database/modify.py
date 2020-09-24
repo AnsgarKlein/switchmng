@@ -328,4 +328,3 @@ def modify_vlan(session, resource_id, **kwargs):
     session.commit()
 
     return vl
-

@@ -394,4 +394,3 @@ def query_vlans(session, **kwargs):
                 "Cannot query vlans with unexpected filter '{}'".format(key))
 
     return vls.all()
-

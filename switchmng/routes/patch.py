@@ -223,4 +223,3 @@ def patch_vlan(resource_id):
 
     return { 'status': 200,
              'data': vl.jsonify() }, 200
-

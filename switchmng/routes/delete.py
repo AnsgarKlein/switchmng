@@ -138,4 +138,3 @@ def delete_vlan(resource_id):
 
     return { 'status': 200,
              'data': None }, 200
-

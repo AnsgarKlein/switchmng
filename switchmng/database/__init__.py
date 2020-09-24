@@ -41,4 +41,3 @@ class DatabaseConnection():
         # Initialize scoped sessions to support multi thread access to database
         self.sessionm = sessionmaker(bind = self.engine)
         self.Session = scoped_session(self.sessionm)
-

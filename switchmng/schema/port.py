@@ -155,4 +155,3 @@ class Port(Base):
             raise TypeError("Unexpected attribute '{}' for port".format(key))
 
         return kwargs
-

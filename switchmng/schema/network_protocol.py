@@ -113,4 +113,3 @@ class NetworkProtocol(Base):
             raise TypeError("Unexpected attribute '{}' for network protocol".format(key))
 
         return kwargs
-
