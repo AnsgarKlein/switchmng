@@ -16,6 +16,19 @@ _DEFAULT_DEBUG       = False
 _DEFAULT_IP          = '127.0.0.1'
 _DEFAULT_PORT        = '8000'
 
+
+MODE        = _DEFAULT_MODE
+
+CONFIG_FILE = _DEFAULT_CONFIG_FILE
+
+DB_TYPE     = _DEFAULT_DB_TYPE
+DB_PATH     = _DEFAULT_DB_PATH
+DB_VERBOSE  = _DEFAULT_DB_VERBOSE
+
+DEBUG       = _DEFAULT_DEBUG
+IP          = _DEFAULT_IP
+PORT        = _DEFAULT_PORT
+
 def _default_config():
     global MODE
 
