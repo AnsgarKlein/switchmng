@@ -10,3 +10,4 @@ install:
   - pip install -r requirements-dev.txt
 script:
   - scripts/test_all.py
+  - pylint -E switchmng
