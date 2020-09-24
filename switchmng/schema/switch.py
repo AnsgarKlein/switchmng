@@ -98,11 +98,11 @@ class Switch(Base):
         Switch.check_params(ports = ports)
 
         # Check if given ports exist in the switch model
-        for p in ports:
-            if self.model.port(p.name) is None:
+        for port in ports:
+            if self.model.port(port.name) is None:
                 raise ValueError(
                     "Port '{}' does not exist in switch model '{}' of switch '{}'"
-                    .format(str(p), str(self.model), str(self)))
+                    .format(str(port), str(self.model), str(self)))
 
         # Apply new port list
         self._ports = ports
@@ -128,11 +128,11 @@ class Switch(Base):
         Switch.check_params(ports = ports)
 
         # Check if given ports exist in the switch model
-        for p in ports:
-            if self.model.port(p.name) is None:
+        for port in ports:
+            if self.model.port(port.name) is None:
                 raise ValueError(
                     "Port '{}' does not exist in switch model '{}' of switch '{}'"
-                    .format(str(p), str(self.model), str(self)))
+                    .format(str(port), str(self.model), str(self)))
 
         # Never add or delete any ports only apply changes.
         # Don't touch non specified ports.
