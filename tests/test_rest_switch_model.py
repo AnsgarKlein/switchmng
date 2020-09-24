@@ -124,22 +124,18 @@ class Test_REST_SwitchModel(Test_REST):
             'model': 'example_model'
         }
         rv = self._patch('/switches/switch1', 200, json.dumps(patch))
-        print(rv)
 
         # DELETE
         rv = self._delete('/switch_models/example_model', 400)
-        print(rv)
 
         # Change switch model of switch
         patch = {
             'model': 'small_switch'
         }
         rv = self._patch('/switches/switch1', 200, json.dumps(patch))
-        print(rv)
 
         # DELETE
         rv = self._delete('/switch_models/example_model', 200)
-        print(rv)
 
     def test_delete_fail_nonexisting(self):
         """DELETE non existing switch model"""
