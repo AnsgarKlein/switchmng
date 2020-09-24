@@ -200,10 +200,12 @@ class SwitchModel(Base):
 
             if key == 'ports':
                 if not isinstance(val, list):
-                    raise TypeError('List of ports for switch model has to be of type list')
+                    raise TypeError(
+                        'List of ports for switch model has to be of type list')
                 for port in val:
                     if not isinstance(port, PortModel):
-                        raise TypeError('Ports in list of ports for switch model has to be of type PortModel')
+                        raise TypeError(
+                            'Ports in list of ports for switch model has to be of type PortModel')
                 continue
 
             if key == 'size':
