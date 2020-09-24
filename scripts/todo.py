@@ -4,18 +4,15 @@ import sys
 import os
 import re
 
-
-# Relative path from this script to directory containing
-# this projects source files.
-SRC_PATH = [ '..', 'src', 'switchmng' ]
-SRC_PATH = os.path.join(*SRC_PATH)
+# Relative path from this script to source directory
+SRC_PATH = [ '..', 'switchmng' ]
 
 def main():
     # cd to script directory
     os.chdir(os.path.dirname(sys.argv[0]))
 
     # cd to source directory
-    for d in os.path.split(SRC_PATH):
+    for d in SRC_PATH:
         os.chdir(d)
 
     # Get all python files in project path
