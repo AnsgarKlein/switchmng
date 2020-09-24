@@ -103,7 +103,7 @@ class Port(Base):
                  'target': self.target }
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
     def __repr__(self):
         return self.__str__()

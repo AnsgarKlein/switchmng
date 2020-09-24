@@ -112,7 +112,7 @@ class PortModel(Base):
                  'connector': None if self.connector is None else str(self.connector) }
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
     def __repr__(self):
         return self.__str__()

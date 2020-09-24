@@ -232,7 +232,7 @@ class Switch(Base):
                  'ip': self.ip }
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
     def __repr__(self):
         return self.__str__()
