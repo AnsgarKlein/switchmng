@@ -181,7 +181,7 @@ def query_switch_models(session, **kwargs):
         if key == 'size':
             models = models.filter_by(_size = val)
         elif key == 'network_protocol':
-            val = self.query_network_protocols(val)
+            val = query_network_protocols(val)
             if val is None:
                 raise ValueError('Given network protocol does not exist')
         else:
