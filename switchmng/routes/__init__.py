@@ -15,11 +15,11 @@ from .patch  import *
 from .post   import *
 from .put    import *
 
-def create_app(database):
+def create_app(database_connection):
 
     app = Flask('switchmng')
     app.url_map.strict_slashes = False
-    app.config['SWITCHMNG_DB_CONNECTION'] = database
+    app.config['SWITCHMNG_DB_CONNECTION'] = database_connection
     app.register_blueprint(restbp)
 
     return app
