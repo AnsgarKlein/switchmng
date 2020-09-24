@@ -192,7 +192,7 @@ class Switch(Base):
 
         # Port list 2: Ports from switch model that do not currently exist
         nports2 = [ Port(name = p.name)
-                    for p in self.model._ports
+                    for p in self.model.ports
                     if self.port(p.name) is None ]
 
         # Set ports of this switch to concatenation of generated two lists
