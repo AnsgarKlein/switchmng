@@ -400,9 +400,9 @@ def set_network_protocol(session, resource_id, **kwargs):
         if resource_id != kwargs['name']:
             if query_network_protocol(session, kwargs['name']) is not None:
                 raise ValueError(
-                        'Cannot set network protocol with name {} ' + \
-                        '- network protocol already exists'
-                    .format(kwargs['name']))
+                    'Cannot set network protocol with name {} ' \
+                    .format(kwargs['name']) + \
+                    '- network protocol already exists')
 
         # Create a new network protocol object with given state
         # and replace old object with it
@@ -469,9 +469,9 @@ def set_connector(session, resource_id, **kwargs):
         if resource_id != kwargs['name']:
             if query_connector(session, kwargs['name']) is not None:
                 raise ValueError(
-                        'Cannot set connector with name {} ' + \
-                        '- connector already exists'
-                    .format(kwargs['name']))
+                    'Cannot set connector with name {} ' \
+                    .format(kwargs['name']) + \
+                    '- connector already exists')
 
         # Create a new connector object with given state
         # and replace old object with it
