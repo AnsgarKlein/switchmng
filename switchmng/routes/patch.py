@@ -1,5 +1,5 @@
-from flask import current_app
 from flask import abort
+from flask import current_app
 from flask import request
 
 from switchmng import database

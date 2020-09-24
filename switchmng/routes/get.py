@@ -1,6 +1,5 @@
-from flask import current_app
 from flask import abort
-from flask import request
+from flask import current_app
 
 from switchmng import database
 from .blueprint import restbp
