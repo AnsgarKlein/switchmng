@@ -41,7 +41,10 @@ class SwitchModel(Base):
     # this as a switch model get deleted if this model gets deleted.
     _switches = relationship('Switch', uselist = True, cascade = 'all, delete-orphan')
 
-    def __init__(self, name = None, ports = [], size = None):
+    def __init__(self, name = None, ports = None, size = None):
+        if ports is None:
+            ports = []
+
         self.name = name
         self.ports = ports
         self.size = size

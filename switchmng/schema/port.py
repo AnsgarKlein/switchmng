@@ -47,7 +47,10 @@ class Port(Base):
     _vlans = relationship('Vlan', secondary = vlans_ports_mapping, uselist = True)
     _target = Column('target', String, nullable = True)
 
-    def __init__(self, name = None, vlans = [], target = None):
+    def __init__(self, name = None, vlans = None, target = None):
+        if vlans is None:
+            vlans = []
+
         self.name = name
         self.vlans = vlans
         self.target = target

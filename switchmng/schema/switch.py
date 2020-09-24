@@ -47,7 +47,10 @@ class Switch(Base):
     _location = Column('location', Integer, nullable = True)
     _ip = Column('ip', String, nullable = True)
 
-    def __init__(self, name = None, model = None, ports = [], location = None, ip = None):
+    def __init__(self, name = None, model = None, ports = None, location = None, ip = None):
+        if ports is None:
+            ports = []
+
         self.name = name
         self.model = model
         self.ports = ports

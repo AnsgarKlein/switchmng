@@ -58,7 +58,10 @@ class PortModel(Base):
         uselist = True)
     _connector = relationship('Connector')
 
-    def __init__(self, name = None, network_protocols = [], connector = None):
+    def __init__(self, name = None, network_protocols = None, connector = None):
+        if network_protocols is None:
+            network_protocols = []
+
         self.name = name
         self.network_protocols = network_protocols
         self.connector = connector
