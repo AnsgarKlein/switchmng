@@ -29,6 +29,12 @@ venv/
 .env/
 .venv/
 
+# coverage
+.coverage
+coverage_report
+coverage.xml
+coverage.json
+
 # python
 __pycache__/
 *.pyc

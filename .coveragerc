@@ -1,0 +1,22 @@
+[run]
+branch = True
+source = switchmng
+command_line = scripts/test_all.py
+data_file = .coverage
+
+[report]
+exclude_lines =
+    # Reenable standard pragma
+    pragma: no cover
+
+    # Ignore main guard
+    if __name__ == .__main__.:
+
+[html]
+directory = coverage_report
+
+[xml]
+output = coverage.xml
+
+[json]
+output = coverage.json
