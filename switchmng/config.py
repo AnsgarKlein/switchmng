@@ -1,4 +1,3 @@
-import sys
 import argparse
 
 # Default configuration values
