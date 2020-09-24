@@ -79,7 +79,7 @@ def modify_port_model(session, switch_model_resource_id, port_model_resource_id,
     sm = query_switch_model(session, switch_model_resource_id)
     if sm is None:
         raise ValueError("Given switch model '{}' does not exist"
-            .format(resource_id))
+            .format(switch_model_resource_id))
     pm = sm.port(port_model_resource_id)
     if pm is None:
         raise ValueError(
@@ -185,12 +185,12 @@ def modify_port(session, switch_resource_id, port_resource_id, **kwargs):
     sw = query_switch(session, switch_resource_id)
     if sw is None:
         raise ValueError("Given switch '{}' does not exist"
-            .format(resource_id))
+            .format(switch_resource_id))
     pt = sw.port(port_resource_id)
     if pt is None:
         raise ValueError(
             "Given port '{}' of given switch '{}' does not exist"
-            .format(port_model_resource_id, switch_model_resource_id))
+            .format(port_resource_id, switch_resource_id))
 
     # Replace list of vlan strings with list of vlan objects
     if 'vlans' in kwargs:
