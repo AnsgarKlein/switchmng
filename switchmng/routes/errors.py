@@ -1,4 +1,4 @@
-from . import *
+from .blueprint import restbp
 
 @restbp.errorhandler(400)
 def ierror_400(error):

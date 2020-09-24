@@ -1,6 +1,10 @@
 from flask import current_app
+from flask import abort
+from flask import request
 
-from . import *
+from switchmng import database
+from .blueprint import restbp
+from .errors import *
 
 @restbp.route('/switch_models/<string:resource_id>', methods = ['DELETE'])
 def delete_switch_model(resource_id):
