@@ -2,12 +2,14 @@ from flask import abort
 from flask import current_app
 from flask import request
 
+from switchmng.typing import FlaskResponse
+
 from switchmng import database
 from .blueprint import restbp
 from .errors import *
 
 @restbp.route('/switch_models/<string:resource_id>', methods = ['DELETE'])
-def delete_switch_model(resource_id):
+def delete_switch_model(resource_id: str) -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
@@ -29,7 +31,10 @@ def delete_switch_model(resource_id):
              'data': None }, 200
 
 @restbp.route('/switch_models/<string:switch_model_resource_id>/ports/<string:port_model_resource_id>', methods = ['DELETE'])
-def delete_port_model(switch_model_resource_id, port_model_resource_id):
+def delete_port_model(
+        switch_model_resource_id: str,
+        port_model_resource_id: str) -> FlaskResponse:
+
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
@@ -56,7 +61,7 @@ def delete_port_model(switch_model_resource_id, port_model_resource_id):
              'data': None }, 200
 
 @restbp.route('/switches/<string:resource_id>', methods = ['DELETE'])
-def delete_switch(resource_id):
+def delete_switch(resource_id: str) -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
@@ -78,7 +83,7 @@ def delete_switch(resource_id):
              'data': None }, 200
 
 @restbp.route('/network_protocols/<string:resource_id>', methods = ['DELETE'])
-def delete_network_protocol(resource_id):
+def delete_network_protocol(resource_id: str) -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
@@ -100,7 +105,7 @@ def delete_network_protocol(resource_id):
              'data': None }, 200
 
 @restbp.route('/connectors/<string:resource_id>', methods = ['DELETE'])
-def delete_connector(resource_id):
+def delete_connector(resource_id: str) -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
@@ -122,7 +127,7 @@ def delete_connector(resource_id):
              'data': None }, 200
 
 @restbp.route('/vlans/<int:resource_id>', methods = ['DELETE'])
-def delete_vlan(resource_id):
+def delete_vlan(resource_id: str) -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request

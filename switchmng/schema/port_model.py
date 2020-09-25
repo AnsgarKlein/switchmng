@@ -1,6 +1,13 @@
+from typing import TYPE_CHECKING
+from typing import cast
+from typing import List
+from typing import Optional
+
 from sqlalchemy import Integer, String
 from sqlalchemy import Column, ForeignKey, Table
 from sqlalchemy.orm import relationship
+
+from switchmng.typing import JsonDict
 
 from .base import Base
 from .network_protocol import NetworkProtocol
@@ -58,16 +65,26 @@ class PortModel(Base):
         uselist = True)
     _connector = relationship('Connector')
 
-    def __init__(self, name = None, network_protocols = None, connector = None):
+    def __init__(
+            self,
+            name: str = None,
+            network_protocols: Optional[List[NetworkProtocol]] = None,
+            connector: Optional[Connector] = None):
+
         if network_protocols is None:
             network_protocols = []
+
+        # Make type checking happy
+        # (property setter makes sure to set only correct type)
+        if TYPE_CHECKING:
+            name = cast(str, name)
 
         self.name = name
         self.network_protocols = network_protocols
         self.connector = connector
 
     @property
-    def name(self):
+    def name(self) -> str:
         """The identifier of this port.
 
         Must be unique for the containing :class:`SwitchModel`"""
@@ -75,33 +92,33 @@ class PortModel(Base):
         return self._name
 
     @name.setter
-    def name(self, name):
+    def name(self, name: str) -> None:
         PortModel.check_params(name = name)
         self._name = name
 
     @property
-    def network_protocols(self):
+    def network_protocols(self) -> List[NetworkProtocol]:
         """List of possible network protocols of this port"""
 
         return self._network_protocols
 
     @network_protocols.setter
-    def network_protocols(self, network_protocols):
+    def network_protocols(self, network_protocols: List[NetworkProtocol]) -> None:
         PortModel.check_params(network_protocols = network_protocols)
         self._network_protocols = network_protocols
 
     @property
-    def connector(self):
+    def connector(self) -> Optional[Connector]:
         """Physical connector of this port"""
 
         return self._connector
 
     @connector.setter
-    def connector(self, connector):
+    def connector(self, connector: Optional[Connector]) -> None:
         PortModel.check_params(connector = connector)
         self._connector = connector
 
-    def jsonify(self):
+    def jsonify(self) -> JsonDict:
         """
         Represent this object as a json-ready dict.
 
@@ -120,10 +137,10 @@ class PortModel(Base):
                  'network_protocols': [ str(np) for np in self.network_protocols ],
                  'connector': None if self.connector is None else str(self.connector) }
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.name)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return self.__str__()
 
     @staticmethod

@@ -1,10 +1,17 @@
 import ipaddress
 
+from typing import TYPE_CHECKING
+from typing import cast
+from typing import List
+from typing import Optional
+
 from sqlalchemy import Integer
 from sqlalchemy import String
 from sqlalchemy import Column
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
+
+from switchmng.typing import JsonDict
 
 from .base import Base
 from .switch_model import SwitchModel
@@ -47,9 +54,22 @@ class Switch(Base):
     _location = Column('location', Integer, nullable = True)
     _ip = Column('ip', String, nullable = True)
 
-    def __init__(self, name = None, model = None, ports = None, location = None, ip = None):
+    def __init__(
+            self,
+            name: str = None,
+            model: SwitchModel = None,
+            ports: List[Port] = None,
+            location: Optional[int] = None,
+            ip: Optional[str] = None) -> None:
+
         if ports is None:
             ports = []
+
+        # Make type checking happy
+        # (property setter makes sure to set only correct type)
+        if TYPE_CHECKING:
+            name = cast(str, name)
+            model = cast(SwitchModel, model)
 
         self.name = name
         self.model = model
@@ -58,24 +78,24 @@ class Switch(Base):
         self.ip = ip
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Name uniquely identifying this switch"""
 
         return self._name
 
     @name.setter
-    def name(self, name):
+    def name(self, name: str) -> None:
         Switch.check_params(name = name)
         self._name = name
 
     @property
-    def model(self):
+    def model(self) -> SwitchModel:
         """Model of this switch"""
 
         return self._model
 
     @model.setter
-    def model(self, model):
+    def model(self, model: SwitchModel) -> None:
         Switch.check_params(model = model)
         self._model = model
 
@@ -84,7 +104,7 @@ class Switch(Base):
         self._sync_ports_from_model()
 
     @property
-    def ports(self):
+    def ports(self) -> List[Port]:
         """Ports associated with this switch.
 
         The list of ports always contains ports for all :class:`PortModel`
@@ -99,7 +119,7 @@ class Switch(Base):
         return self._ports
 
     @ports.setter
-    def ports(self, ports):
+    def ports(self, ports: List[Port]) -> None:
         """
         Set all ports of this switch.
         All ports not given but present will be reset
@@ -154,28 +174,28 @@ class Switch(Base):
                     break
 
     @property
-    def location(self):
+    def location(self) -> Optional[int]:
         """Location of this switch in server rack"""
 
         return self._location
 
     @location.setter
-    def location(self, location):
+    def location(self, location: int) -> None:
         Switch.check_params(location = location)
         self._location = location
 
     @property
-    def ip(self):
+    def ip(self) -> Optional[str]:
         """Ip of this switch"""
 
         return self._ip
 
     @ip.setter
-    def ip(self, ip):
+    def ip(self, ip: str) -> None:
         Switch.check_params(ip = ip)
         self._ip = ip
 
-    def _sync_ports_from_model(self):
+    def _sync_ports_from_model(self) -> None:
         """
         Synchronize ports from switch model.
 
@@ -198,7 +218,7 @@ class Switch(Base):
         # Set ports of this switch to concatenation of generated two lists
         self._ports = nports1 + nports2
 
-    def port(self, resource_id):
+    def port(self, resource_id: str) -> Optional[Port]:
         """Return port of this switch identified by resource identifier
 
         Returns the port for the given resource identifier or None if this
@@ -221,7 +241,7 @@ class Switch(Base):
         # Did not find port for given port name
         return None
 
-    def jsonify(self):
+    def jsonify(self) -> JsonDict:
         """
         Represent this object as a json-ready dict.
 
@@ -242,10 +262,10 @@ class Switch(Base):
                  'location': self.location,
                  'ip': self.ip }
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.name)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return self.__str__()
 
     @staticmethod

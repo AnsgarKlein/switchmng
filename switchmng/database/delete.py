@@ -2,7 +2,7 @@ from switchmng.schema import *
 
 from .query import *
 
-def delete_switch_model(session, resource_id):
+def delete_switch_model(session, resource_id: str) -> None:
     """
     Delete a switch model from the database.
 
@@ -32,7 +32,7 @@ def delete_switch_model(session, resource_id):
     session.delete(sm)
     session.commit()
 
-def delete_port_model(session, switch_model_resource_id, port_model_resource_id):
+def delete_port_model(session, switch_model_resource_id: str, port_model_resource_id: str) -> None:
     """
     Delete a port model from a switch model from the database.
 
@@ -66,7 +66,7 @@ def delete_port_model(session, switch_model_resource_id, port_model_resource_id)
     # port model object. We just have to commit changes in our session.
     session.commit()
 
-def delete_switch(session, resource_id):
+def delete_switch(session, resource_id: str) -> None:
     """
     Delete a switch from the database.
 
@@ -85,7 +85,7 @@ def delete_switch(session, resource_id):
     session.delete(sw)
     session.commit()
 
-def delete_network_protocol(session, resource_id):
+def delete_network_protocol(session, resource_id: str) -> None:
     """
     Delete a network protocol from the database.
 
@@ -116,7 +116,7 @@ def delete_network_protocol(session, resource_id):
     session.delete(np)
     session.commit()
 
-def delete_connector(session, resource_id):
+def delete_connector(session, resource_id: str) -> None:
     """
     Delete a connector from the database.
 
@@ -147,7 +147,7 @@ def delete_connector(session, resource_id):
     session.delete(cn)
     session.commit()
 
-def delete_vlan(session, resource_id):
+def delete_vlan(session, resource_id: str) -> None:
     """
     Delete a vlan from the database.
 

@@ -1,6 +1,8 @@
+from typing import Optional
+
 from switchmng.schema import *
 
-def query_switch_model(session, resource_id):
+def query_switch_model(session, resource_id: str) -> Optional[SwitchModel]:
     """
     Retrieve :class:`SwitchModel` object from database.
 
@@ -27,7 +29,10 @@ def query_switch_model(session, resource_id):
 
     return model.first()
 
-def query_port_model(session, switch_model_resource_id, port_model_resource_id):
+def query_port_model(
+        session,
+        switch_model_resource_id: str,
+        port_model_resource_id: str) -> Optional[PortModel]:
     """
     Retrieve :class:`PortModel` object from database.
 
@@ -41,7 +46,7 @@ def query_port_model(session, switch_model_resource_id, port_model_resource_id):
 
     return sm.port(port_model_resource_id)
 
-def query_switch(session, resource_id):
+def query_switch(session, resource_id: str) -> Optional[Switch]:
     """
     Retrieve :class:`Switch` object from database.
 
@@ -68,7 +73,10 @@ def query_switch(session, resource_id):
 
     return sw.first()
 
-def query_port(session, switch_resource_id, port_resource_id):
+def query_port(
+        session,
+        switch_resource_id: str,
+        port_resource_id: str) -> Optional[Port]:
     """
     Retrieve :class:`Port` object from database.
 
@@ -82,7 +90,7 @@ def query_port(session, switch_resource_id, port_resource_id):
 
     return sw.port(port_resource_id)
 
-def query_network_protocol(session, resource_id):
+def query_network_protocol(session, resource_id: str) -> Optional[NetworkProtocol]:
     """
     Retrieve :class:`NetworkProtocol` object from database.
 
@@ -109,7 +117,7 @@ def query_network_protocol(session, resource_id):
 
     return pt.first()
 
-def query_connector(session, resource_id):
+def query_connector(session, resource_id: str) -> Optional[Connector]:
     """
     Retrieve :class:`Connector` object from database.
 
@@ -136,7 +144,7 @@ def query_connector(session, resource_id):
 
     return cn.first()
 
-def query_vlan(session, resource_id):
+def query_vlan(session, resource_id: str) -> Optional[Vlan]:
     """
     Retrieve :class:`Vlan` object from database.
 

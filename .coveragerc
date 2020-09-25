@@ -12,6 +12,9 @@ exclude_lines =
     # Ignore main guard
     if __name__ == .__main__.:
 
+    # Ignore code specific for type checking
+    if TYPE_CHECKING:
+
 [html]
 directory = coverage_report
 

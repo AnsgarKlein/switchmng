@@ -1,12 +1,14 @@
 from flask import abort
 from flask import current_app
 
+from switchmng.typing import FlaskResponse
+
 from switchmng import database
 from .blueprint import restbp
 from .errors import *
 
 @restbp.route('/switch_models/<string:resource_id>', methods = ['GET'])
-def get_switch_model(resource_id):
+def get_switch_model(resource_id: str) -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check if switch model exists
@@ -18,7 +20,10 @@ def get_switch_model(resource_id):
              'data': sm.jsonify() }, 200
 
 @restbp.route('/switch_models/<string:switch_model_resource_id>/ports/<string:port_model_resource_id>', methods = ['GET'])
-def get_port_model(switch_model_resource_id, port_model_resource_id):
+def get_port_model(
+        switch_model_resource_id: str,
+        port_model_resource_id: str) -> FlaskResponse:
+
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check if switch model exists
@@ -35,7 +40,7 @@ def get_port_model(switch_model_resource_id, port_model_resource_id):
              'data': pm.jsonify() }, 200
 
 @restbp.route('/switches/<string:resource_id>', methods = ['GET'])
-def get_switch(resource_id):
+def get_switch(resource_id: str) -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check if switch exists
@@ -47,7 +52,7 @@ def get_switch(resource_id):
              'data': sw.jsonify() }, 200
 
 @restbp.route('/switches/<string:switch_resource_id>/ports/<string:port_resource_id>', methods = ['GET'])
-def get_port(switch_resource_id, port_resource_id):
+def get_port(switch_resource_id: str, port_resource_id: str) -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check if switch exists
@@ -64,7 +69,7 @@ def get_port(switch_resource_id, port_resource_id):
              'data': pt.jsonify() }, 200
 
 @restbp.route('/network_protocols/<string:resource_id>', methods = ['GET'])
-def get_network_protocol(resource_id):
+def get_network_protocol(resource_id: str) -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check if network protocol exists
@@ -76,7 +81,7 @@ def get_network_protocol(resource_id):
              'data': np.jsonify() }, 200
 
 @restbp.route('/connectors/<string:resource_id>', methods = ['GET'])
-def get_connector(resource_id):
+def get_connector(resource_id: str) -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check if connector exists
@@ -88,7 +93,7 @@ def get_connector(resource_id):
              'data': cn.jsonify() }, 200
 
 @restbp.route('/vlans/<int:resource_id>', methods = ['GET'])
-def get_vlan(resource_id):
+def get_vlan(resource_id: str) -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check if vlan exists
@@ -100,14 +105,14 @@ def get_vlan(resource_id):
              'data': vl.jsonify() }, 200
 
 @restbp.route('/switch_models', methods = ['GET'])
-def get_switch_models():
+def get_switch_models() -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     return { 'status': 200,
              'data': [ sm.jsonify() for sm in database.query_switch_models(session) ] }, 200
 
 @restbp.route('/switch_models/<string:switch_model_resource_id>/ports', methods = ['GET'])
-def get_port_models(switch_model_resource_id):
+def get_port_models(switch_model_resource_id: str) -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check if switch model exists
@@ -121,14 +126,14 @@ def get_port_models(switch_model_resource_id):
                        database.query_port_models(session, switch_model_resource_id) ] }, 200
 
 @restbp.route('/switches', methods = ['GET'])
-def get_switches():
+def get_switches() -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     return { 'status': 200,
              'data': [ sw.jsonify() for sw in database.query_switches(session) ] }, 200
 
 @restbp.route('/switches/<string:switch_resource_id>/ports', methods = ['GET'])
-def get_ports(switch_resource_id):
+def get_ports(switch_resource_id: str) -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check if switch exists
@@ -142,21 +147,21 @@ def get_ports(switch_resource_id):
                        database.query_ports(session, switch_resource_id) ] }, 200
 
 @restbp.route('/network_protocols', methods = ['GET'])
-def get_network_protocols():
+def get_network_protocols() -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     return { 'status': 200,
              'data': [ np.jsonify() for np in database.query_network_protocols(session) ] }, 200
 
 @restbp.route('/connectors', methods = ['GET'])
-def get_connectors():
+def get_connectors() -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     return { 'status': 200,
              'data': [ cn.jsonify() for cn in database.query_connectors(session) ] }, 200
 
 @restbp.route('/vlans', methods = ['GET'])
-def get_vlans():
+def get_vlans() -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     return { 'status': 200,

@@ -1,6 +1,12 @@
+from typing import TYPE_CHECKING
+from typing import cast
+from typing import Optional
+
 from sqlalchemy import Integer
 from sqlalchemy import String
 from sqlalchemy import Column
+
+from switchmng.typing import JsonDict
 
 from .base import Base
 
@@ -30,33 +36,42 @@ class NetworkProtocol(Base):
     # Resource state
     _speed = Column('speed', Integer, nullable = True)
 
-    def __init__(self, name = None, speed = None):
+    def __init__(
+            self,
+            name: str = None,
+            speed: Optional[int] = None):
+
+        # Make type checking happy
+        # (property setter makes sure to set only correct type)
+        if TYPE_CHECKING:
+            name = cast(str, name)
+
         self.name = name
         self.speed = speed
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Name uniquely identifying this network protocol"""
 
         return self._name
 
     @name.setter
-    def name(self, name):
+    def name(self, name: str) -> None:
         NetworkProtocol.check_params(name = name)
         self._name = name
 
     @property
-    def speed(self):
+    def speed(self) -> Optional[int]:
         """Maximum possible speed of this network protocol in Mb/s"""
 
         return self._speed
 
     @speed.setter
-    def speed(self, speed):
+    def speed(self, speed: int) -> None:
         NetworkProtocol.check_params(speed = speed)
         self._speed = speed
 
-    def jsonify(self):
+    def jsonify(self) -> JsonDict:
         """
         Represent this object as a json-ready dict.
 
@@ -74,10 +89,10 @@ class NetworkProtocol(Base):
         return { 'name': self.name,
                  'speed': self.speed }
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.name)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return self.__str__()
 
     @staticmethod

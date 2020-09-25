@@ -1,12 +1,14 @@
 from flask import current_app
 from flask import request
 
+from switchmng.typing import FlaskResponse
+
 from switchmng import database
 from .blueprint import restbp
 from .errors import *
 
 @restbp.route('/switch_models', methods = ['POST'])
-def post_switch_model():
+def post_switch_model() -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
@@ -31,7 +33,7 @@ def post_switch_model():
              'data': sm.jsonify() }, 201
 
 @restbp.route('/switch_models/<string:switch_model_resource_id>/ports', methods = ['POST'])
-def post_port_model(switch_model_resource_id):
+def post_port_model(switch_model_resource_id: str) -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
@@ -56,7 +58,7 @@ def post_port_model(switch_model_resource_id):
              'data': pm.jsonify() }, 201
 
 @restbp.route('/switches', methods = ['POST'])
-def post_switch():
+def post_switch() -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
@@ -81,7 +83,7 @@ def post_switch():
              'data': sw.jsonify() }, 201
 
 @restbp.route('/network_protocols', methods = ['POST'])
-def post_network_protocol():
+def post_network_protocol() -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
@@ -106,7 +108,7 @@ def post_network_protocol():
              'data': np.jsonify() }, 201
 
 @restbp.route('/connectors', methods = ['POST'])
-def post_connector():
+def post_connector() -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
@@ -131,7 +133,7 @@ def post_connector():
              'data': cn.jsonify() }, 201
 
 @restbp.route('/vlans', methods = ['POST'])
-def post_vlan():
+def post_vlan() -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request

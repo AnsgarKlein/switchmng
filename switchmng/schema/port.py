@@ -1,6 +1,13 @@
+from typing import TYPE_CHECKING
+from typing import cast
+from typing import List
+from typing import Optional
+
 from sqlalchemy import Integer, String
 from sqlalchemy import Column, ForeignKey, Table
 from sqlalchemy.orm import relationship
+
+from switchmng.typing import JsonDict
 
 from .base import Base
 from .vlan import Vlan
@@ -47,37 +54,47 @@ class Port(Base):
     _vlans = relationship('Vlan', secondary = vlans_ports_mapping, uselist = True)
     _target = Column('target', String, nullable = True)
 
-    def __init__(self, name = None, vlans = None, target = None):
+    def __init__(
+            self,
+            name: str = None,
+            vlans: Optional[List[Vlan]] = None,
+            target: Optional[str] = None):
+
         if vlans is None:
             vlans = []
+
+        # Make type checking happy
+        # (property setter makes sure to set only correct type)
+        if TYPE_CHECKING:
+            name = cast(str, name)
 
         self.name = name
         self.vlans = vlans
         self.target = target
 
     @property
-    def name(self):
+    def name(self) -> str:
         """The identifier of this port. Must be unique for the containing
         :class:`Switch`."""
         return self._name
 
     @name.setter
-    def name(self, name):
+    def name(self, name: str) -> None:
         Port.check_params(name = name)
         self._name = name
 
     @property
-    def vlans(self):
+    def vlans(self) -> List[Vlan]:
         """A list of vlans that are active on this port"""
         return self._vlans
 
     @vlans.setter
-    def vlans(self, vlans):
+    def vlans(self, vlans: List[Vlan]) -> None:
         Port.check_params(vlans = vlans)
         self._vlans = vlans
 
     @property
-    def target(self):
+    def target(self) -> Optional[str]:
         """Device that is connected to this port
 
         Some representation (FQDN / description / ip) of the device that is
@@ -87,11 +104,11 @@ class Port(Base):
         return self._target
 
     @target.setter
-    def target(self, target):
+    def target(self, target: str) -> None:
         Port.check_params(target = target)
         self._target = target
 
-    def jsonify(self):
+    def jsonify(self) -> JsonDict:
         """
         Represent this object as a json-ready dict.
 
@@ -110,10 +127,10 @@ class Port(Base):
                  'vlans': [ int(str(v)) for v in self.vlans ],
                  'target': self.target }
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.name)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return self.__str__()
 
     @staticmethod

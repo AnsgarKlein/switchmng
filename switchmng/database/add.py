@@ -3,7 +3,7 @@ from switchmng.schema import *
 from .query import *
 from .helper import *
 
-def add_switch_model(session, **kwargs):
+def add_switch_model(session, **kwargs) -> SwitchModel:
     """
     Create a new switch model and add it to the database.
 
@@ -33,7 +33,7 @@ def add_switch_model(session, **kwargs):
     session.commit()
     return sm
 
-def add_port_model(session, switch_model_resource_id, **kwargs):
+def add_port_model(session, switch_model_resource_id: str, **kwargs) -> PortModel:
     """
     Add a new port model to a switch model and add it to the database.
 
@@ -75,7 +75,7 @@ def add_port_model(session, switch_model_resource_id, **kwargs):
 
     return pm
 
-def add_switch(session, **kwargs):
+def add_switch(session, **kwargs) -> Switch:
     """
     Create a new switch and add it to the database.
 
@@ -109,7 +109,7 @@ def add_switch(session, **kwargs):
     session.commit()
     return sw
 
-def add_network_protocol(session, **kwargs):
+def add_network_protocol(session, **kwargs) -> NetworkProtocol:
     """
     Create a new network protocol and add it to the database.
 
@@ -135,7 +135,7 @@ def add_network_protocol(session, **kwargs):
     session.commit()
     return np
 
-def add_connector(session, **kwargs):
+def add_connector(session, **kwargs) -> Connector:
     """
     Create a new connector and add it to the database.
 
@@ -161,7 +161,7 @@ def add_connector(session, **kwargs):
     session.commit()
     return cn
 
-def add_vlan(session, **kwargs):
+def add_vlan(session, **kwargs) -> Vlan:
     """
     Create a new vlan and add it to the database.
 

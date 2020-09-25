@@ -1,8 +1,10 @@
+from typing import List
+
 from switchmng.schema import *
 
 from .query import *
 
-def port_model_from_dict(session, **kwargs):
+def port_model_from_dict(session, **kwargs) -> PortModel:
     """
     Create port model.
     """
@@ -24,7 +26,7 @@ def port_model_from_dict(session, **kwargs):
 
     return PortModel(**kwargs)
 
-def port_models_from_dict(session, ports):
+def port_models_from_dict(session, ports: List[dict]) -> List[PortModel]:
     """
     Convert port models from list of dict of strings to list of port model objects.
     """
@@ -44,7 +46,7 @@ def port_models_from_dict(session, ports):
 
     return objs
 
-def ports_from_dict(session, ports):
+def ports_from_dict(session, ports: List[dict]) -> List[Port]:
     """
     Convert ports from list of dict of strings to list of port objects.
     """

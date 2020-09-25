@@ -1,7 +1,14 @@
+from typing import TYPE_CHECKING
+from typing import cast
+from typing import List
+from typing import Optional
+
 from sqlalchemy import Integer
 from sqlalchemy import String
 from sqlalchemy import Column
 from sqlalchemy.orm import relationship
+
+from switchmng.typing import JsonDict
 
 from .base import Base
 from .port_model import PortModel
@@ -41,27 +48,37 @@ class SwitchModel(Base):
     # this as a switch model get deleted if this model gets deleted.
     _switches = relationship('Switch', uselist = True, cascade = 'all, delete-orphan')
 
-    def __init__(self, name = None, ports = None, size = None):
+    def __init__(
+            self,
+            name: str = None,
+            ports: List[PortModel] = None,
+            size: int = None):
+
         if ports is None:
             ports = []
+
+        # Make type checking happy
+        # (property setter makes sure to set only correct type)
+        if TYPE_CHECKING:
+            name = cast(str, name)
 
         self.name = name
         self.ports = ports
         self.size = size
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Name uniquely identifying this switch model"""
 
         return self._name
 
     @name.setter
-    def name(self, name):
+    def name(self, name: str) -> None:
         SwitchModel.check_params(name = name)
         self._name = name
 
     @property
-    def ports(self):
+    def ports(self) -> List[PortModel]:
         """Ports associated with this switch model"""
 
         # Sort list by name of port
@@ -70,7 +87,7 @@ class SwitchModel(Base):
         return self._ports
 
     @ports.setter
-    def ports(self, ports):
+    def ports(self, ports: List[PortModel]) -> None:
         """
         Set all ports of this switch model.
         All ports not given but present will be removed.
@@ -113,17 +130,17 @@ class SwitchModel(Base):
             sw._sync_ports_from_model()
 
     @property
-    def size(self):
+    def size(self) -> Optional[int]:
         """Size (number of rack units) this switch takes up in server rack"""
 
         return self._size
 
     @size.setter
-    def size(self, size):
+    def size(self, size: int) -> None:
         SwitchModel.check_params(size = size)
         self._size = size
 
-    def port(self, resource_id):
+    def port(self, resource_id: str) -> Optional[PortModel]:
         """Return port of this switch model identified by resource identifier
 
         Returns the port for the given resource identifier or None if this
@@ -146,7 +163,7 @@ class SwitchModel(Base):
         # Did not find port for given port name
         return None
 
-    def jsonify(self):
+    def jsonify(self) -> JsonDict:
         """
         Represent this object as a json-ready dict.
 
@@ -165,10 +182,10 @@ class SwitchModel(Base):
                  'ports': [ p.jsonify() for p in self.ports ],
                  'size': self.size }
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.name)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return self.__str__()
 
     @staticmethod

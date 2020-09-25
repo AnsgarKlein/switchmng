@@ -3,7 +3,7 @@ from switchmng.schema import *
 from .query import *
 from .helper import *
 
-def set_switch_model(session, resource_id, **kwargs):
+def set_switch_model(session, resource_id: str, **kwargs) -> SwitchModel:
     """
     Set a :class:`SwitchModel` in the database to a given state.
 
@@ -75,7 +75,10 @@ def set_switch_model(session, resource_id, **kwargs):
         session.commit()
         return target_sm
 
-def set_port_model(session, switch_model_resource_id, port_model_resource_id, **kwargs):
+def set_port_model(
+        session,
+        switch_model_resource_id: str,
+        port_model_resource_id: str, **kwargs) -> PortModel:
     """
     Set a :class:`PortModel` in the database to a given state.
 
@@ -174,7 +177,7 @@ def set_port_model(session, switch_model_resource_id, port_model_resource_id, **
         session.commit()
         return target_pm
 
-def set_switch(session, resource_id, **kwargs):
+def set_switch(session, resource_id: str, **kwargs) -> Switch:
     """
     Set a :class:`Switch` corresponding to a given resource identifier
     to a given state.
@@ -253,7 +256,11 @@ def set_switch(session, resource_id, **kwargs):
         session.commit()
         return target_sw
 
-def set_port(session, switch_resource_id, port_resource_id, **kwargs):
+def set_port(
+        session,
+        switch_resource_id: str,
+        port_resource_id: str,
+        **kwargs) -> Port:
     """
     Set a :class:`Port` in the database to a given state.
 
@@ -345,7 +352,7 @@ def set_port(session, switch_resource_id, port_resource_id, **kwargs):
         session.commit()
         return target_pt
 
-def set_network_protocol(session, resource_id, **kwargs):
+def set_network_protocol(session, resource_id: str, **kwargs) -> NetworkProtocol:
     """
     Set a :class:`NetworkProtocol` in the database to a given state.
 
@@ -414,7 +421,7 @@ def set_network_protocol(session, resource_id, **kwargs):
         session.commit()
         return target_np
 
-def set_connector(session, resource_id, **kwargs):
+def set_connector(session, resource_id: str, **kwargs) -> Connector:
     """
     Set a :class:`Connector` in the database to a given state.
 
@@ -483,7 +490,7 @@ def set_connector(session, resource_id, **kwargs):
         session.commit()
         return target_cn
 
-def set_vlan(session, resource_id, **kwargs):
+def set_vlan(session, resource_id: str, **kwargs) -> Vlan:
     """
     Set a :class:`Vlan` in the database to a given state.
 

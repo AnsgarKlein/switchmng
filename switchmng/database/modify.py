@@ -3,7 +3,7 @@ from switchmng.schema import *
 from .query import *
 from .helper import *
 
-def modify_switch_model(session, resource_id, **kwargs):
+def modify_switch_model(session, resource_id: str, **kwargs) -> SwitchModel:
     """
     Modify a :class:`SwitchModel` object in the database.
 
@@ -49,7 +49,10 @@ def modify_switch_model(session, resource_id, **kwargs):
 
     return sm
 
-def modify_port_model(session, switch_model_resource_id, port_model_resource_id, **kwargs):
+def modify_port_model(session,
+                      switch_model_resource_id: str,
+                      port_model_resource_id: str,
+                      **kwargs) -> PortModel:
     """
     Modify a :class:`PortModel` object in the database.
 
@@ -106,7 +109,7 @@ def modify_port_model(session, switch_model_resource_id, port_model_resource_id,
     session.commit()
     return pm
 
-def modify_switch(session, resource_id, **kwargs):
+def modify_switch(session, resource_id: str, **kwargs) -> Switch:
     """
     Modify a :class:`Switch` object in the database.
 
@@ -155,7 +158,7 @@ def modify_switch(session, resource_id, **kwargs):
     session.commit()
     return sw
 
-def modify_port(session, switch_resource_id, port_resource_id, **kwargs):
+def modify_port(session, switch_resource_id: str, port_resource_id: str, **kwargs) -> Port:
     """
     Modify a :class:`Port` object in the database.
 
@@ -213,7 +216,7 @@ def modify_port(session, switch_resource_id, port_resource_id, **kwargs):
     session.commit()
     return pt
 
-def modify_network_protocol(session, resource_id, **kwargs):
+def modify_network_protocol(session, resource_id: str, **kwargs) -> NetworkProtocol:
     """
     Modify a :class:`NetworkProtocol` object in the database.
 
@@ -252,7 +255,7 @@ def modify_network_protocol(session, resource_id, **kwargs):
 
     return np
 
-def modify_connector(session, resource_id, **kwargs):
+def modify_connector(session, resource_id: str, **kwargs) -> Connector:
     """
     Modify a :class:`Connector` object in the database.
 
@@ -290,7 +293,7 @@ def modify_connector(session, resource_id, **kwargs):
 
     return cn
 
-def modify_vlan(session, resource_id, **kwargs):
+def modify_vlan(session, resource_id: str, **kwargs) -> Vlan:
     """
     Modify a :class:`Vlan` object in the database.
 

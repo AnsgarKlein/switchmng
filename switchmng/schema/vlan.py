@@ -1,5 +1,11 @@
+from typing import TYPE_CHECKING
+from typing import cast
+from typing import Optional
+
 from sqlalchemy import Integer, String
 from sqlalchemy import Column
+
+from switchmng.typing import JsonDict
 
 from .base import Base
 
@@ -25,31 +31,40 @@ class Vlan(Base):
     # Resource state
     _description = Column('name', String, nullable = True)
 
-    def __init__(self, tag = None, description = None):
+    def __init__(
+            self,
+            tag: int = None,
+            description: Optional[str] = None):
+
+        # Make type checking happy
+        # (property setter makes sure to set only correct type)
+        if TYPE_CHECKING:
+            tag = cast(int, tag)
+
         self.tag = tag
         self.description = description
 
     @property
-    def tag(self):
+    def tag(self) -> int:
         """Tag uniquely identifying this VLAN"""
         return self._tag
 
     @tag.setter
-    def tag(self, tag):
+    def tag(self, tag: int) -> None:
         Vlan.check_params(tag = tag)
         self._tag = tag
 
     @property
-    def description(self):
+    def description(self) -> Optional[str]:
         """Description of this VLAN"""
         return self._description
 
     @description.setter
-    def description(self, description):
+    def description(self, description: str) -> None:
         Vlan.check_params(description = description)
         self._description = description
 
-    def jsonify(self):
+    def jsonify(self) -> JsonDict:
         """
         Represent this object as a json-ready dict.
 
@@ -67,10 +82,10 @@ class Vlan(Base):
         return { 'tag': self.tag,
                  'description': self.description }
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.tag)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return self.__str__()
 
     @staticmethod

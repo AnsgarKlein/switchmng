@@ -1,6 +1,11 @@
+from typing import TYPE_CHECKING
+from typing import cast
+
 from sqlalchemy import Integer
 from sqlalchemy import String
 from sqlalchemy import Column
+
+from switchmng.typing import JsonDict
 
 from .base import Base
 
@@ -24,21 +29,26 @@ class Connector(Base):
     # Resource identifier
     _name = Column('name', String, nullable = False, unique = True)
 
-    def __init__(self, name = None):
+    def __init__(self, name: str = None):
+        # Make type checking happy
+        # (property setter makes sure to set only correct type)
+        if TYPE_CHECKING:
+            name = cast(str, name)
+
         self.name = name
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Name uniquely identifying this connector"""
 
         return self._name
 
     @name.setter
-    def name(self, name):
+    def name(self, name: str) -> None:
         Connector.check_params(name = name)
         self._name = name
 
-    def jsonify(self):
+    def jsonify(self) -> JsonDict:
         """
         Represent this object as a json-ready dict.
 
@@ -55,10 +65,10 @@ class Connector(Base):
 
         return { 'name': self.name }
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.name)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return self.__str__()
 
     @staticmethod

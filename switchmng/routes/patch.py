@@ -2,12 +2,14 @@ from flask import abort
 from flask import current_app
 from flask import request
 
+from switchmng.typing import FlaskResponse
+
 from switchmng import database
 from .blueprint import restbp
 from .errors import *
 
 @restbp.route('/switch_models/<string:resource_id>', methods = ['PATCH'])
-def patch_switch_model(resource_id):
+def patch_switch_model(resource_id: str) -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
@@ -37,7 +39,9 @@ def patch_switch_model(resource_id):
              'data': sm.jsonify() }, 200
 
 @restbp.route('/switch_models/<string:switch_model_resource_id>/ports/<string:port_model_resource_id>', methods = ['PATCH'])
-def patch_port_model(switch_model_resource_id, port_model_resource_id):
+def patch_port_model(
+        switch_model_resource_id: str,
+        port_model_resource_id: str) -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
@@ -73,7 +77,7 @@ def patch_port_model(switch_model_resource_id, port_model_resource_id):
              'data': pm.jsonify() }, 200
 
 @restbp.route('/switches/<string:resource_id>', methods = ['PATCH'])
-def patch_switch(resource_id):
+def patch_switch(resource_id: str) -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
@@ -103,7 +107,7 @@ def patch_switch(resource_id):
              'data': sw.jsonify() }, 200
 
 @restbp.route('/switches/<string:switch_resource_id>/ports/<string:port_resource_id>', methods = ['PATCH'])
-def patch_port(switch_resource_id, port_resource_id):
+def patch_port(switch_resource_id: str, port_resource_id: str) -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
@@ -139,7 +143,7 @@ def patch_port(switch_resource_id, port_resource_id):
              'data': pt.jsonify() }, 200
 
 @restbp.route('/network_protocols/<string:resource_id>', methods = ['PATCH'])
-def patch_network_protocols(resource_id):
+def patch_network_protocols(resource_id: str) -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
@@ -169,7 +173,7 @@ def patch_network_protocols(resource_id):
              'data': np.jsonify() }, 200
 
 @restbp.route('/connectors/<string:resource_id>', methods = ['PATCH'])
-def patch_connector(resource_id):
+def patch_connector(resource_id: str) -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
@@ -199,7 +203,7 @@ def patch_connector(resource_id):
              'data': cn.jsonify() }, 200
 
 @restbp.route('/vlans/<int:resource_id>', methods = ['PATCH'])
-def patch_vlan(resource_id):
+def patch_vlan(resource_id: str) -> FlaskResponse:
     session = current_app.config['SWITCHMNG_DB_CONNECTION'].Session()
 
     # Check request
