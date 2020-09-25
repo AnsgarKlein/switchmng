@@ -11,3 +11,4 @@ install:
 script:
   - scripts/test_all.py
   - pylint -E switchmng
+  - mypy
