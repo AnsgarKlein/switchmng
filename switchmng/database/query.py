@@ -204,6 +204,8 @@ def query_switch_models(session, **kwargs):
     # TODO: Implement and document query_switch_models() correctly
     """
 
+    # TODO: Add csv output option to query_switch_models()
+
     # Check all arguments before querying
     SwitchModel.check_params(**kwargs)
 
@@ -252,6 +254,8 @@ def query_port_models(session, switch_model_resource_id, **kwargs):
     # TODO: Implement and document query_port_models() correctly
     """
 
+    # TODO: Add csv output option to query_port_models()
+
     # Check all arguments before querying
     PortModel.check_params(**kwargs)
 
@@ -279,6 +283,8 @@ def query_switches(session, **kwargs):
 
     # TODO: Implement and document query_switches() correctly
     """
+
+    # TODO: Add csv output option to query_switches()
 
     # Check all arguments before querying
     Switch.check_params(**kwargs)
@@ -339,6 +345,8 @@ def query_ports(session, switch_resource_id, **kwargs):
     # TODO: Implement and document query_ports() correctly
     """
 
+    # TODO: Add csv output option to query_ports()
+
     # Check all arguments before querying
     Port.check_params(**kwargs)
 
@@ -370,6 +378,8 @@ def query_network_protocols(session, **kwargs):
     # TODO: Implement and document query_network_protocols() correctly
     """
 
+    # TODO: Add csv output option to query_network_protocols()
+
     # Check all arguments before querying
     NetworkProtocol.check_params(**kwargs)
 
@@ -393,6 +403,8 @@ def query_connectors(session, **kwargs):
     # TODO: Implement and document query_connectors() correctly
     """
 
+    # TODO: Add csv output option to query_connectors()
+
     # Check all arguments before querying
     Connector.check_params(**kwargs)
 
@@ -414,6 +426,8 @@ def query_vlans(session, **kwargs):
 
     # TODO: Implement and document query_vlans() correctly
     """
+
+    # TODO: Add csv output option to query_vlans)
 
     # Check all arguments before querying
     Vlan.check_params(**kwargs)
