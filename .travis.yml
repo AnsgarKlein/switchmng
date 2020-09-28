@@ -9,10 +9,33 @@ install:
   - pip install -r requirements.txt
   - pip install -r requirements-dev.txt
 script:
+  # Run all tests
   - scripts/test_all.py
+
+  # Calculate code coverage
   - coverage run
+
+  # Generate documentation
+  - cd docs/ && make html ; cd ..
+
+  # Lint code with pylint
   - pylint -E switchmng
+
+  # Analyse type hints with mypy
   - mypy
+
+  # Analyse type hints with pytype
   - pytype
 after_success:
+  # Deploy coverage report to codecov
   - bash <(curl -s https://codecov.io/bash)
+deploy:
+  # Deploy documentation to github pages
+  provider: pages
+  github_token: $GITHUB_TOKEN
+  target_branch: gh-pages
+  keep_history: false
+  local_dir: docs/_build/html/
+  skip_cleanup: true
+  on:
+    branch: develop
