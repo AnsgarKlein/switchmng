@@ -35,6 +35,9 @@ coverage_report
 coverage.xml
 coverage.json
 
+# pytype
+.pytype/
+
 # python
 __pycache__/
 *.pyc
