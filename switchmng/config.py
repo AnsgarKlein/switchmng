@@ -62,6 +62,8 @@ def parse_config_file(path):
         parse_config(content)
 
 def parse_arguments(arguments):
+    #pylint: disable = too-many-statements
+
     # Apply default config
     _default_config()
 
