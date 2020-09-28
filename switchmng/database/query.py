@@ -265,7 +265,10 @@ def query_port_models(session, switch_model_resource_id, **kwargs):
     port_models = port_models.filter_by(_switch_model_id = sm._switch_model_id)
 
     # Filter
-    for key, val in kwargs.items():
+    #for key, val in kwargs.items():
+    #    pass
+
+    if len(kwargs.items()) > 0:
         raise NotImplementedError('query_port_models() is not yet implemented')
 
     return port_models.all()
@@ -397,12 +400,11 @@ def query_connectors(session, **kwargs):
     cns = session.query(Connector)
 
     # Filter
-    for key, val in kwargs.items():
-        if False:
-            pass
-        else:
-            raise TypeError(
-                "Cannot query connectors with unexpected filter '{}'".format(key))
+    #for key, val in kwargs.items():
+    #    pass
+
+    if len(kwargs.items()) > 0:
+        raise NotImplementedError('query_connectors() is not yet implemented')
 
     return cns.all()
 
