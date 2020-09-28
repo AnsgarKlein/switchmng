@@ -56,7 +56,7 @@ class Port(Base):
 
     def __init__(
             self,
-            name: str = None,
+            name: Optional[str] = None,
             vlans: Optional[List[Vlan]] = None,
             target: Optional[str] = None):
 

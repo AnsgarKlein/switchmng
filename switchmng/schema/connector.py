@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING
 from typing import cast
+from typing import Optional
 
 from sqlalchemy import Integer
 from sqlalchemy import String
@@ -29,7 +30,7 @@ class Connector(Base):
     # Resource identifier
     _name = Column('name', String, nullable = False, unique = True)
 
-    def __init__(self, name: str = None):
+    def __init__(self, name: Optional[str] = None):
         # Make type checking happy
         # (property setter makes sure to set only correct type)
         if TYPE_CHECKING:

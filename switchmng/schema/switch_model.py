@@ -50,9 +50,9 @@ class SwitchModel(Base):
 
     def __init__(
             self,
-            name: str = None,
-            ports: List[PortModel] = None,
-            size: int = None):
+            name: Optional[str] = None,
+            ports: Optional[List[PortModel]] = None,
+            size: Optional[int] = None):
 
         if ports is None:
             ports = []

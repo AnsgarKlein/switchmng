@@ -33,7 +33,7 @@ class Vlan(Base):
 
     def __init__(
             self,
-            tag: int = None,
+            tag: Optional[int] = None,
             description: Optional[str] = None):
 
         # Make type checking happy

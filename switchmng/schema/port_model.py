@@ -67,7 +67,7 @@ class PortModel(Base):
 
     def __init__(
             self,
-            name: str = None,
+            name: Optional[str] = None,
             network_protocols: Optional[List[NetworkProtocol]] = None,
             connector: Optional[Connector] = None):
 

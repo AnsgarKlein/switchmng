@@ -56,9 +56,9 @@ class Switch(Base):
 
     def __init__(
             self,
-            name: str = None,
-            model: SwitchModel = None,
-            ports: List[Port] = None,
+            name: Optional[str] = None,
+            model: Optional[SwitchModel] = None,
+            ports: Optional[List[Port]] = None,
             location: Optional[int] = None,
             ip: Optional[str] = None) -> None:
 

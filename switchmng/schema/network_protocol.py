@@ -38,7 +38,7 @@ class NetworkProtocol(Base):
 
     def __init__(
             self,
-            name: str = None,
+            name: Optional[str] = None,
             speed: Optional[int] = None):
 
         # Make type checking happy
