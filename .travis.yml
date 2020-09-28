@@ -1,22 +1,13 @@
 language: python
+python: 3.8
 os: linux
 cache: pip
-python:
-  - "3.6"
-  - "3.7"
-  - "3.8"
 install:
   - pip install -r requirements.txt
   - pip install -r requirements-dev.txt
 script:
   # Run all tests
   - scripts/test_all.py
-
-  # Calculate code coverage
-  - coverage run
-
-  # Generate documentation
-  - scripts/gen_docs.py
 
   # Lint code with pylint
   - pylint -E switchmng
@@ -26,16 +17,38 @@ script:
 
   # Analyse type hints with pytype
   - pytype
-after_success:
-  # Deploy coverage report to codecov
-  - bash <(curl -s https://codecov.io/bash)
+jobs:
+  include:
+    - name: "Python 3.6 Tests"
+      python: 3.6
+    - name: "Python 3.8 Tests"
+      python: 3.8
+    - name: "Codecov deployment"
+      language: python
+      script:
+        # Calculate code coverage
+        - coverage run
+      after_success:
+        # Deploy coverage report to codecov
+        - bash <(curl -s https://codecov.io/bash)
+    - name: "Documentation deployment"
+      language: python
+      env:
+        - TRAVIS_DEPLOY=TRUE
+      script:
+        # Run all tests
+        - scripts/test_all.py
+
+        # Generate documentation
+        - scripts/gen_docs.py
 deploy:
   # Deploy documentation to github pages
   provider: pages
-  github_token: $GITHUB_TOKEN
+  token: $GITHUB_TOKEN
   target_branch: gh-pages
   keep_history: false
   local_dir: docs/_build/html/
   skip_cleanup: true
   on:
     branch: develop
+    condition: $TRAVIS_DEPLOY = TRUE
