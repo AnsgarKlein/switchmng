@@ -101,34 +101,6 @@ class SwitchModel(Base):
         for sw in self._switches:
             sw._sync_ports_from_model()
 
-    def modify_ports(self, ports):
-        """
-        Modify existing ports of this switch model.
-
-        All ports given but not present will not be added.
-
-        All ports not given but present will not be changed.
-
-        :param ports: List of ports to change
-        :type ports: list
-        """
-
-        # Check ports
-        SwitchModel.check_params(ports = ports)
-
-        # Never add or delete any ports only apply changes.
-        # Non specified ports will not get touched.
-        for new_port in ports:
-            for i, old_port in enumerate(self._ports):
-                if old_port.name == new_port.name:
-                    self._ports[i] = new_port
-                    break
-
-        # If ports of this switch model change we need to update
-        # the list of ports of all switches that use this switch model.
-        for sw in self._switches:
-            sw._sync_ports_from_model()
-
     @property
     def size(self) -> Optional[int]:
         """Size (number of rack units) this switch takes up in server rack"""

@@ -38,9 +38,6 @@ def modify_switch_model(session, resource_id: str, **kwargs) -> SwitchModel:
     kwargs = SwitchModel.check_params(**kwargs)
 
     # Apply modifications
-    if 'ports' in kwargs:
-        ports = kwargs.pop('ports')
-        sm.modify_ports(ports)
     for key, val in kwargs.items():
         setattr(sm, key, val)
 
@@ -148,9 +145,6 @@ def modify_switch(session, resource_id: str, **kwargs) -> Switch:
     Switch.check_params(**kwargs)
 
     # Apply modifications
-    if 'ports' in kwargs:
-        ports = kwargs.pop('ports')
-        sw.modify_ports(ports)
     for key, val in kwargs.items():
         setattr(sw, key, val)
 

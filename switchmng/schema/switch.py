@@ -142,37 +142,6 @@ class Switch(Base):
         # switch model are present.
         self._sync_ports_from_model()
 
-    def modify_ports(self, ports):
-        """
-        Modify existing ports of this switch.
-
-        This will not add any new ports that are not already present on this
-        switch. (Modify ports of :class:`SwitchModel` for that)
-
-        All ports not given but present will not be changed.
-
-        :param ports: List of ports to change
-        :type ports: list
-        """
-
-        # Check ports
-        Switch.check_params(ports = ports)
-
-        # Check if given ports exist in the switch model
-        for port in ports:
-            if self.model.port(port.name) is None:
-                raise ValueError(
-                    "Port '{}' does not exist in switch model '{}' of switch '{}'"
-                    .format(str(port), str(self.model), str(self)))
-
-        # Never add or delete any ports only apply changes.
-        # Don't touch non specified ports.
-        for new_port in ports:
-            for i, old_port in enumerate(self._ports):
-                if old_port.name == new_port.name:
-                    self._ports[i] = new_port
-                    break
-
     @property
     def location(self) -> Optional[int]:
         """Location of this switch in server rack"""
