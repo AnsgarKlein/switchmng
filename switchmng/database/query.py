@@ -38,6 +38,19 @@ def query_port_model(
 
     Query the database for a :class:`PortModel` object with given resource
     identifier on switch model with given resource identifier and return it.
+
+    :param switch_model_resource_id: Resource identifier uniquely identifying
+        the switch model containing the port model to return.
+        (See :class:`SwitchModel` for what attribute is the resource identifier)
+    :type: switch_model_resource_id: str
+
+    :param port_model_resource_id: Resource identifier together with switch model
+        uniquely identifying the port model to return.
+        (See :class:`PortModel` for what attribute is the resource identifier)
+    :type: port_model_resource_id: str
+
+    :return: The port model object matching the given resource identifiers
+    :rtype: PortModel
     """
 
     sm = query_switch_model(session, switch_model_resource_id)
@@ -82,6 +95,19 @@ def query_port(
 
     Query the database for a :class:`Port` object with given resource
     identifier on switch with given resource identifier and return it.
+
+    :param switch_resource_id: Resource identifier uniquely identifying
+        the switch containing the port to return.
+        (See :class:`Switch` for what attribute is the resource identifier)
+    :type: switch_resource_id: str
+
+    :param port_resource_id: Resource identifier together with switch
+        uniquely identifying the port to return.
+        (See :class:`Port` for what attribute is the resource identifier)
+    :type: port_resource_id: str
+
+    :return: The port object matching the given resource identifiers
+    :rtype: Port
     """
 
     sw = query_switch(session, switch_resource_id)

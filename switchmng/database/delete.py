@@ -13,7 +13,7 @@ def delete_switch_model(session, resource_id: str) -> None:
     :param resource_id: Resource identifier uniquely identifying the
         switch model to delete.
         (See :class:`SwitchModel` for what attribute is the resource identifier)
-    :type resouce_id: str
+    :type resource_id: str
     """
 
     # Check switch model
@@ -32,7 +32,10 @@ def delete_switch_model(session, resource_id: str) -> None:
     session.delete(sm)
     session.commit()
 
-def delete_port_model(session, switch_model_resource_id: str, port_model_resource_id: str) -> None:
+def delete_port_model(
+        session,
+        switch_model_resource_id: str,
+        port_model_resource_id: str) -> None:
     """
     Delete a port model from a switch model from the database.
 
@@ -73,7 +76,7 @@ def delete_switch(session, resource_id: str) -> None:
     :param resource_id: Resource identifier uniquely identifying the
         switch to delete.
         (See :class:`Switch` for what attribute is the resource identifier)
-    :type resouce_id: str
+    :type resource_id: str
     """
 
     # Check switch
@@ -97,7 +100,7 @@ def delete_network_protocol(session, resource_id: str) -> None:
     :param resource_id: Resource identifier uniquely identifying the
         network protocol to delete.
         (See :class:`NetworkProtocol` for what attribute is the resource identifier)
-    :type resouce_id: str
+    :type resource_id: str
     """
 
     # Check network protocol
@@ -128,7 +131,7 @@ def delete_connector(session, resource_id: str) -> None:
     :param resource_id: Resource identifier uniquely identifying the
         connector to delete.
         (See :class:`Connector` for what attribute is the resource identifier)
-    :type resouce_id: str
+    :type resource_id: str
     """
 
     # Check connector
@@ -159,7 +162,7 @@ def delete_vlan(session, resource_id: str) -> None:
     :param resource_id: Resource identifier uniquely identifying the vlan to
         delete.
         (See :class:`Vlan` for what attribute is the resource identifier)
-    :type resouce_id: str
+    :type resource_id: str
     """
 
     # Check vlan
