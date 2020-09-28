@@ -45,7 +45,7 @@ def set_switch_model(session, resource_id: str, **kwargs) -> SwitchModel:
         # (in which case it will be set automatically)
         if 'name' in kwargs:
             if kwargs['name'] != resource_id:
-                raise ValueError('Resource identifier "name" of switch model is ambiguous')
+                raise ValueError("Resource identifier 'name' of switch model is ambiguous")
         else:
             kwargs.update({'name': resource_id})
 
@@ -58,11 +58,11 @@ def set_switch_model(session, resource_id: str, **kwargs) -> SwitchModel:
 
         # Source switch model exists so target switch model must not also exist
         if 'name' not in kwargs:
-            raise KeyError('Missing necessary argument "name" for setting switch model')
+            raise KeyError("Missing necessary argument 'name' for setting switch model")
         if resource_id != kwargs['name']:
             if query_switch_model(session, kwargs['name']) is not None:
                 raise ValueError(
-                    'Cannot set switch model with name {} - switch model already exists'
+                    "Cannot set switch model with name '{}' - switch model already exists"
                     .format(kwargs['name']))
 
         # Create new switch model object with given state
@@ -118,7 +118,8 @@ def set_port_model(
         kwargs['network_protocols'] = [ query_network_protocol(session, proto)
                                         for proto in kwargs['network_protocols'] ]
         if None in kwargs['network_protocols']:
-            raise ValueError('Given network protocol in list of network protocols of port does not exist')
+            raise ValueError(
+                'Given network protocol in list of network protocols of port does not exist')
 
     # Replace connector string with connector object
     if 'connector' in kwargs:
@@ -140,7 +141,7 @@ def set_port_model(
         # (in which case it will be set automatically)
         if 'name' in kwargs:
             if kwargs['name'] != port_model_resource_id:
-                raise ValueError('Resource identifier "name" of port model is ambiguous')
+                raise ValueError("Resource identifier 'name' of port model is ambiguous")
         else:
             kwargs.update({'name': port_model_resource_id})
 
@@ -159,11 +160,11 @@ def set_port_model(
 
         # Source port model exists so target port model must not also exist
         if 'name' not in kwargs:
-            raise KeyError('Missing necessary argument "name" for setting port model')
+            raise KeyError("Missing necessary argument 'name' for setting port model")
         if port_model_resource_id != kwargs['name']:
             if query_port_model(session, switch_model_resource_id, kwargs['name']) is not None:
                 raise ValueError(
-                    'Cannot set port model with name {} - port model already exists'
+                    "Cannot set port model with name '{}' - port model already exists"
                     .format(kwargs['name']))
 
         # Create new port model object with given state
@@ -226,7 +227,7 @@ def set_switch(session, resource_id: str, **kwargs) -> Switch:
         # (in which case it will be set automatically)
         if 'name' in kwargs:
             if kwargs['name'] != resource_id:
-                raise ValueError('Resource identifier "name" of switch is ambiguous')
+                raise ValueError("Resource identifier 'name' of switch is ambiguous")
         else:
             kwargs.update({'name': resource_id})
 
@@ -239,11 +240,11 @@ def set_switch(session, resource_id: str, **kwargs) -> Switch:
 
         # Source switch exists so target switch must not also exist
         if 'name' not in kwargs:
-            raise KeyError('Missing necessary argument "name" for setting switch')
+            raise KeyError("Missing necessary argument 'name' for setting switch")
         if resource_id != kwargs['name']:
             if query_switch(session, kwargs['name']) is not None:
                 raise ValueError(
-                    'Cannot set switch with name {} - switch already exists'
+                    "Cannot set switch with name '{}' - switch already exists"
                     .format(kwargs['name']))
 
         # Create new switch object with given state
@@ -315,7 +316,7 @@ def set_port(
         # (in which case it will be set automatically)
         if 'name' in kwargs:
             if kwargs['name'] != port_resource_id:
-                raise ValueError('Resource identifier "name" of port is ambiguous')
+                raise ValueError("Resource identifier 'name' of port is ambiguous")
         else:
             kwargs.update({'name': port_resource_id})
 
@@ -334,11 +335,11 @@ def set_port(
 
         # Source port exists so target port must not also exist
         if 'name' not in kwargs:
-            raise KeyError('Missing necessary argument "name" for setting port')
+            raise KeyError("Missing necessary argument 'name' for setting port")
         if port_resource_id != kwargs['name']:
             if query_port(session, switch_resource_id, kwargs['name']) is not None:
                 raise ValueError(
-                    'Cannot set port with name {} - port already exists'
+                    "Cannot set port with name '{}' - port already exists"
                     .format(kwargs['name']))
 
         # Create new port object with given state
@@ -390,7 +391,7 @@ def set_network_protocol(session, resource_id: str, **kwargs) -> NetworkProtocol
         # all (in which case it will be set automatically)
         if 'name' in kwargs:
             if kwargs['name'] != resource_id:
-                raise ValueError('Resource identifier "name" of network protocol is ambiguous')
+                raise ValueError("Resource identifier 'name' of network protocol is ambiguous")
         else:
             kwargs.update({'name': resource_id})
 
@@ -403,13 +404,13 @@ def set_network_protocol(session, resource_id: str, **kwargs) -> NetworkProtocol
 
         # Source network protocol exists so target network protocol must not also exist
         if 'name' not in kwargs:
-            raise KeyError('Missing necessary argument "name" for setting network protocol')
+            raise KeyError("Missing necessary argument 'name' for setting network protocol")
         if resource_id != kwargs['name']:
             if query_network_protocol(session, kwargs['name']) is not None:
                 raise ValueError(
-                    'Cannot set network protocol with name {} ' \
+                    "Cannot set network protocol with name '{}' " \
                     .format(kwargs['name']) + \
-                    '- network protocol already exists')
+                    "- network protocol already exists")
 
         # Create a new network protocol object with given state
         # and replace old object with it
@@ -459,7 +460,7 @@ def set_connector(session, resource_id: str, **kwargs) -> Connector:
         # all (in which case it will be set automatically)
         if 'name' in kwargs:
             if kwargs['name'] != resource_id:
-                raise ValueError('Resource identifier "name" of connector is ambiguous')
+                raise ValueError("Resource identifier 'name' of connector is ambiguous")
         else:
             kwargs.update({'name': resource_id})
 
@@ -472,13 +473,13 @@ def set_connector(session, resource_id: str, **kwargs) -> Connector:
 
         # Source connector exists so target connector must not also exist
         if 'name' not in kwargs:
-            raise KeyError('Missing necessary argument "name" for setting connector')
+            raise KeyError("Missing necessary argument 'name' for setting connector")
         if resource_id != kwargs['name']:
             if query_connector(session, kwargs['name']) is not None:
                 raise ValueError(
-                    'Cannot set connector with name {} ' \
+                    "Cannot set connector with name '{}' " \
                     .format(kwargs['name']) + \
-                    '- connector already exists')
+                    "- connector already exists")
 
         # Create a new connector object with given state
         # and replace old object with it
@@ -528,7 +529,7 @@ def set_vlan(session, resource_id: str, **kwargs) -> Vlan:
         # (in which case it will be set automatically)
         if 'tag' in kwargs:
             if kwargs['tag'] != resource_id:
-                raise ValueError('Resource identifier "tag" of vlan is ambiguous')
+                raise ValueError("Resource identifier 'tag' of vlan is ambiguous")
         else:
             kwargs.update({'tag': resource_id})
 
@@ -541,11 +542,11 @@ def set_vlan(session, resource_id: str, **kwargs) -> Vlan:
 
         # Source vlan exists so target vlan must not also exist
         if 'tag' not in kwargs:
-            raise KeyError('Missing necessary argument "tag" for setting vlan')
+            raise KeyError("Missing necessary argument 'tag' for setting vlan")
         if resource_id != kwargs['tag']:
             if query_vlan(session, kwargs['tag']) is not None:
                 raise ValueError(
-                    'Cannot set vlan with tag {} - vlan already exists'
+                    "Cannot set vlan with tag '{}' - vlan already exists"
                     .format(kwargs['tag']))
 
         # Create a new vlan object with given state

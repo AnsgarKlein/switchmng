@@ -17,10 +17,10 @@ def add_switch_model(session, **kwargs) -> SwitchModel:
 
     # Check if switch model already exists
     if 'name' not in kwargs:
-        raise KeyError('Missing necessary argument "name" for adding switch model')
+        raise KeyError("Missing necessary argument 'name' for adding switch model")
     if query_switch_model(session, kwargs['name']) is not None:
         raise ValueError(
-            'Cannot add switch model with name {} - switch model already exists'
+            "Cannot add switch model with name '{}' - switch model already exists"
             .format(kwargs['name']))
 
     # Replace list of port strings with list of port objects
@@ -89,10 +89,10 @@ def add_switch(session, **kwargs) -> Switch:
 
     # Check if switch already exists
     if 'name' not in kwargs:
-        raise KeyError('Missing necessary argument "name" for adding switch')
+        raise KeyError("Missing necessary argument 'name' for adding switch")
     if query_switch(session, kwargs['name']) is not None:
         raise ValueError(
-            'Cannot add switch with name {} - switch already exists'
+            "Cannot add switch with name '{}' - switch already exists"
             .format(kwargs['name']))
 
     # Replace list of port strings with list of port objects
@@ -126,7 +126,7 @@ def add_network_protocol(session, **kwargs) -> NetworkProtocol:
         raise KeyError("Missing necessary argument 'name' for adding network protocol")
     if query_network_protocol(session, kwargs['name']) is not None:
         raise ValueError(
-            'Cannot add network protocol with name {} - network protocol already exists'
+            "Cannot add network protocol with name '{}' - network protocol already exists"
             .format(kwargs['name']))
 
     # Add network protocol
@@ -152,7 +152,7 @@ def add_connector(session, **kwargs) -> Connector:
         raise KeyError("Missing necessary argument 'name' for adding connector")
     if query_connector(session, kwargs['name']) is not None:
         raise ValueError(
-            'Cannot add connector with name {} - connector already exists'
+            "Cannot add connector with name '{}' - connector already exists"
             .format(kwargs['name']))
 
     # Add connector
@@ -175,10 +175,10 @@ def add_vlan(session, **kwargs) -> Vlan:
 
     # Check if vlan already exists
     if 'tag' not in kwargs:
-        raise KeyError('Missing necessary argument "tag" for adding vlan')
+        raise KeyError("Missing necessary argument 'tag' for adding vlan")
     if query_vlan(session, kwargs['tag']) is not None:
         raise ValueError(
-            'Cannot add vlan with tag {} - vlan already exists'
+            "Cannot add vlan with tag '{}' - vlan already exists"
             .format(kwargs['tag']))
 
     # Add vlan
