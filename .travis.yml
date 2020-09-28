@@ -10,6 +10,9 @@ install:
   - pip install -r requirements-dev.txt
 script:
   - scripts/test_all.py
+  - coverage run
   - pylint -E switchmng
   - mypy
   - pytype
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
