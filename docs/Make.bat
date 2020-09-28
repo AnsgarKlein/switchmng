@@ -18,7 +18,7 @@ if "%SPHINXAPIDOC%" == "" (
 	set SPHINXAPIDOC=sphinx-apidoc
 )
 set APIDOCDIR=module
-set APIDOCMODULE=..\src\switchmng
+set APIDOCMODULE=..\switchmng
 
 
 if "%1" == "" goto help

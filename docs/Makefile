@@ -11,7 +11,7 @@ BUILDDIR      = _build
 # Variables for sphinx-apidoc
 SPHINXAPIDOC  ?= sphinx-apidoc
 APIDOCDIR     = module
-APIDOCMODULE  = ../src/switchmng
+APIDOCMODULE  = ../switchmng
 
 # "make" without argument is like "make help"
 help:
