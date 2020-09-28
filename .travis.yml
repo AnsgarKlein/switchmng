@@ -16,7 +16,7 @@ script:
   - coverage run
 
   # Generate documentation
-  - cd docs/ && make html ; cd ..
+  - scripts/gen_docs.py
 
   # Lint code with pylint
   - pylint -E switchmng
