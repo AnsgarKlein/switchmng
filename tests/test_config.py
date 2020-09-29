@@ -60,37 +60,37 @@ class Test_Config(unittest.TestCase):
     def test_param_debug(self):
         """Test debug cli argument"""
 
-        self._cli_arg('--debug')
+        self._cli_arg('webserver --debug')
         self.assertTrue(config.DEBUG)
 
     def test_param_debug_short(self):
         """Test (short) debug cli argument"""
 
-        self._cli_arg('-d')
+        self._cli_arg('webserver -d')
         self.assertTrue(config.DEBUG)
 
     def test_param_ip(self):
         """Test ip cli argument"""
 
-        self._cli_arg('--ip 192.168.0.1')
+        self._cli_arg('webserver --ip 192.168.0.1')
         self.assertEqual(config.IP, '192.168.0.1')
 
     def test_param_ip_short(self):
         """Test (short) ip cli argument"""
 
-        self._cli_arg('-i 192.168.0.1')
+        self._cli_arg('webserver -i 192.168.0.1')
         self.assertEqual(config.IP, '192.168.0.1')
 
     def test_param_port_short(self):
         """Test (short) port cli argument"""
 
-        self._cli_arg('-p 9081')
+        self._cli_arg('webserver -p 9081')
         self.assertEqual(config.PORT, 9081)
 
     def test_param_port_short(self):
         """Test port cli argument"""
 
-        self._cli_arg('--port 9081')
+        self._cli_arg('webserver --port 9081')
         self.assertEqual(config.PORT, 9081)
 
 if __name__ == '__main__':
