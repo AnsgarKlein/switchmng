@@ -91,7 +91,11 @@ class Test_REST_Switch(Test_REST):
     def test_head1(self):
         """HEAD verb for switch"""
 
-        self._head('/switches/example_switch', 200)
+        # Query
+        rv = self._head('/switches/example_switch', 200)
+
+        # Check
+        self.assertEqual(rv.data.decode(), '')
 
     def test_get_fail(self):
         # Query non existing switch

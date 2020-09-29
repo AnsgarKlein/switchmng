@@ -82,7 +82,11 @@ class Test_REST_Vlan(Test_REST):
     def test_head1(self):
         """HEAD verb for vlan"""
 
-        self._head('/vlans/42', 200)
+        # Query
+        rv = self._head('/vlans/42', 200)
+
+        # Check
+        self.assertEqual(rv.data.decode(), '')
 
     def test_get_fail(self):
         # Query non existing vlan
