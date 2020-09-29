@@ -35,7 +35,7 @@ def modify_switch_model(session, resource_id: str, **kwargs) -> SwitchModel:
         kwargs['ports'] = port_models_from_dict(session, kwargs['ports'])
 
     # Check all arguments before making any changes
-    kwargs = SwitchModel.check_params(**kwargs)
+    SwitchModel.check_params(**kwargs)
 
     # Apply modifications
     for key, val in kwargs.items():
@@ -238,7 +238,7 @@ def modify_network_protocol(session, resource_id: str, **kwargs) -> NetworkProto
             .format(resource_id))
 
     # Check all arguments before making any changes
-    kwargs = NetworkProtocol.check_params(**kwargs)
+    NetworkProtocol.check_params(**kwargs)
 
     # Apply modifications
     for key, val in kwargs.items():
@@ -276,7 +276,7 @@ def modify_connector(session, resource_id: str, **kwargs) -> Connector:
             .format(resource_id))
 
     # Check all arguments before making any changes
-    kwargs = Connector.check_params(**kwargs)
+    Connector.check_params(**kwargs)
 
     # Apply modifications
     for key, val in kwargs.items():
@@ -315,7 +315,7 @@ def modify_vlan(session, resource_id: str, **kwargs) -> Vlan:
             .format(resource_id))
 
     # Check all arguments before making any changes
-    kwargs = Vlan.check_params(**kwargs)
+    Vlan.check_params(**kwargs)
 
     # Apply modifications
     for key, val in kwargs.items():

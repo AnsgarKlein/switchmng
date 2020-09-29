@@ -73,7 +73,7 @@ class Connector(Base):
         return self.__str__()
 
     @staticmethod
-    def check_params(**kwargs):
+    def check_params(**kwargs) -> None:
         """
         Check all given parameters.
 
@@ -100,5 +100,3 @@ class Connector(Base):
 
             else:
                 raise TypeError("Unexpected attribute '{}' for connector".format(key))
-
-        return kwargs

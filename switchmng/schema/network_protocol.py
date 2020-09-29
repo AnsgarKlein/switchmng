@@ -96,7 +96,7 @@ class NetworkProtocol(Base):
         return self.__str__()
 
     @staticmethod
-    def check_params(**kwargs):
+    def check_params(**kwargs) -> None:
         """
         Check all given parameters.
 
@@ -122,12 +122,12 @@ class NetworkProtocol(Base):
                     raise ValueError('Name of network protocol cannot be empty')
 
             elif key == 'speed':
-                if not isinstance(val, int) and val is not None:
+                if val is None:
+                    continue
+                if not isinstance(val, int):
                     raise TypeError('Speed of network protocol has to be of type int')
                 if val < 0:
                     raise ValueError('Speed of network protocol cannot be less than 0')
 
             else:
                 raise TypeError("Unexpected attribute '{}' for network protocol".format(key))
-
-        return kwargs

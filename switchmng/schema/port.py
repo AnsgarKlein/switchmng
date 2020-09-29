@@ -134,7 +134,7 @@ class Port(Base):
         return self.__str__()
 
     @staticmethod
-    def check_params(**kwargs):
+    def check_params(**kwargs) -> None:
         """
         Check all given parameters.
 
@@ -177,5 +177,3 @@ class Port(Base):
 
             else:
                 raise TypeError("Unexpected attribute '{}' for port".format(key))
-
-        return kwargs

@@ -161,7 +161,7 @@ class SwitchModel(Base):
         return self.__str__()
 
     @staticmethod
-    def check_params(**kwargs):
+    def check_params(**kwargs) -> None:
         """
         Check all given parameters.
 
@@ -205,5 +205,3 @@ class SwitchModel(Base):
 
             else:
                 raise TypeError("Unexpected attribute '{}' for switch".format(key))
-
-        return kwargs

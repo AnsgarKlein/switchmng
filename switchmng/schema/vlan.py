@@ -89,7 +89,7 @@ class Vlan(Base):
         return self.__str__()
 
     @staticmethod
-    def check_params(**kwargs):
+    def check_params(**kwargs) -> None:
         """
         Check all given parameters.
 
@@ -122,5 +122,3 @@ class Vlan(Base):
 
             else:
                 raise TypeError("Unexpected attribute '{}' for vlan".format(key))
-
-        return kwargs
