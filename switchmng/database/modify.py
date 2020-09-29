@@ -152,7 +152,11 @@ def modify_switch(session, resource_id: str, **kwargs) -> Switch:
     session.commit()
     return sw
 
-def modify_port(session, switch_resource_id: str, port_resource_id: str, **kwargs) -> Port:
+def modify_port(
+        session,
+        switch_resource_id: str,
+        port_resource_id: str,
+        **kwargs) -> Port:
     """
     Modify a :class:`Port` object in the database.
 
@@ -200,6 +204,8 @@ def modify_port(session, switch_resource_id: str, port_resource_id: str, **kwarg
 
     # Apply modifications
     for key, val in kwargs.items():
+        if key == 'name':
+            raise ValueError('Cannot modify attribute "name" of port')
         setattr(pt, key, val)
 
     # Pseudo-set ports of switch in order to make sure all modify ports
