@@ -13,7 +13,7 @@ _DEFAULT_DB_VERBOSE  = False
 
 _DEFAULT_DEBUG       = False
 _DEFAULT_IP          = '127.0.0.1'
-_DEFAULT_PORT        = '8000'
+_DEFAULT_PORT        = 8000
 
 
 MODE        = _DEFAULT_MODE
