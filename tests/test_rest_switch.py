@@ -2,7 +2,7 @@ from test_rest import Test_REST
 
 import json
 
-class Test_REST_Vlan(Test_REST):
+class Test_REST_Switch(Test_REST):
 
     example_switch = {
         'name':     'example_switch',
@@ -26,9 +26,9 @@ class Test_REST_Vlan(Test_REST):
         self.example_switch = rv['data']
 
     def test_options1(self):
-        """OPTIONS verb for vlans"""
+        """OPTIONS verb for switches"""
 
-        rv = self._options('/vlans', 200)
+        rv = self._options('/switches', 200)
 
         # Check that 'Content-Length' header is set to 0
         self.assertTrue('Content-Length' in rv.headers)
@@ -53,9 +53,9 @@ class Test_REST_Vlan(Test_REST):
         self.assertEqual(allowed, expected)
 
     def test_options2(self):
-        """OPTIONS verb for specific vlan"""
+        """OPTIONS verb for specific switch"""
 
-        rv = self._options('/vlans/42', 200)
+        rv = self._options('/switches/example_switch', 200)
 
         # Check that 'Content-Length' header is set to 0
         self.assertTrue('Content-Length' in rv.headers)
