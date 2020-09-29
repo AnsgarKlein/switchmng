@@ -120,15 +120,14 @@ class NetworkProtocol(Base):
                     raise TypeError('Name of network protocol has to be of type str')
                 if len(val) < 1:
                     raise ValueError('Name of network protocol cannot be empty')
-                continue
 
-            if key == 'speed':
+            elif key == 'speed':
                 if not isinstance(val, int) and val is not None:
                     raise TypeError('Speed of network protocol has to be of type int')
                 if val < 0:
                     raise ValueError('Speed of network protocol cannot be less than 0')
-                continue
 
-            raise TypeError("Unexpected attribute '{}' for network protocol".format(key))
+            else:
+                raise TypeError("Unexpected attribute '{}' for network protocol".format(key))
 
         return kwargs

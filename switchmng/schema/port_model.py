@@ -168,9 +168,8 @@ class PortModel(Base):
                     raise TypeError('Name of port model has to be of type str')
                 if len(val) < 1:
                     raise ValueError('Length of name of port model cannot be zero')
-                continue
 
-            if key == 'network_protocols':
+            elif key == 'network_protocols':
                 if not isinstance(val, list):
                     raise TypeError(
                         'List of network protocols for port model has to ' + \
@@ -181,15 +180,14 @@ class PortModel(Base):
                             'Network protocol in list of network ' + \
                             'protocols for port has to be of type ' + \
                             'NetworkProtocol')
-                continue
 
-            if key == 'connector':
+            elif key == 'connector':
                 if val is None:
                     continue
                 if not isinstance(val, Connector):
                     raise TypeError('Connector of port model has to be of type Connector')
-                continue
 
-            raise TypeError("Unexpected attribute '{}' for port model".format(key))
+            else:
+                raise TypeError("Unexpected attribute '{}' for port model".format(key))
 
         return kwargs

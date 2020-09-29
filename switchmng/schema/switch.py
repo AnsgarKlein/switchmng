@@ -262,32 +262,27 @@ class Switch(Base):
                     raise TypeError('Name of switch has to be of type str')
                 if len(val) < 1:
                     raise ValueError('Length of name of switch cannot be zero')
-                continue
 
-            if key == 'model':
+            elif key == 'model':
                 if not isinstance(val, SwitchModel):
                     raise TypeError('Switch model of switch has to be of type SwitchModel')
-                continue
 
-            if key == 'ports':
+            elif key == 'ports':
                 if not isinstance(val, list):
                     raise TypeError('List of ports for switch has to be of type list')
                 for port in val:
                     if not isinstance(port, Port):
                         raise TypeError('Ports in list of ports for switch has to be of type Port')
-                continue
 
-            if key == 'location':
+            elif key == 'location':
                 if val is None:
                     continue
                 if not isinstance(val, int):
                     raise TypeError('Given location of switch has to be of type int')
-                continue
 
-            if key == 'ip':
+            elif key == 'ip':
                 if val is None:
                     continue
-
                 if not isinstance(val, str):
                     raise TypeError('Given ip of switch has to be of type int')
 
@@ -298,8 +293,8 @@ class Switch(Base):
                     is_ip = False
                 if not is_ip:
                     raise ValueError('Given ip of switch has to be a valid IPv4 address')
-                continue
 
-            raise TypeError("Unexpected attribute '{}' for switch".format(key))
+            else:
+                raise TypeError("Unexpected attribute '{}' for switch".format(key))
 
         return kwargs

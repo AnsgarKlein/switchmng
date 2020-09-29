@@ -158,17 +158,15 @@ class Port(Base):
                     raise TypeError('Name of vlan has to be of type str')
                 if len(val) < 1:
                     raise ValueError('Length of name of vlan cannot be zero')
-                continue
 
-            if key == 'vlans':
+            elif key == 'vlans':
                 if not isinstance(val, list):
                     raise TypeError('List of vlans for port has to be of type list')
                 for vlan in val:
                     if not isinstance(vlan, Vlan):
                         raise TypeError('Vlan in list of vlans for port has to be of type Vlan')
-                continue
 
-            if key == 'target':
+            elif key == 'target':
                 if val is None:
                     continue
                 if not isinstance(val, str):
@@ -177,6 +175,7 @@ class Port(Base):
                     raise ValueError('Target of port cannot be empty')
                 continue
 
-            raise TypeError("Unexpected attribute '{}' for port".format(key))
+            else:
+                raise TypeError("Unexpected attribute '{}' for port".format(key))
 
         return kwargs

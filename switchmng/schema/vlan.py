@@ -113,15 +113,14 @@ class Vlan(Base):
                     raise TypeError('Tag of vlan has to be of type int')
                 if val < 1:
                     raise ValueError('Tag of vlan cannot be less than 1')
-                continue
 
-            if key == 'description':
+            elif key == 'description':
                 if val is None:
                     continue
                 if not isinstance(val, str):
                     raise TypeError('Description of vlan has to be of type str')
-                continue
 
-            raise TypeError("Unexpected attribute '{}' for vlan".format(key))
+            else:
+                raise TypeError("Unexpected attribute '{}' for vlan".format(key))
 
         return kwargs

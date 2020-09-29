@@ -97,8 +97,8 @@ class Connector(Base):
                     raise TypeError('Name of connector has to be of type str')
                 if len(val) < 1:
                     raise ValueError('Name of connector cannot be empty')
-                continue
 
-            raise TypeError("Unexpected attribute '{}' for connector".format(key))
+            else:
+                raise TypeError("Unexpected attribute '{}' for connector".format(key))
 
         return kwargs

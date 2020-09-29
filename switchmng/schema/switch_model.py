@@ -185,9 +185,8 @@ class SwitchModel(Base):
                     raise TypeError('Name of switch model has to be of type string')
                 if len(val) < 1:
                     raise ValueError('Length of name of switch model cannot be zero')
-                continue
 
-            if key == 'ports':
+            elif key == 'ports':
                 if not isinstance(val, list):
                     raise TypeError(
                         'List of ports for switch model has to be of type list')
@@ -195,17 +194,16 @@ class SwitchModel(Base):
                     if not isinstance(port, PortModel):
                         raise TypeError(
                             'Ports in list of ports for switch model has to be of type PortModel')
-                continue
 
-            if key == 'size':
+            elif key == 'size':
                 if val is None:
                     continue
                 if not isinstance(val, int):
                     raise TypeError('Size of switch model has to be of type int')
                 if val < 1:
                     raise ValueError('Size of switch model cannot be less than 1')
-                continue
 
-            raise TypeError("Unexpected attribute '{}' for switch".format(key))
+            else:
+                raise TypeError("Unexpected attribute '{}' for switch".format(key))
 
         return kwargs
