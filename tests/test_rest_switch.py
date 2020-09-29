@@ -98,10 +98,13 @@ class Test_REST_Switch(Test_REST):
         self.assertEqual(rv.data.decode(), '')
 
     def test_get_fail(self):
-        # Query non existing switch
+        """GET non existing switch"""
+
         self._get('/switches/non-existing', 404)
 
     def test_get(self):
+        """GET switches"""
+
         # Query
         rv = self._get('/switches', 200)
 
@@ -336,6 +339,8 @@ class Test_REST_Switch(Test_REST):
         self.assertEqual(ret1, ret2)
 
     def test_put_new(self):
+        """PUT new switch"""
+
         new_switch = {
             'name': 'new_switch',
             'model': 'small_switch',
@@ -398,6 +403,8 @@ class Test_REST_Switch(Test_REST):
         self._post('/switches', 400, json.dumps(new_switch))
 
     def test_post_minimum(self):
+        """POST switch with minimum configuration"""
+
         minimum = {
             'name':     'new_switch',
             'model':    'small_switch',
@@ -419,6 +426,8 @@ class Test_REST_Switch(Test_REST):
             self.assertEqual(minimum[key], ret1[key])
 
     def test_post_maximum(self):
+        """POST switch with maximum configuration"""
+
         maximum = {
             'name':     'new_switch',
             'model':    'small_switch',

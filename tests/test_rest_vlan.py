@@ -89,10 +89,13 @@ class Test_REST_Vlan(Test_REST):
         self.assertEqual(rv.data.decode(), '')
 
     def test_get_fail(self):
-        # Query non existing vlan
+        """GET non existing vlan"""
+
         self._get('/vlans/43', 404)
 
     def test_get(self):
+        """GET vlans"""
+
         # Query
         rv = self._get('/vlans', 200)
 
@@ -349,6 +352,8 @@ class Test_REST_Vlan(Test_REST):
         self.assertEqual(ret1, ret2)
 
     def test_put_new(self):
+        """PUT new vlan"""
+
         new_vlan = {
             'tag': 43,
             'description': 'newly added vlan',
@@ -406,6 +411,8 @@ class Test_REST_Vlan(Test_REST):
         self._post('/vlans', 400, json.dumps(new_vlan))
 
     def test_post_minimum(self):
+        """POST vlan with minimum configuration"""
+
         minimum = {
             'tag': 43,
         }
@@ -426,6 +433,8 @@ class Test_REST_Vlan(Test_REST):
             self.assertEqual(minimum[key], ret1[key])
 
     def test_post_maximum(self):
+        """POST vlan with minimum configuration"""
+
         maximum = {
             'tag': 43,
             'description':  'newly added vlan',
