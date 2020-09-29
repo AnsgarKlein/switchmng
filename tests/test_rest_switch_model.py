@@ -2,6 +2,8 @@ from test_rest import Test_REST
 
 import json
 
+import unittest
+
 class Test_REST_SwitchModel(Test_REST):
 
     example_model = {

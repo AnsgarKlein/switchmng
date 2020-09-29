@@ -2,6 +2,8 @@ from test_rest import Test_REST
 
 import json
 
+import unittest
+
 class Test_REST_Vlan(Test_REST):
 
     example_vlan = {
