@@ -264,6 +264,44 @@ class Test_REST_SwitchModel(Test_REST):
 
         self.assertEqual(ret1, ret2)
 
+    def test_patch3(self):
+        """
+        PATCH switch model with different ports list.
+
+        This changes ports of switch model. Check that ports of all
+        implementing switches change as well.
+        """
+
+        # Add some values
+        self.setUp_switch_models()
+        self.setUp_switches()
+
+        # Check that switch has same ports as switch model
+        rv1 = self._get('/switch_models/small_switch', 200)['data']['ports']
+        rv2 = self._get('/switches/switch1', 200)['data']['ports']
+        rv1 = [ port['name'] for port in rv1 ]
+        rv2 = [ port['name'] for port in rv2 ]
+        self.assertEqual(set(rv1), set(rv2))
+
+        # Change ports of switch model
+        patch = {
+            'ports': [
+                {
+                    'name': 'changed-port1'
+                },
+                {
+                    'name': 'changed-port2'
+                }
+            ]
+        }
+        rv = self._patch('/switch_models/small_switch', 200, json.dumps(patch))
+
+        # Check that switch ports have changed as well
+        rv3 = self._get('/switches/switch1', 200)['data']['ports']
+        rv3 = [ port['name'] for port in rv3 ]
+        patch = [ port['name'] for port in patch['ports'] ]
+        self.assertEqual(set(patch), set(rv3))
+
     def test_put_fail_header1(self):
         """PUT switch model with missing 'Accept' header"""
 
