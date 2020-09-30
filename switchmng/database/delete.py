@@ -139,11 +139,11 @@ def delete_connector(session, resource_id: str) -> None:
     if cn is None:
         raise ValueError('Given connector does not exist')
 
-    # Check if there are switch models still using this connector
-    affected_sm = query_switch_models(session, connector = resource_id)
-    if not isinstance(affected_sm, list):
-        raise TypeError('Expected list of switch models to be of type list')
-    if len(affected_sm) > 0:
+    # Check if there are port models still using this connector
+    affected_pm = query_port_models(session, None, connector = cn)
+    if not isinstance(affected_pm, list):
+        raise TypeError('Expected list of port models to be of type list')
+    if len(affected_pm) > 0:
         raise ValueError('Given connector is still in use')
 
     # Delete connector

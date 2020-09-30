@@ -251,6 +251,8 @@ def query_port_models(session, switch_model_resource_id, **kwargs):
     """
     Retrieve multiple :class:`PortModel` objects from database.
 
+    switch_model_resource_id is optional
+
     # TODO: Implement and document query_port_models() correctly
     """
 
@@ -259,21 +261,23 @@ def query_port_models(session, switch_model_resource_id, **kwargs):
     # Check all arguments before querying
     PortModel.check_params(**kwargs)
 
-    # Query switch model
-    sm = query_switch_model(session, switch_model_resource_id)
-    if sm is None:
-        raise ValueError('Given switch model does not exist')
-
     # Query
     port_models = session.query(PortModel)
-    port_models = port_models.filter_by(_switch_model_id = sm._switch_model_id)
+
+    # Filter by switch model if given
+    if switch_model_resource_id is not None:
+        sm = query_switch_model(session, switch_model_resource_id)
+        if sm is None:
+            raise ValueError('Given switch does not exist')
+
+        port_models = port_models.filter_by(_switch_model_id = sm._switch_model_id)
 
     # Filter
-    #for key, val in kwargs.items():
-    #    pass
-
-    if len(kwargs.items()) > 0:
-        raise NotImplementedError('query_port_models() is not yet implemented')
+    for key, val in kwargs.items():
+        if key == 'connector':
+            port_models = port_models.filter(PortModel._connector == val)
+        else:
+            raise NotImplementedError('query_port_models() is not yet implemented')
 
     return port_models.all()
 
