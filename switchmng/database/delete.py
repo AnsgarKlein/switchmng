@@ -108,11 +108,11 @@ def delete_network_protocol(session, resource_id: str) -> None:
     if np is None:
         raise ValueError('Given network protocol does not exist')
 
-    # Check if there are switch models still using this network protocol
-    affected_sm = query_switch_models(session, network_protocol = resource_id)
-    if not isinstance(affected_sm, list):
-        raise TypeError('Expected list of switch models to be of type list')
-    if len(affected_sm) > 0:
+    # Check if there are port models still using this network protocol
+    affected_pm = query_port_models(session, None, network_protocols = [ np ])
+    if not isinstance(affected_pm, list):
+        raise TypeError('Expected list of port models to be of type list')
+    if len(affected_pm) > 0:
         raise ValueError('Given network protocol is still in use')
 
     # Delete network protocol

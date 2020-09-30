@@ -276,6 +276,9 @@ def query_port_models(session, switch_model_resource_id, **kwargs):
     for key, val in kwargs.items():
         if key == 'connector':
             port_models = port_models.filter(PortModel._connector == val)
+        elif key == 'network_protocols':
+            for protocol in val:
+                port_models = port_models.filter(PortModel._network_protocols.contains(protocol))
         else:
             raise NotImplementedError('query_port_models() is not yet implemented')
 
