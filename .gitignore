@@ -35,6 +35,9 @@ coverage_report
 coverage.xml
 coverage.json
 
+# mypy
+.mypy_cache/
+
 # pytype
 .pytype/
 
