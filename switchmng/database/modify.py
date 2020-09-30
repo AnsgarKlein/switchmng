@@ -92,7 +92,7 @@ def modify_port_model(session,
                                         for proto in kwargs['network_protocols'] ]
 
     # Replace connector string with connector object
-    if 'connector' in kwargs:
+    if 'connector' in kwargs and kwargs['connector'] is not None:
         kwargs['connector'] = query_connector(session, kwargs['connector'])
 
     # Check all arguments before making any changes
