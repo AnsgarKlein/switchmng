@@ -1,15 +1,12 @@
-import switchmng
-from switchmng import database
-from switchmng.schema import *
-
-from switchmng import config
-from switchmng.schema.base import Base
-from switchmng.database import DatabaseConnection
-from switchmng import routes
-
 import json
 
 import unittest
+
+from switchmng.schema import *
+
+from switchmng import config
+from switchmng.database import DatabaseConnection
+from switchmng import routes
 
 default_headers = {
     'Content-Type': 'application/json',
@@ -22,6 +19,14 @@ patch_headers = {
 }
 
 class Test_REST(unittest.TestCase):
+    """
+    Abstract test class that is the foundation of other test classes
+    which access resources as a rest client.
+
+    Information in this test class is tightly coupled with implementing
+    classes and should not be changed lightheaded.
+    """
+
     default_headers = default_headers
     patch_headers = patch_headers
 
@@ -32,7 +37,7 @@ class Test_REST(unittest.TestCase):
         should get called by all implementing subclasses in their setUp().
         """
 
-        switchmng.config.parse_arguments([])
+        config.parse_arguments([])
         db = DatabaseConnection('sqlite', '', False, Base)
         self.session = db.Session()
         self.app = routes.create_app(db)
@@ -52,25 +57,39 @@ class Test_REST(unittest.TestCase):
 
         return rv
 
-    def _options(self, url, expected_code, data = None, headers = default_headers, unpack = False):
+    def _options(self, url, expected_code, data = None, headers = None, unpack = False):
+        if headers is None:
+            headers = default_headers
         return self._req(self.client.options, url, expected_code, data, headers, unpack)
 
-    def _head(self, url, expected_code, data = None, headers = default_headers, unpack = False):
+    def _head(self, url, expected_code, data = None, headers = None, unpack = False):
+        if headers is None:
+            headers = default_headers
         return self._req(self.client.head, url, expected_code, data, headers, unpack)
 
-    def _get(self, url, expected_code, data = None, headers = default_headers, unpack = True):
+    def _get(self, url, expected_code, data = None, headers = None, unpack = True):
+        if headers is None:
+            headers = default_headers
         return self._req(self.client.get, url, expected_code, data, headers, unpack)
 
-    def _delete(self, url, expected_code, data = None, headers = default_headers, unpack = True):
+    def _delete(self, url, expected_code, data = None, headers = None, unpack = True):
+        if headers is None:
+            headers = default_headers
         return self._req(self.client.delete, url, expected_code, data, headers, unpack)
 
-    def _patch(self, url, expected_code, data = None, headers = patch_headers, unpack = True):
+    def _patch(self, url, expected_code, data = None, headers = None, unpack = True):
+        if headers is None:
+            headers = patch_headers
         return self._req(self.client.patch, url, expected_code, data, headers, unpack)
 
-    def _put(self, url, expected_code, data = None, headers = default_headers, unpack = True):
+    def _put(self, url, expected_code, data = None, headers = None, unpack = True):
+        if headers is None:
+            headers = default_headers
         return self._req(self.client.put, url, expected_code, data, headers, unpack)
 
-    def _post(self, url, expected_code, data = None, headers = default_headers, unpack = True):
+    def _post(self, url, expected_code, data = None, headers = None, unpack = True):
+        if headers is None:
+            headers = default_headers
         return self._req(self.client.post, url, expected_code, data, headers, unpack)
 
     def setUp_vlans(self):

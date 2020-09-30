@@ -1,10 +1,11 @@
-from test_rest import Test_REST
-
 import json
 
 import unittest
 
+from test_rest import Test_REST
+
 class Test_REST_Vlan(Test_REST):
+    """Test class that access vlan resource as a rest client"""
 
     example_vlan = {
         'tag': 42,
@@ -123,19 +124,19 @@ class Test_REST_Vlan(Test_REST):
         patch = {
             'vlans': [ 42 ]
         }
-        rv = self._patch('/switches/switch1/ports/p1', 200, json.dumps(patch))
+        self._patch('/switches/switch1/ports/p1', 200, json.dumps(patch))
 
         # DELETE
-        rv = self._delete('/vlans/42', 400)
+        self._delete('/vlans/42', 400)
 
         # Remove vlan from port on switch
         patch = {
             'vlans': []
         }
-        rv = self._patch('/switches/switch1/ports/p1', 200, json.dumps(patch))
+        self._patch('/switches/switch1/ports/p1', 200, json.dumps(patch))
 
         # DELETE
-        rv = self._delete('/vlans/42', 200)
+        self._delete('/vlans/42', 200)
 
     def test_delete_fail_nonexisting(self):
         """DELETE non existing vlan"""
@@ -217,14 +218,11 @@ class Test_REST_Vlan(Test_REST):
 
         self.assertEqual(ret1, ret2)
 
-        for key, val in self.example_vlan.items():
+        for key in self.example_vlan.keys():
             if key in patch:
-                pass
+                self.assertEqual(ret1[key], patch[key])
             else:
-                self.assertEqual(self.example_vlan[key], ret1[key])
-
-        for key, val in patch.items():
-            self.assertEqual(patch[key], ret1[key])
+                self.assertEqual(ret1[key], self.example_vlan[key])
 
     def test_patch2(self):
         """
@@ -315,7 +313,7 @@ class Test_REST_Vlan(Test_REST):
         self.assertEqual(ret1, ret2)
 
         # Check that all changes from request have been made
-        for key, val in replacement.items():
+        for key in replacement.keys():
             self.assertEqual(replacement[key], ret1[key])
 
         # Check that previously set attributes that were not
@@ -371,7 +369,7 @@ class Test_REST_Vlan(Test_REST):
 
         self.assertEqual(ret1, ret2)
 
-        for key, val in new_vlan.items():
+        for key in new_vlan.keys():
             self.assertEqual(new_vlan[key], ret1[key])
 
     def test_post_fail_header1(self):
@@ -429,11 +427,11 @@ class Test_REST_Vlan(Test_REST):
 
         self.assertEqual(ret1, ret2)
 
-        for key, val in minimum.items():
+        for key in minimum.keys():
             self.assertEqual(minimum[key], ret1[key])
 
     def test_post_maximum(self):
-        """POST vlan with minimum configuration"""
+        """POST vlan with maximum configuration"""
 
         maximum = {
             'tag': 43,

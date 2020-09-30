@@ -1,10 +1,11 @@
-from test_rest import Test_REST
-
 import json
 
 import unittest
 
+from test_rest import Test_REST
+
 class Test_REST_Switch(Test_REST):
+    """Test class that access switch resource as a rest client"""
 
     example_switch = {
         'name':     'example_switch',
@@ -156,7 +157,7 @@ class Test_REST_Switch(Test_REST):
         headers.pop('Accept')
         self._patch('/switches/example_switch', 406, json.dumps(patch), headers)
 
-    def test_patch_fail_header1(self):
+    def test_patch_fail_header2(self):
         """PATCH switch with missing 'Content-Type' header"""
 
         patch = {}
@@ -198,7 +199,7 @@ class Test_REST_Switch(Test_REST):
 
         self.assertEqual(ret1, ret2)
 
-        for key, val in patch.items():
+        for key in patch.keys():
             self.assertEqual(patch[key], ret1[key])
 
     def test_patch2(self):
@@ -301,7 +302,7 @@ class Test_REST_Switch(Test_REST):
         self.assertEqual(ret1, ret2)
 
         # Check that all changes from request have been made
-        for key, val in replacement.items():
+        for key in replacement.keys():
             self.assertEqual(replacement[key], ret1[key])
 
         # Check that previously set attributes that were not
@@ -358,7 +359,7 @@ class Test_REST_Switch(Test_REST):
 
         self.assertEqual(ret1, ret2)
 
-        for key, val in new_switch.items():
+        for key in new_switch.keys():
             self.assertEqual(new_switch[key], ret1[key])
 
     def test_post_fail_header1(self):
@@ -422,7 +423,7 @@ class Test_REST_Switch(Test_REST):
 
         self.assertEqual(ret1, ret2)
 
-        for key, val in minimum.items():
+        for key in minimum.keys():
             self.assertEqual(minimum[key], ret1[key])
 
     def test_post_maximum(self):

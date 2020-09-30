@@ -1,9 +1,9 @@
-import switchmng
-from switchmng.schema import *
-
 import unittest
 
+from switchmng.schema import *
+
 class Test_Resource_SwitchModel(unittest.TestCase):
+    """Test class that access switch model class directly"""
 
     def setUp(self):
         ports = [

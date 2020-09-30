@@ -1,10 +1,11 @@
-from test_rest import Test_REST
-
 import json
 
 import unittest
 
+from test_rest import Test_REST
+
 class Test_REST_Connector(Test_REST):
+    """Test class that access connector resource as a rest client"""
 
     example_connector = {
         'name': 'example_connector',
@@ -325,7 +326,7 @@ class Test_REST_Connector(Test_REST):
 
         self.assertEqual(ret1, ret2)
 
-        for key, val in new_connector.items():
+        for key in new_connector.keys():
             self.assertEqual(new_connector[key], ret1[key])
 
     def test_post_fail_header1(self):
@@ -381,7 +382,7 @@ class Test_REST_Connector(Test_REST):
 
         self.assertEqual(ret1, ret2)
 
-        for key, val in minimum.items():
+        for key in minimum.keys():
             self.assertEqual(minimum[key], ret1[key])
 
     def test_post_maximum(self):

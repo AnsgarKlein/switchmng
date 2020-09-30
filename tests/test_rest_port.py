@@ -1,10 +1,11 @@
-from test_rest import Test_REST
-
 import json
 
 import unittest
 
+from test_rest import Test_REST
+
 class Test_REST_Port(Test_REST):
+    """Test class that access port resource as a rest client"""
 
     example_switch = {
         'name':     'switch1',
@@ -211,17 +212,17 @@ class Test_REST_Port(Test_REST):
 
         self.assertEqual(ret1, ret2)
 
-        for key, val in comparison.items():
+        for key in comparison.keys():
             if key in patch:
-                self.assertEqual(patch[key], ret1[key])
+                self.assertEqual(ret1[key], patch[key])
             else:
-                self.assertEqual(comparison[key], ret1[key])
+                self.assertEqual(ret1[key], comparison[key])
 
         # Check that switch did not change
         ret_sw = self._get('/switches/switch1', 200)
         ret_sw = ret_sw['data']
 
-        for key, val in comparison_sw.items():
+        for key in comparison_sw.keys():
             if key == 'ports':
                 pass
             else:
@@ -312,7 +313,7 @@ class Test_REST_Port(Test_REST):
         self.assertEqual(ret1, ret2)
 
         # Check that all changes from request have been made
-        for key, val in replacement.items():
+        for key in replacement.keys():
             self.assertEqual(replacement[key], ret1[key])
 
         # Check that previously set attributes that were not

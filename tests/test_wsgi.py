@@ -1,11 +1,12 @@
-import switchmng
-from switchmng import wsgi
+import unittest
 
 from flask.app import Flask
 
-import unittest
+from switchmng import wsgi
 
 class Test_Wsgi(unittest.TestCase):
+    """Test class that tests wsgi application entry point"""
+
     def test_wsgi_dummy(self):
         """Dummy wsgi main test"""
 

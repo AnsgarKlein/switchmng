@@ -1,9 +1,10 @@
-import switchmng
-from switchmng import config
-
 import unittest
 
+from switchmng import config
+
 class Test_Config(unittest.TestCase):
+    """Test class that tests config parser"""
+
     def setUp(self):
         config.parse_arguments([])
 
@@ -87,7 +88,7 @@ class Test_Config(unittest.TestCase):
         self._cli_arg('webserver -p 9081')
         self.assertEqual(config.PORT, 9081)
 
-    def test_param_port_short(self):
+    def test_param_port(self):
         """Test port cli argument"""
 
         self._cli_arg('webserver --port 9081')

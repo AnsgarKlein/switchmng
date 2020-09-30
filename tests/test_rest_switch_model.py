@@ -1,10 +1,11 @@
-from test_rest import Test_REST
-
 import json
 
 import unittest
 
+from test_rest import Test_REST
+
 class Test_REST_SwitchModel(Test_REST):
+    """Test class that access switch model resource as a rest client"""
 
     example_model = {
         'name':  'example_model',
@@ -132,19 +133,19 @@ class Test_REST_SwitchModel(Test_REST):
         patch = {
             'model': 'example_model'
         }
-        rv = self._patch('/switches/switch1', 200, json.dumps(patch))
+        self._patch('/switches/switch1', 200, json.dumps(patch))
 
         # DELETE
-        rv = self._delete('/switch_models/example_model', 400)
+        self._delete('/switch_models/example_model', 400)
 
         # Change switch model of switch
         patch = {
             'model': 'small_switch'
         }
-        rv = self._patch('/switches/switch1', 200, json.dumps(patch))
+        self._patch('/switches/switch1', 200, json.dumps(patch))
 
         # DELETE
-        rv = self._delete('/switch_models/example_model', 200)
+        self._delete('/switch_models/example_model', 200)
 
     def test_delete_fail_nonexisting(self):
         """DELETE non existing switch model"""
@@ -233,7 +234,7 @@ class Test_REST_SwitchModel(Test_REST):
 
         self.assertEqual(ret1, ret2)
 
-        for key, val in self.example_model.items():
+        for key in self.example_model.keys():
             if key in patch:
                 pass
             else:
@@ -297,7 +298,7 @@ class Test_REST_SwitchModel(Test_REST):
                 }
             ]
         }
-        rv = self._patch('/switch_models/small_switch', 200, json.dumps(patch))
+        self._patch('/switch_models/small_switch', 200, json.dumps(patch))
 
         # Check that switch ports have changed as well
         rv3 = self._get('/switches/switch1', 200)['data']['ports']
@@ -367,7 +368,7 @@ class Test_REST_SwitchModel(Test_REST):
         self.assertEqual(ret1, ret2)
 
         # Check that all changes from request have been made
-        for key, val in replacement.items():
+        for key in replacement.keys():
             self.assertEqual(replacement[key], ret1[key])
 
         # Check that previously set attributes that were not
@@ -423,7 +424,7 @@ class Test_REST_SwitchModel(Test_REST):
 
         self.assertEqual(ret1, ret2)
 
-        for key, val in new_model.items():
+        for key in new_model.keys():
             self.assertEqual(new_model[key], ret1[key])
 
     def test_post_fail_header1(self):
@@ -482,7 +483,7 @@ class Test_REST_SwitchModel(Test_REST):
 
         self.assertEqual(ret1, ret2)
 
-        for key, val in minimum.items():
+        for key in minimum.keys():
             self.assertEqual(minimum[key], ret1[key])
 
     def test_post_maximum(self):

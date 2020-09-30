@@ -1,10 +1,11 @@
-from test_rest import Test_REST
-
 import json
 
 import unittest
 
+from test_rest import Test_REST
+
 class Test_REST_NetworkProtocol(Test_REST):
+    """Test class that access network protocol resource as a rest client"""
 
     example_protocol = {
         'name': 'example_protocol',
@@ -213,11 +214,11 @@ class Test_REST_NetworkProtocol(Test_REST):
 
         self.assertEqual(ret1, ret2)
 
-        for key, val in self.example_protocol.items():
+        for key in self.example_protocol.keys():
             if key in patch:
-                self.assertEqual(patch[key], ret1[key])
+                self.assertEqual(ret1[key], patch[key])
             else:
-                self.assertEqual(self.example_protocol[key], ret1[key])
+                self.assertEqual(ret1[key], self.example_protocol[key])
 
     def test_patch2(self):
         """
@@ -306,7 +307,7 @@ class Test_REST_NetworkProtocol(Test_REST):
         self.assertEqual(ret1, ret2)
 
         # Check that all changes from request have been made
-        for key, val in replacement.items():
+        for key in replacement.keys():
             self.assertEqual(replacement[key], ret1[key])
 
         # Check that previously set attributes that were not
@@ -361,7 +362,7 @@ class Test_REST_NetworkProtocol(Test_REST):
 
         self.assertEqual(ret1, ret2)
 
-        for key, val in new_protocol.items():
+        for key in new_protocol.keys():
             self.assertEqual(new_protocol[key], ret1[key])
 
     def test_post_fail_header1(self):
@@ -419,7 +420,7 @@ class Test_REST_NetworkProtocol(Test_REST):
 
         self.assertEqual(ret1, ret2)
 
-        for key, val in minimum.items():
+        for key in minimum.keys():
             self.assertEqual(minimum[key], ret1[key])
 
     def test_post_maximum(self):

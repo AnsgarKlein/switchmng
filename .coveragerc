@@ -12,6 +12,9 @@ exclude_lines =
     # Ignore main guard
     if __name__ == .__main__.:
 
+    # Ignore interactive main()
+    def main(.*):
+
     # Ignore code specific for type checking
     if TYPE_CHECKING:
 
