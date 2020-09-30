@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/AnsgarKlein/switchmng.svg?branch=develop)](https://travis-ci.org/AnsgarKlein/switchmng)
 [![Coverage](https://codecov.io/gh/AnsgarKlein/switchmng/branch/develop/graph/badge.svg)](https://codecov.io/gh/AnsgarKlein/switchmng)
-![License](https://img.shields.io/github/license/AnsgarKlein/switchmng)
+![License](https://img.shields.io/github/license/AnsgarKlein/switchmng?color=blue)
 
 *switchmng* is a documentation service for network switches.  
 It allows configurations of network switches like VLAN assignments on ports to
