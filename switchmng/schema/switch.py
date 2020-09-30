@@ -101,7 +101,7 @@ class Switch(Base):
 
         # If switch model changed we need to update all
         # ports of this switch to reflect ports from model.
-        self._sync_ports_from_model()
+        self.sync_ports_from_model()
 
     @property
     def ports(self) -> List[Port]:
@@ -140,7 +140,7 @@ class Switch(Base):
 
         # We changed the port list so we have to make sure all ports of
         # switch model are present.
-        self._sync_ports_from_model()
+        self.sync_ports_from_model()
 
     @property
     def location(self) -> Optional[int]:
@@ -164,7 +164,7 @@ class Switch(Base):
         Switch.check_params(ip = ip)
         self._ip = ip
 
-    def _sync_ports_from_model(self) -> None:
+    def sync_ports_from_model(self) -> None:
         """
         Synchronize ports from switch model.
 

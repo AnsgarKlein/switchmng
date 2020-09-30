@@ -99,7 +99,7 @@ class SwitchModel(Base):
         # If ports of this switch model change we need to update
         # the list of ports of all switches that use this switch model.
         for sw in self._switches:
-            sw._sync_ports_from_model()
+            sw.sync_ports_from_model()
 
     @property
     def size(self) -> Optional[int]:
