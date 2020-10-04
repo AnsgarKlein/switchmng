@@ -285,8 +285,8 @@ class Test_REST_Switch(Test_REST):
         """
 
         replacement = {
-            'name':     'example_switch',
-            'model':    'big_switch',
+            'name':  'example_switch',
+            'model': 'big_switch',
         }
 
         # Put
@@ -320,8 +320,8 @@ class Test_REST_Switch(Test_REST):
         """
 
         replacement = {
-            'name':     'replacement_switch',
-            'model':    'small_switch',
+            'name':  'replacement_switch',
+            'model': 'small_switch',
         }
 
         # Put
@@ -343,7 +343,7 @@ class Test_REST_Switch(Test_REST):
         """PUT new switch"""
 
         new_switch = {
-            'name': 'new_switch',
+            'name':  'new_switch',
             'model': 'small_switch',
         }
 
@@ -366,8 +366,8 @@ class Test_REST_Switch(Test_REST):
         """POST switch with missing 'Accept' header"""
 
         new_switch = {
-            'name':     'new_switch',
-            'model':    'small_switch',
+            'name':  'new_switch',
+            'model': 'small_switch',
         }
 
         headers = self.default_headers.copy()
@@ -378,8 +378,8 @@ class Test_REST_Switch(Test_REST):
         """POST switch with missing 'Content-Type' header"""
 
         new_switch = {
-            'name':     'new_switch',
-            'model':    'small_switch',
+            'name':  'new_switch',
+            'model': 'small_switch',
         }
 
         headers = self.default_headers.copy()
@@ -407,8 +407,8 @@ class Test_REST_Switch(Test_REST):
         """POST switch with minimum configuration"""
 
         minimum = {
-            'name':     'new_switch',
-            'model':    'small_switch',
+            'name':  'new_switch',
+            'model': 'small_switch',
         }
 
         # Add
@@ -430,16 +430,16 @@ class Test_REST_Switch(Test_REST):
         """POST switch with maximum configuration"""
 
         maximum = {
-            'name':     'new_switch',
-            'model':    'small_switch',
-            'ports':    [
+            'name':  'new_switch',
+            'model': 'small_switch',
+            'ports': [
                 {
                     'name':   'p1',
                     'target': 'foo',
                     'vlans':  [ 1, 2 ],
                 }],
             'location': 2,
-            'ip':       '10.0.0.1',
+            'ip': '10.0.0.1',
         }
 
         # Add

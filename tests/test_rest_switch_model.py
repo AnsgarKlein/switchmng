@@ -467,8 +467,7 @@ class Test_REST_SwitchModel(Test_REST):
         """POST switch model with minimum configuration"""
 
         minimum = {
-            'name':  'minimum_model',
-            'ports': [],
+            'name': 'minimum_model'
         }
 
         # Add
