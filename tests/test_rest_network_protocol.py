@@ -396,7 +396,7 @@ class Test_REST_NetworkProtocol(Test_REST):
         self._post('/network_protocols', 400, new_protocol)
 
     def test_post_fail_request2(self):
-        """POST vlan with invalid request data"""
+        """POST network protocol with invalid request data"""
 
         new_protocol = { 'name': 'new_protocol', 'not a valid field': 'foobar' }
         self._post('/network_protocols', 400, json.dumps(new_protocol))
