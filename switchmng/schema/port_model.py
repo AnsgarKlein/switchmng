@@ -54,7 +54,7 @@ class PortModel(Base):
     _port_model_id = Column('id', Integer, primary_key = True, nullable = False)
     _switch_model_id = Column('switch_model_id', Integer,
                              ForeignKey('switch_models.id'), nullable = False)
-    connector_id = Column('connector_id', Integer,
+    _connector_id = Column('connector_id', Integer,
                           ForeignKey('connectors.id'), nullable = True)
 
     # Resource state
