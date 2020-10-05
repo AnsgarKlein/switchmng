@@ -281,7 +281,7 @@ def set_port(
     :return: The modified or created port
     """
 
-    # Check if switch model exists
+    # Check if switch exists
     sw = query_switch(session, switch_resource_id)
     if sw is None:
         raise ValueError('Given switch does not exist')
@@ -295,53 +295,32 @@ def set_port(
     # Check all arguments before making any changes
     Port.check_params(**kwargs)
 
-    # Check if port model exists
+    # Check if port exists
     source_pt = query_port(session, switch_resource_id, port_resource_id)
 
     if source_pt is None:
-        # Source port does not exist:
-        # We are creating a new port
+        # Will not create a new port. Abort if port does not exist
+        raise ValueError("Port '{}' does not exist. Cannot create new port.".format(
+            port_resource_id))
 
-        # Port name is either resource specifier or not set at all
-        # (in which case it will be set automatically)
-        if 'name' in kwargs:
-            if kwargs['name'] != port_resource_id:
-                raise ValueError("Resource identifier 'name' of port is ambiguous")
-        else:
-            kwargs.update({'name': port_resource_id})
+    # Source port exists so target port must not also exist
+    if 'name' not in kwargs:
+        raise KeyError("Missing necessary argument 'name' for setting port")
+    if port_resource_id != kwargs['name']:
+        raise ValueError("Cannot rename port '{}' to '{}'".format(
+            port_resource_id,
+            kwargs['name']))
 
-        # Create new port model object and add it
-        # to existing ports of switch model
-        target_pt = Port(**kwargs)
+    # Create new port object with given state
+    # and replace old object with it
+    target_pt = Port(**kwargs)
 
-        ports = [ port for port in sw.ports ]
-        ports.append(target_pt)
-        sw.ports = ports
+    ports = [ port for port in sw.ports if port != source_pt ]
+    ports.append(target_pt)
+    sw.ports = ports
 
-        session.commit()
-        return target_pt
-    else:
-        # Source port exists
-
-        # Source port exists so target port must not also exist
-        if 'name' not in kwargs:
-            raise KeyError("Missing necessary argument 'name' for setting port")
-        if port_resource_id != kwargs['name']:
-            if query_port(session, switch_resource_id, kwargs['name']) is not None:
-                raise ValueError(
-                    "Cannot set port with name '{}' - port already exists"
-                    .format(kwargs['name']))
-
-        # Create new port object with given state
-        # and replace old object with it
-        target_pt = Port(**kwargs)
-
-        ports = [ port for port in sw.ports if port != source_pt ]
-        ports.append(target_pt)
-        sw.ports = ports
-
-        session.commit()
-        return target_pt
+    session.commit()
+    return target_pt
 
 def set_network_protocol(session, resource_id: str, **kwargs) -> NetworkProtocol:
     """
