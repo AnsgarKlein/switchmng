@@ -408,6 +408,24 @@ class Test_REST_Vlan(Test_REST):
         new_vlan = { "tag": 43, 'not a valid field': 'foobar' }
         self._post('/vlans', 400, json.dumps(new_vlan))
 
+    def test_post_fail_request3(self):
+        """POST vlan with invalid tag"""
+
+        new_vlan  = {
+            'tag': '43'
+        }
+        self._post('/vlans', 400, json.dumps(new_vlan))
+
+        new_vlan  = {
+            'tag': 0
+        }
+        self._post('/vlans', 400, json.dumps(new_vlan))
+
+        new_vlan  = {
+            'tag': -1
+        }
+        self._post('/vlans', 400, json.dumps(new_vlan))
+
     def test_post_minimum(self):
         """POST vlan with minimum configuration"""
 

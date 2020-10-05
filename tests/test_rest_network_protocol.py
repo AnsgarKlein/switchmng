@@ -401,6 +401,16 @@ class Test_REST_NetworkProtocol(Test_REST):
         new_protocol = { 'name': 'new_protocol', 'not a valid field': 'foobar' }
         self._post('/network_protocols', 400, json.dumps(new_protocol))
 
+    def test_post_fail_request3(self):
+        """POST network protocol with invalid name"""
+
+        new_protocol  = {
+            'name': ''
+        }
+
+        # Add
+        self._post('/network_protocols', 400, json.dumps(new_protocol))
+
     def test_post_minimum(self):
         """POST network protocol with minimum configuration"""
 

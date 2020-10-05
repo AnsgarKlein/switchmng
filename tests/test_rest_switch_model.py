@@ -463,6 +463,16 @@ class Test_REST_SwitchModel(Test_REST):
         new_model = { "name": "example", 'not a valid field': 'foobar' }
         self._post('/switch_models', 400, new_model)
 
+    def test_post_fail_request3(self):
+        """POST switch model with invalid name"""
+
+        new_model = {
+            'name': ''
+        }
+
+        # Add
+        self._post('/switch_models', 400, json.dumps(new_model))
+
     def test_post_minimum(self):
         """POST switch model with minimum configuration"""
 

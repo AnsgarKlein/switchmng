@@ -363,6 +363,16 @@ class Test_REST_Connector(Test_REST):
         new_connector = { "name": "new_connector", 'not a valid field': 'foobar' }
         self._post('/connectors', 400, json.dumps(new_connector))
 
+    def test_post_fail_request3(self):
+        """POST connector with invalid name"""
+
+        new_connector = {
+            'name': ''
+        }
+
+        # Add
+        self._post('/connectors', 400, json.dumps(new_connector))
+
     def test_post_minimum(self):
         """POST connector with minimum configuration"""
 

@@ -403,6 +403,27 @@ class Test_REST_Switch(Test_REST):
 
         self._post('/switches', 400, json.dumps(new_switch))
 
+    def test_post_fail_request3(self):
+        """POST switch with invalid name"""
+
+        new_switch = {
+            'name': '',
+            'model': 'small_switch'
+        }
+
+        # Add
+        self._post('/switches', 400, json.dumps(new_switch))
+
+    def test_post_fail_request4(self):
+        """POST switch with missing model"""
+
+        new_switch = {
+            'name': 'new_switch'
+        }
+
+        # Add
+        self._post('/switches', 400, json.dumps(new_switch))
+
     def test_post_minimum(self):
         """POST switch with minimum configuration"""
 
