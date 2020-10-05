@@ -29,6 +29,7 @@ author = 'Ansgar Klein'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx_autodoc_typehints',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -51,3 +52,9 @@ html_theme = 'alabaster'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+# Show type hints as content of function or method
+autodoc_typehints = 'description'
+
+# Inherit description from parent when overwriting methods
+autodoc_inherit_docstrings = True

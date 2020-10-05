@@ -61,7 +61,6 @@ def parse_config(content: str) -> None:
     """Apply configuration from configuration file content.
 
     :param content: Content of the configuration file.
-    :type content: str
     """
 
     # TODO: Implement parsing of configuration file
@@ -71,7 +70,6 @@ def parse_config_file(path: str) -> None:
     """Apply configuration from configuration file.
 
     :param path: Path to configuration file.
-    :type path: str
     """
 
     with open(path, 'r') as f:
@@ -228,7 +226,6 @@ def parse_arguments(arguments: List[str]) -> None:
     """Apply configuration from command line arguments.
 
     :param arguments: List of command line arguments.
-    :type arguments: list
     """
 
     # Apply default config

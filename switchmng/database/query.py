@@ -12,10 +12,9 @@ def query_switch_model(session, resource_id: str) -> Optional[SwitchModel]:
     :param resource_id: Resource identifier uniquely identifying the
         switch model to return.
         (See :class:`SwitchModel` for what attribute is the resource identifier)
-    :type resource_id: str
 
-    :return: The switch model object matching the given resource identifier
-    :rtype: SwitchModel
+    :return: The switch model object matching the given resource identifier or
+        None if no matching switch model resource was found.
     """
 
     if not isinstance(resource_id, str):
@@ -42,15 +41,13 @@ def query_port_model(
     :param switch_model_resource_id: Resource identifier uniquely identifying
         the switch model containing the port model to return.
         (See :class:`SwitchModel` for what attribute is the resource identifier)
-    :type: switch_model_resource_id: str
 
     :param port_model_resource_id: Resource identifier together with switch model
         uniquely identifying the port model to return.
         (See :class:`PortModel` for what attribute is the resource identifier)
-    :type: port_model_resource_id: str
 
-    :return: The port model object matching the given resource identifiers
-    :rtype: PortModel
+    :return: The port model object matching the given resource identifiers or
+        None if no matching port model resource was found.
     """
 
     sm = query_switch_model(session, switch_model_resource_id)
@@ -69,10 +66,9 @@ def query_switch(session, resource_id: str) -> Optional[Switch]:
     :param resource_id: Resource identifier uniquely identifying the
         switch to return.
         (See :class:`Switch` for what attribute is the resource identifier)
-    :type resource_id: str
 
-    :return: The switch object matching the given resource identifier
-    :rtype: Switch
+    :return: The switch object matching the given resource identifier or None
+        if no matching switch resource was found.
     """
 
     if not isinstance(resource_id, str):
@@ -99,15 +95,13 @@ def query_port(
     :param switch_resource_id: Resource identifier uniquely identifying
         the switch containing the port to return.
         (See :class:`Switch` for what attribute is the resource identifier)
-    :type: switch_resource_id: str
 
     :param port_resource_id: Resource identifier together with switch
         uniquely identifying the port to return.
         (See :class:`Port` for what attribute is the resource identifier)
-    :type: port_resource_id: str
 
-    :return: The port object matching the given resource identifiers
-    :rtype: Port
+    :return: The port object matching the given resource identifiers or None
+        if no matching port resource was found.
     """
 
     sw = query_switch(session, switch_resource_id)
@@ -126,10 +120,9 @@ def query_network_protocol(session, resource_id: str) -> Optional[NetworkProtoco
     :param resource_id: Resource identifier uniquely identifying the
         network protocol to return.
         (See :class:`NetworkProtocol` for what attribute is the resource identifier)
-    :type resource_id: str
 
     :return: The network protocol object matching the given resource identifier
-    :rtype: NetworkProtocol
+        or None if no matching network protocol resource was found.
     """
 
     if not isinstance(resource_id, str):
@@ -153,10 +146,9 @@ def query_connector(session, resource_id: str) -> Optional[Connector]:
     :param resource_id: Resource identifier uniquely identifying the
         connector to return.
         (See :class:`Connector` for what attribute is the resource identifier)
-    :type resource_id: str
 
-    :return: The connector object matching the given resource identifier
-    :rtype: Connector
+    :return: The connector object matching the given resource identifier or
+        None if no matching connector resource was found.
     """
 
     if not isinstance(resource_id, str):
@@ -180,10 +172,9 @@ def query_vlan(session, resource_id: str) -> Optional[Vlan]:
     :param resource_id: Resource identifier uniquely identifying the
         vlan to return.
         (See :class:`Vlan` for what attribute is the resource identifier)
-    :type resource_id: str
 
-    :return: The vlan object matching the given resource identifier
-    :rtype: Vlan
+    :return: The vlan object matching the given resource identifier or None
+        if no matching vlan resource was found.
     """
 
     if not isinstance(resource_id, int):

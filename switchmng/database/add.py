@@ -12,7 +12,6 @@ def add_switch_model(session, **kwargs) -> SwitchModel:
         but in a json compatible representation (as nested dict structure)
 
     :return: The newly added switch model
-    :rtype: SwitchModel
     """
 
     # Check if switch model already exists
@@ -40,14 +39,12 @@ def add_port_model(session, switch_model_resource_id: str, **kwargs) -> PortMode
     :param switch_model_resource_id: Resource identifier uniquely identifying
         the switch model to add the new port model to.
         (See :class:`SwitchModel` for what attribute is the resource identifier)
-    :type switch_model_resource_id: str
 
     :param kwargs: Parameters for new port model.
         Possible parameters are public attributes of :class:`PortModel` object
         but in a json compatible representation (as nested dict structure)
 
     :return: The newly added port model
-    :rtype: PortModel
     """
 
     # Check if switch model exists
@@ -84,7 +81,6 @@ def add_switch(session, **kwargs) -> Switch:
         but in a json compatible representation (as nested dict structure)
 
     :return: The newly added switch
-    :rtype: Switch
     """
 
     # Check if switch already exists
@@ -118,7 +114,6 @@ def add_network_protocol(session, **kwargs) -> NetworkProtocol:
         object but in a json compatible representation (as nested dict structure)
 
     :return: The newly added network protocol
-    :rtype: NetworkProtocol
     """
 
     # Check if network protocol already exists
@@ -144,7 +139,6 @@ def add_connector(session, **kwargs) -> Connector:
         object but in a json compatible representation (as nested dict structure)
 
     :return: The newly added connector
-    :rtype: Connector
     """
 
     # Check if connector already exists
@@ -170,7 +164,6 @@ def add_vlan(session, **kwargs) -> Vlan:
         but in a json compatible representation (as nested dict structure)
 
     :return: The newly added vlan
-    :rtype: Vlan
     """
 
     # Check if vlan already exists

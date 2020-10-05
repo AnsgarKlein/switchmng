@@ -4,3 +4,4 @@ mypy==0.782
 pylint==2.6.0
 pytype==2020.9.24
 Sphinx==3.2.1
+sphinx-autodoc-typehints==1.11.0

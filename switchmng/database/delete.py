@@ -13,7 +13,6 @@ def delete_switch_model(session, resource_id: str) -> None:
     :param resource_id: Resource identifier uniquely identifying the
         switch model to delete.
         (See :class:`SwitchModel` for what attribute is the resource identifier)
-    :type resource_id: str
     """
 
     # Check switch model
@@ -42,12 +41,10 @@ def delete_port_model(
     :param switch_model_resource_id: Resource identifier uniquely identifying
         the switch model containing the port model to delete.
         (See :class:`SwitchModel` for what attribute is the resource identifier)
-    :type switch_model_resource_id: str
 
     :param port_model_resource_id: Resource identifier together with switch model
         uniquely identifying the port model to delete.
         (See :class:`PortModel` for what attribute is the resource identifier)
-    :type port_model_resource_id: str
     """
 
     # Check switch model
@@ -76,7 +73,6 @@ def delete_switch(session, resource_id: str) -> None:
     :param resource_id: Resource identifier uniquely identifying the
         switch to delete.
         (See :class:`Switch` for what attribute is the resource identifier)
-    :type resource_id: str
     """
 
     # Check switch
@@ -100,7 +96,6 @@ def delete_network_protocol(session, resource_id: str) -> None:
     :param resource_id: Resource identifier uniquely identifying the
         network protocol to delete.
         (See :class:`NetworkProtocol` for what attribute is the resource identifier)
-    :type resource_id: str
     """
 
     # Check network protocol
@@ -131,7 +126,6 @@ def delete_connector(session, resource_id: str) -> None:
     :param resource_id: Resource identifier uniquely identifying the
         connector to delete.
         (See :class:`Connector` for what attribute is the resource identifier)
-    :type resource_id: str
     """
 
     # Check connector
@@ -162,7 +156,6 @@ def delete_vlan(session, resource_id: str) -> None:
     :param resource_id: Resource identifier uniquely identifying the vlan to
         delete.
         (See :class:`Vlan` for what attribute is the resource identifier)
-    :type resource_id: str
     """
 
     # Check vlan

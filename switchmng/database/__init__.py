@@ -10,7 +10,7 @@ from .set    import *
 from .add    import *
 
 class DatabaseConnection():
-    def __init__(self, db_type, db_str, db_verbose, base):
+    def __init__(self, db_type: str, db_str: str, db_verbose: bool, base):
         # Initialize db engine
         if db_type == 'sqlite':
             if db_str == '':

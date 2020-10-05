@@ -14,14 +14,12 @@ def modify_switch_model(session, resource_id: str, **kwargs) -> SwitchModel:
     :param resource_id: Resource identifier uniquely identifying the
         switch model to modify.
         (See :class:`SwitchModel` for what attribute is the resource identifier)
-    :type resource_id: str
 
     :param kwargs: Attributes of switch model to change.
         Possible parameters are public attributes of :class:`SwitchModel` object
         but in a json compatible representation (as nested dict structure)
 
     :return: The modified switch model
-    :rtype: SwitchModel
     """
 
     # Check if switch model exists
@@ -60,19 +58,16 @@ def modify_port_model(session,
     :param switch_model_resource_id: Resource identifier uniquely identifying
         the switch model containing the port model to modify.
         (See :class:`SwitchModel` for what attribute is the resource identifier)
-    :type: switch_model_resource_id: str
 
     :param port_model_resource_id: Resource identifier together with switch model
         uniquely identifying the port model to modify.
         (See :class:`PortModel` for what attribute is the resource identifier)
-    :type: port_model_resource_id: str
 
     :param kwargs: Attributes of port model to change.
         Possible parameters are public attributes of :class:`PortModel` object
         but in a json compatible representation (as nested dict structure)
 
     :return: The modified port model
-    :rtype: PortModel
     """
 
     # Check if port model exists
@@ -117,14 +112,12 @@ def modify_switch(session, resource_id: str, **kwargs) -> Switch:
     :param resource_id: Resource identifier uniquely identifying the
         switch to modify.
         (See :class:`Switch` for what attribute is the resource identifier)
-    :type resource_id: str
 
     :param kwargs: Attributes of switch to change.
         Possible parameters are public attributes of :class:`Switch` object
         but in a json compatible representation (as nested dict structure)
 
     :return: The modified switch
-    :rtype: Switch
     """
 
     # Check if switch exists
@@ -167,19 +160,16 @@ def modify_port(
     :param switch_resource_id: Resource identifier uniquely identifying the
         switch containing the port to modify.
         (See :class:`Switch` for what attribute is the resource identifier)
-    :type: switch_resource_id: str
 
     :param port_resource_id: Resource identifier together with switch uniquely
         identifying the port to modify.
         (See :class:`Port` for what attribute is the resource identifier)
-    :type: port_resource_id: str
 
     :param kwargs: Attributes of port to change.
         Possible parameters are public attributes of :class:`Port` object
         but in a json compatible representation (as nested dict structure)
 
     :return: The modified port
-    :rtype: Port
     """
 
     # Check if port exists
@@ -227,14 +217,12 @@ def modify_network_protocol(session, resource_id: str, **kwargs) -> NetworkProto
     :param resource_id: Resource identifier uniquely identifying the
         network protocol to modify.
         (See :class:`NetworkProtocol` for what attribute is the resource identifier)
-    :type resource_id: str
 
     :param kwargs: Attributes of network protocol to change.
         Possible parameters are public attributes of :class:`NetworkProtocol` object
         but in a json compatible representation (as nested dict structure)
 
     :return: The modified network protocol object
-    :rtype: NetworkProtocol
     """
 
     # Check if network protocol exists
@@ -265,14 +253,12 @@ def modify_connector(session, resource_id: str, **kwargs) -> Connector:
 
     :param resource_id: Resource identifier uniquely identifying the
         connector to modify
-    :type resource_id: str
 
     :param kwargs: Attributes of connector to change.
         Possible parameters are public attributes of :class:`Connector` object
         but in a json compatible representation (as nested dict structure)
 
     :return: The modified connector object
-    :rtype: Connector
     """
 
     # Check if connector exists
@@ -304,14 +290,12 @@ def modify_vlan(session, resource_id: str, **kwargs) -> Vlan:
     :param resource_id: Resource identifier uniquely identifying the
         vlan to modify.
         (See :class:`Vlan` for what attribute is the resource identifier)
-    :type resource_id: str
 
     :param kwargs: Attributes of vlan to change.
         Possible parameters are public attributes of :class:`Vlan` object
         but in a json compatible representation (as nested dict structure)
 
     :return: The modified vlan object
-    :rtype: Vlan
     """
 
     # Check if vlan exists
