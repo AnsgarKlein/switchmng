@@ -84,8 +84,7 @@ def _add_subparser_webserver(subparsers) -> None:
         add_help = False,
         allow_abbrev = False)
 
-    parser.usage = '{} [ GENERAL OPTIONS ] [ MODE-SPECIFIC OPTIONS ]'\
-                   .format(parser.prog)
+    parser.usage = 'switchmng [ GENERAL OPTIONS ] webserver [ MODE-SPECIFIC OPTIONS ]'
 
     parser.description = '''
         Run switchmng with the builtin webserver.
@@ -134,8 +133,7 @@ def _add_subparsers_dump(subparsers) -> None:
         add_help = False,
         allow_abbrev = False)
 
-    parser.usage = '{} [ GENERAL OPTIONS ] [ MODE-SPECIFIC OPTIONS ]'\
-                   .format(parser.prog)
+    parser.usage = 'switchmng [ GENERAL OPTIONS ] dump [ MODE-SPECIFIC OPTIONS ]'
 
     parser.description = 'NOT YET IMPLEMENTED'
 
@@ -151,8 +149,7 @@ def _create_argument_parser() -> argparse.ArgumentParser:
 
     parser = argparse.ArgumentParser(add_help = False, allow_abbrev = False)
     parser.prog = 'switchmng'
-    parser.usage = '{} MODE [ GENERAL OPTIONS ] [ MODE-SPECIFIC OPTIONS ]'\
-                   .format(parser.prog)
+    parser.usage = 'switchmng [ GENERAL OPTIONS ] MODE [ MODE-SPECIFIC OPTIONS ]'
 
     description='''
                 Specify which mode of operation to start in. Start mode
