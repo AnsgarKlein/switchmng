@@ -9,6 +9,9 @@ exclude_lines =
     # Reenable standard pragma
     pragma: no cover
 
+    # Ignore __repr__() functions
+    def __repr__\(self\)
+
     # Ignore main guard
     if __name__ == .__main__.:
 
