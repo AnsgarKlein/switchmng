@@ -1,3 +1,5 @@
+from typing import Optional
+
 from switchmng.schema import *
 
 from .query import *
