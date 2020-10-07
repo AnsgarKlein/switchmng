@@ -1,61 +1,59 @@
 import argparse
 
 from typing import List
+from typing import Optional
 
-# Default configuration values
-# Configuration values can be overridden by command line options
-# or via options in configuration file.
+
+# General configuration values
 _DEFAULT_MODE        = 'webserver'
-
 _DEFAULT_CONFIG_FILE = None
-
 _DEFAULT_DB_TYPE     = 'sqlite'
 _DEFAULT_DB_PATH     = 'example.db'
 _DEFAULT_DB_VERBOSE  = False
 
-_DEFAULT_DEBUG       = False
-_DEFAULT_IP          = '127.0.0.1'
-_DEFAULT_PORT        = 8000
+MODE: str                  = _DEFAULT_MODE
+CONFIG_FILE: Optional[str] = _DEFAULT_CONFIG_FILE
+DB_TYPE: str               = _DEFAULT_DB_TYPE
+DB_PATH: str               = _DEFAULT_DB_PATH
+DB_VERBOSE: bool           = _DEFAULT_DB_VERBOSE
 
 
-MODE        = _DEFAULT_MODE
+# Configuration values for webserver mode
+_DEFAULT_DEBUG = False
+_DEFAULT_IP    = '127.0.0.1'
+_DEFAULT_PORT  = 8000
 
-CONFIG_FILE = _DEFAULT_CONFIG_FILE
+DEBUG: bool = _DEFAULT_DEBUG
+IP: str     = _DEFAULT_IP
+PORT: int   = _DEFAULT_PORT
 
-DB_TYPE     = _DEFAULT_DB_TYPE
-DB_PATH     = _DEFAULT_DB_PATH
-DB_VERBOSE  = _DEFAULT_DB_VERBOSE
-
-DEBUG       = _DEFAULT_DEBUG
-IP          = _DEFAULT_IP
-PORT        = _DEFAULT_PORT
 
 def _default_config():
     """Reset global configuration values to default"""
 
+    # General configuration values
     global MODE
-
     global CONFIG_FILE
-
     global DB_TYPE
     global DB_PATH
     global DB_VERBOSE
 
-    global DEBUG
-    global IP
-    global PORT
-
     MODE        = _DEFAULT_MODE
-
     CONFIG_FILE = _DEFAULT_CONFIG_FILE
-
     DB_TYPE     = _DEFAULT_DB_TYPE
     DB_PATH     = _DEFAULT_DB_PATH
     DB_VERBOSE  = _DEFAULT_DB_VERBOSE
 
-    DEBUG       = _DEFAULT_DEBUG
-    IP          = _DEFAULT_IP
-    PORT        = _DEFAULT_PORT
+    # Configuration values for webserver mode
+    global DEBUG
+    global IP
+    global PORT
+
+    DEBUG = _DEFAULT_DEBUG
+    IP    = _DEFAULT_IP
+    PORT  = _DEFAULT_PORT
+
+
 
 def parse_config(content: str) -> None:
     """Apply configuration from configuration file content.
@@ -100,10 +98,10 @@ def _add_subparser_webserver(subparsers) -> None:
     options.add_argument(
         '-d', '--debug',
         help = '''
-               Activate debug mode (default: {})
-               WARNING: This will allow code to be excuted on your system from
-               everyone who can access the website! Only use for development!'''
-           .format(_DEFAULT_DEBUG),
+            Activate debug mode (default: {})
+            WARNING: This will allow code to be excuted on your system from
+            everyone who can access the website! Only use for development!'''
+                .format(_DEFAULT_DEBUG),
         action = 'store_true',
         default = argparse.SUPPRESS)
 
@@ -125,7 +123,7 @@ def _add_subparser_webserver(subparsers) -> None:
         default = argparse.SUPPRESS,
         type = int)
 
-def _add_subparsers_dump(subparsers) -> None:
+def _add_subparser_dump(subparsers) -> None:
     """Add subparser for dump mode to given subparsers."""
 
     parser = subparsers.add_parser(
@@ -152,9 +150,9 @@ def _create_argument_parser() -> argparse.ArgumentParser:
     parser.usage = 'switchmng [ GENERAL OPTIONS ] MODE [ MODE-SPECIFIC OPTIONS ]'
 
     description='''
-                Specify which mode of operation to start in. Start mode
-                with -h option for more info about what each mode does,
-                what options are available and what they do.'''
+        Specify which mode of operation to start in. Start mode with -h
+        option for more info about what each mode does, what options are
+        available and what they do.'''
     subparsers = parser.add_subparsers(
         title = 'MODE',
         description = description,
@@ -163,11 +161,9 @@ def _create_argument_parser() -> argparse.ArgumentParser:
         dest = 'mode')
     parser.set_defaults(mode = _DEFAULT_MODE)
 
-    # Parser for webserver mode
+    # Parser for different modes
     _add_subparser_webserver(subparsers)
-
-    # Parser for dump mode
-    _add_subparsers_dump(subparsers)
+    _add_subparser_dump(subparsers)
 
     # Parser for options that apply to all modes of operation
     options = parser.add_argument_group('GENERAL OPTIONS')
@@ -178,27 +174,30 @@ def _create_argument_parser() -> argparse.ArgumentParser:
 
     options.add_argument(
         '-c', '--config',
-        help = 'Configuration file to read configuration from\
-               All options set in configuration file will be\
-               overwritten with options set on command line.\
-               (default: {})'.format(_DEFAULT_CONFIG_FILE),
+        help = '''
+            Configuration file to read configuration from.
+            All options set in configuration file will be
+            overwritten with options set on command line.
+            (default: {})'''.format(_DEFAULT_CONFIG_FILE),
         metavar = 'FILE',
         default = argparse.SUPPRESS)
 
     options.add_argument(
         '--dbtype',
-        help = 'Set type of database to use\
-               (default: {})'.format(_DEFAULT_DB_TYPE),
+        help = '''
+            Set type of database to use (default: {})'''.format(
+                _DEFAULT_DB_TYPE),
         metavar = 'TYPE',
         choices = ('sqlite', None),
         default = argparse.SUPPRESS)
 
     options.add_argument(
         '--dbpath',
-        help = 'Set path to sqlite database. Empty path "" means\
-               an in memory sqlite database will be used. This\
-               database will loose all content after application\
-               exit! (default: "{}")'.format(_DEFAULT_DB_PATH),
+        help = '''
+            Set path to sqlite database. Empty path "" means an in memory
+            sqlite database will be used. This database will loose all
+            content after application exit! (default: "{}")'''.format(
+                _DEFAULT_DB_PATH),
         metavar = 'PATH',
         default = argparse.SUPPRESS)
 
@@ -209,9 +208,9 @@ def _create_argument_parser() -> argparse.ArgumentParser:
 
     options.add_argument(
         '-v', '--verbose',
-        help = 'Make given subsystem verbose and print more\
-               information to stdout. Can be supplied multiple\
-               times. Possible values: sql',
+        help = '''
+            Make given subsystem verbose and print more information to
+            stdout. Can be supplied multiple times. Possible values: sql''',
         metavar = 'SUBSYSTEM',
         choices = ('sql', None),
         action = 'append',
@@ -261,15 +260,15 @@ def parse_arguments(arguments: List[str]) -> None:
             global DB_VERBOSE
             DB_VERBOSE = True
 
-    # Apply arguments from WEBSERVER group
-    if 'debug' in args:
-        global DEBUG
-        DEBUG = args.debug
+    if MODE == 'webserver':
+        if 'debug' in args:
+            global DEBUG
+            DEBUG = args.debug
 
-    if 'ip' in args:
-        global IP
-        IP = args.ip
+        if 'ip' in args:
+            global IP
+            IP = args.ip
 
-    if 'port' in args:
-        global PORT
-        PORT = args.port
+        if 'port' in args:
+            global PORT
+            PORT = args.port
