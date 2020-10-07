@@ -15,6 +15,45 @@ apply configuration from *switchmng* or to update information in *switchmng*.
 [SQLAlchemy](https://github.com/sqlalchemy/sqlalchemy) and
 [Flask](https://github.com/pallets/flask).
 
+# Usage
+
+Using switchmng is easy! Start a local test server:
+
+```
+$ python -m switchmng webserver -i 127.0.0.1 -p 8000
+```
+
+Query switchmng:
+
+```
+$ curl 127.0.0.1:8000/switches/core-b-sw2/ports/2
+{
+  "data": {
+    "name": "2",
+    "target": "core-b-sw1",
+    "vlans": [
+      1005,
+      107,
+      103,
+      72,
+      4005,
+      4007,
+      9
+    ]
+  },
+  "status": 200
+}
+
+$ curl 127.0.0.1:8000/vlans/107
+{
+  "data": {
+    "description": "internal-b_fw0",
+    "tag": 107
+  },
+  "status": 200
+}
+```
+
 # Installing
 
 Install all dependencies via pip:
@@ -22,16 +61,6 @@ Install all dependencies via pip:
 ```
 $ pip install -r requirements.txt
 ```
-
-# Using
-
-After installing dependencies just start switchmng module:
-
-```
-$ python -m switchmng
-```
-
-See `--help` option for more information.
 
 # License
 *switchmng* is distributed under the
