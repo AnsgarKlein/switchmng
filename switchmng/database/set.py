@@ -3,7 +3,7 @@ from switchmng.schema import *
 from .query import *
 from .helper import *
 
-def set_switch_model(session, resource_id: str, **kwargs) -> SwitchModel:
+def set_switch_model(session, resource_id: Optional[str], **kwargs) -> SwitchModel:
     """
     Set a :class:`SwitchModel` in the database to a given state.
 
@@ -24,6 +24,11 @@ def set_switch_model(session, resource_id: str, **kwargs) -> SwitchModel:
 
     :return: The modified or created switch model
     """
+
+    if resource_id is None:
+        if 'name' not in kwargs:
+            raise ValueError('No resource identifier of switch model given!')
+        resource_id = kwargs['name']
 
     # Replace list of ports with list of port objects
     if 'ports' in kwargs:
@@ -173,7 +178,7 @@ def set_port_model(
         session.commit()
         return target_pm
 
-def set_switch(session, resource_id: str, **kwargs) -> Switch:
+def set_switch(session, resource_id: Optional[str], **kwargs) -> Switch:
     """
     Set a :class:`Switch` corresponding to a given resource identifier
     to a given state.
@@ -195,6 +200,11 @@ def set_switch(session, resource_id: str, **kwargs) -> Switch:
 
     :return: The modified or created switch
     """
+
+    if resource_id is None:
+        if 'name' not in kwargs:
+            raise ValueError('No resource identifier of switch given!')
+        resource_id = kwargs['name']
 
     # Replace list of ports with list of port objects
     if 'ports' in kwargs:
@@ -322,7 +332,10 @@ def set_port(
     session.commit()
     return target_pt
 
-def set_network_protocol(session, resource_id: str, **kwargs) -> NetworkProtocol:
+def set_network_protocol(
+        session,
+        resource_id: Optional[str],
+        **kwargs) -> NetworkProtocol:
     """
     Set a :class:`NetworkProtocol` in the database to a given state.
 
@@ -343,6 +356,11 @@ def set_network_protocol(session, resource_id: str, **kwargs) -> NetworkProtocol
 
     :return: The modified or created network protocol
     """
+
+    if resource_id is None:
+        if 'name' not in kwargs:
+            raise ValueError('No resource identifier of network protocol given!')
+        resource_id = kwargs['name']
 
     # Check all arguments before making any changes
     NetworkProtocol.check_params(**kwargs)
@@ -389,7 +407,7 @@ def set_network_protocol(session, resource_id: str, **kwargs) -> NetworkProtocol
         session.commit()
         return target_np
 
-def set_connector(session, resource_id: str, **kwargs) -> Connector:
+def set_connector(session, resource_id: Optional[str], **kwargs) -> Connector:
     """
     Set a :class:`Connector` in the database to a given state.
 
@@ -410,6 +428,11 @@ def set_connector(session, resource_id: str, **kwargs) -> Connector:
 
     :return: The modified or created connector
     """
+
+    if resource_id is None:
+        if 'name' not in kwargs:
+            raise ValueError('No resource identifier of connector given!')
+        resource_id = kwargs['name']
 
     # Check all arguments before making any changes
     Connector.check_params(**kwargs)
@@ -456,7 +479,7 @@ def set_connector(session, resource_id: str, **kwargs) -> Connector:
         session.commit()
         return target_cn
 
-def set_vlan(session, resource_id: str, **kwargs) -> Vlan:
+def set_vlan(session, resource_id: Optional[str], **kwargs) -> Vlan:
     """
     Set a :class:`Vlan` in the database to a given state.
 
@@ -477,6 +500,11 @@ def set_vlan(session, resource_id: str, **kwargs) -> Vlan:
 
     :return: The modified or created vlan
     """
+
+    if resource_id is None:
+        if 'tag' not in kwargs:
+            raise ValueError('No resource identifier of vlan given!')
+        resource_id = kwargs['tag']
 
     # Check all arguments before making any changes
     Vlan.check_params(**kwargs)
