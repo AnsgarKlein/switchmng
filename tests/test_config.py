@@ -19,11 +19,8 @@ class Test_Config(unittest.TestCase):
     def test_param_general_dbtype_fail(self):
         """Test general --dbtype cli argument with invalid value"""
 
-        try:
+        with self.assertRaises(SystemExit):
             config.parse_arguments(['--dbtype', 'invalid-option'])
-        except:
-            return
-        self.assertTrue(False, msg = 'Expected ArgumentError')
 
     def test_param_general_dbtype(self):
         """Test general --dbtype cli argument"""
@@ -40,11 +37,8 @@ class Test_Config(unittest.TestCase):
     def test_param_general_verbose_fail(self):
         """Test general --verbose cli argument with invalid value"""
 
-        try:
+        with self.assertRaises(SystemExit):
             self._cli_arg('--verbose invalid-verbose-option')
-        except:
-            return
-        self.assertTrue(False, msg = 'Expected ArgumentError')
 
     def test_param_general_verbose_short_sql(self):
         """Test general --verbose cli argument"""
