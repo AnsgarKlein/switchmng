@@ -16,8 +16,8 @@ class Test_Config(unittest.TestCase):
         # Parse given argument
         config.parse_arguments(args)
 
-    def test_param_dbtype_fail(self):
-        """Test dbtype cli argument with invalid value"""
+    def test_param_general_dbtype_fail(self):
+        """Test general --dbtype cli argument with invalid value"""
 
         try:
             config.parse_arguments(['--dbtype', 'invalid-option'])
@@ -25,20 +25,20 @@ class Test_Config(unittest.TestCase):
             return
         self.assertTrue(False, msg = 'Expected ArgumentError')
 
-    def test_param_dbtype(self):
-        """Test dbtype cli argument"""
+    def test_param_general_dbtype(self):
+        """Test general --dbtype cli argument"""
 
         self._cli_arg('--dbtype sqlite')
         self.assertEqual(config.DB_TYPE, 'sqlite')
 
-    def test_param_dbpath(self):
-        """Test dbpath cli argument"""
+    def test_param_general_dbpath(self):
+        """Test general --dbpath cli argument"""
 
         self._cli_arg('--dbpath /tmp/foo.db')
         self.assertEqual(config.DB_PATH, '/tmp/foo.db')
 
-    def test_param_verbose_fail(self):
-        """Test verbose cli argument"""
+    def test_param_general_verbose_fail(self):
+        """Test general --verbose cli argument with invalid value"""
 
         try:
             self._cli_arg('--verbose invalid-verbose-option')
@@ -46,50 +46,50 @@ class Test_Config(unittest.TestCase):
             return
         self.assertTrue(False, msg = 'Expected ArgumentError')
 
-    def test_param_verbose_sql(self):
-        """Test verbose cli argument"""
-
-        self._cli_arg('--verbose sql')
-        self.assertTrue(config.DB_VERBOSE)
-
-    def test_param_verbose_short_sql(self):
-        """Test verbose cli argument"""
+    def test_param_general_verbose_short_sql(self):
+        """Test general --verbose cli argument"""
 
         self._cli_arg('-v sql')
         self.assertTrue(config.DB_VERBOSE)
 
-    def test_param_debug(self):
-        """Test debug cli argument"""
+    def test_param_general_verbose_sql(self):
+        """Test general --verbose cli argument"""
 
-        self._cli_arg('webserver --debug')
-        self.assertTrue(config.DEBUG)
+        self._cli_arg('--verbose sql')
+        self.assertTrue(config.DB_VERBOSE)
 
-    def test_param_debug_short(self):
-        """Test (short) debug cli argument"""
+    def test_param_webserver_debug_short(self):
+        """Test webserver -d cli argument"""
 
         self._cli_arg('webserver -d')
         self.assertTrue(config.DEBUG)
 
-    def test_param_ip(self):
-        """Test ip cli argument"""
+    def test_param_webserver_debug(self):
+        """Test webserver --debug cli argument"""
 
-        self._cli_arg('webserver --ip 192.168.0.1')
-        self.assertEqual(config.IP, '192.168.0.1')
+        self._cli_arg('webserver --debug')
+        self.assertTrue(config.DEBUG)
 
-    def test_param_ip_short(self):
-        """Test (short) ip cli argument"""
+    def test_param_webserver_ip_short(self):
+        """Test webserver -i cli argument"""
 
         self._cli_arg('webserver -i 192.168.0.1')
         self.assertEqual(config.IP, '192.168.0.1')
 
-    def test_param_port_short(self):
-        """Test (short) port cli argument"""
+    def test_param_webserver_ip(self):
+        """Test webserver --ip cli argument"""
+
+        self._cli_arg('webserver --ip 192.168.0.1')
+        self.assertEqual(config.IP, '192.168.0.1')
+
+    def test_param_webserver_port_short(self):
+        """Test webserver -p cli argument"""
 
         self._cli_arg('webserver -p 9081')
         self.assertEqual(config.PORT, 9081)
 
-    def test_param_port(self):
-        """Test port cli argument"""
+    def test_param_webserver_port(self):
+        """Test webserver -p cli argument"""
 
         self._cli_arg('webserver --port 9081')
         self.assertEqual(config.PORT, 9081)
