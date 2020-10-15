@@ -2,6 +2,13 @@ import argparse
 
 from typing import List
 from typing import Optional
+from typing import Type
+
+from switchmng.importer import IMPORT_TYPES
+from switchmng.importer import IMPORT_DIR_TYPES
+
+from switchmng.schema import *
+from switchmng.schema.base_resource import BaseResource
 
 
 # General configuration values
@@ -26,6 +33,14 @@ _DEFAULT_PORT  = 8000
 DEBUG: bool = _DEFAULT_DEBUG
 IP: str     = _DEFAULT_IP
 PORT: int   = _DEFAULT_PORT
+
+
+# Configuration values for import mode
+_DEFAULT_IMPORT_TYPE = None
+_DEFAULT_IMPORT_PATH = None
+
+IMPORT_TYPE: Optional[Type[BaseResource]] = _DEFAULT_IMPORT_TYPE
+IMPORT_PATH: Optional[str]                = _DEFAULT_IMPORT_PATH
 
 
 def _default_config():
@@ -53,7 +68,12 @@ def _default_config():
     IP    = _DEFAULT_IP
     PORT  = _DEFAULT_PORT
 
+    # Configuration values for import mode
+    global IMPORT_TYPE
+    global IMPORT_PATH
 
+    IMPORT_TYPE = _DEFAULT_IMPORT_TYPE
+    IMPORT_PATH = _DEFAULT_IMPORT_PATH
 
 def parse_config(content: str) -> None:
     """Apply configuration from configuration file content.
@@ -123,6 +143,62 @@ def _add_subparser_webserver(subparsers) -> None:
         default = argparse.SUPPRESS,
         type = int)
 
+def _add_subparser_import(subparsers) -> None:
+    """Add subparser for import mode to given subparsers."""
+
+    parser = subparsers.add_parser(
+        'import',
+        add_help = False,
+        allow_abbrev = False)
+
+    parser.usage = 'switchmng [ GENERAL OPTIONS ] import [ MODE-SPECIFIC OPTIONS ]'
+
+    parser.description = 'Add resources to the database.'
+
+    options = parser.add_argument_group('OPTIONS')
+
+    options.add_argument(
+        '-h', '--help',
+        help = 'Show help for selected mode and exit',
+        action = 'help')
+
+    options.add_argument(
+        '-i', '--input',
+        help = '''
+            File or directory containing the resource(s) to import. If PATH is a
+            file specify type of resource with --type.
+            If PATH is a directory and is named like a resource type ({}) all
+            contained json files that do not start with . are imported as a
+            resource of that type.
+            If PATH is a directory but is not named like a resource type but
+            contains folders named like resource types all json files that do
+            not start with . from those folders will be imported.'''.format(
+                ', '.join(IMPORT_DIR_TYPES)),
+        metavar = 'PATH',
+        required = True,
+        default = argparse.SUPPRESS)
+
+    # TODO: Implement --stdin command line parameter
+    options.add_argument(
+        '--stdin',
+        help = 'NOT IMPLEMENTED',
+        default = argparse.SUPPRESS)
+
+    options.add_argument(
+        '-t', '--type',
+        help = '''
+            Type of resource to import. (Choices: {})'''.format(
+                ', '.join(IMPORT_TYPES)),
+        metavar = 'TYPE',
+        choices = IMPORT_TYPES,
+        default = argparse.SUPPRESS)
+
+    # TODO: Implement --update command line parameter
+    options.add_argument(
+        '-u', '--update',
+        help = 'NOT IMPLEMENTED',
+        default = argparse.SUPPRESS)
+
 def _add_subparser_dump(subparsers) -> None:
     """Add subparser for dump mode to given subparsers."""
 
@@ -163,6 +239,7 @@ def _create_argument_parser() -> argparse.ArgumentParser:
 
     # Parser for different modes
     _add_subparser_webserver(subparsers)
+    _add_subparser_import(subparsers)
     _add_subparser_dump(subparsers)
 
     # Parser for options that apply to all modes of operation
@@ -215,6 +292,8 @@ def _create_argument_parser() -> argparse.ArgumentParser:
         choices = ('sql', None),
         action = 'append',
         default = argparse.SUPPRESS)
+
+    # TODO: Add examples section to argument parser --help output
 
     return parser
 
@@ -272,3 +351,11 @@ def parse_arguments(arguments: List[str]) -> None:
         if 'port' in args:
             global PORT
             PORT = args.port
+    elif MODE == 'import':
+        if 'input' in args:
+            global IMPORT_PATH
+            IMPORT_PATH = args.input
+
+        if 'type' in args:
+            global IMPORT_TYPE
+            IMPORT_TYPE = IMPORT_TYPES[args.type]
