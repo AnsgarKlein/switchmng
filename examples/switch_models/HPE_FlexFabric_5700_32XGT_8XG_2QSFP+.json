@@ -1,0 +1,386 @@
+{
+    "name": "HPE FlexFabric 5700 32XGT 8XG 2QSFP+",
+    "ports": [
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "01",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "02",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "03",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "04",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "05",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "06",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "07",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "08",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "09",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "10",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "11",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "12",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "13",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "14",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "15",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "16",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "17",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "18",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "19",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "20",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "21",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "22",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "23",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "24",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "25",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "26",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "27",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "28",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "29",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "30",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "31",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "32",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "33",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "34",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "35",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "36",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "37",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "38",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "39",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "40",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "QSFP+",
+            "name": "41",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)",
+                "Ethernet (40GBASE)"
+            ]
+        },
+        {
+            "connector": "QSFP+",
+            "name": "42",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)",
+                "Ethernet (40GBASE)"
+            ]
+        }
+    ],
+    "size": 1
+}

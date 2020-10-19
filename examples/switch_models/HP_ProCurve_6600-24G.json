@@ -1,0 +1,198 @@
+{
+    "name": "HP ProCurve 6600-24G",
+    "ports": [
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "01",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "02",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "03",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "04",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "05",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "06",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "07",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "08",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "09",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "10",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "11",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "12",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "13",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "14",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "15",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "16",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "17",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "18",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "19",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "20",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "21",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "22",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "23",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "24",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        }
+    ],
+    "size": 1
+}

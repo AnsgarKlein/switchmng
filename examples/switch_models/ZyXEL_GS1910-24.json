@@ -1,0 +1,230 @@
+{
+    "name": "ZyXEL GS1910-24",
+    "ports": [
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "TP01",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "TP02",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "TP03",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "TP04",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "TP05",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "TP06",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "TP07",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "TP08",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "TP09",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "TP10",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "TP11",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "TP12",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "TP13",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "TP14",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "TP15",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "TP16",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "TP17",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "TP18",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "TP19",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "TP20",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "TP21",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "TP22",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "TP23",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "TP24",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "8P8C (RJ-45)",
+            "name": "F01",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "SFP",
+            "name": "F02",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "SFP",
+            "name": "F03",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        },
+        {
+            "connector": "SFP",
+            "name": "F04",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)"
+            ]
+        }
+    ],
+    "size": 1
+}

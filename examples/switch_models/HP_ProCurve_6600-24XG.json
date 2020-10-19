@@ -1,0 +1,222 @@
+{
+    "name": "HP ProCurve 6600-24XG",
+    "ports": [
+        {
+            "connector": "SFP+",
+            "name": "01",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "02",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "03",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "04",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "05",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "06",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "07",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "08",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "09",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "10",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "11",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "12",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "13",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "14",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "15",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "16",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "17",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "18",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "19",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "20",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "21",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "22",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "23",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        },
+        {
+            "connector": "SFP+",
+            "name": "24",
+            "network_protocols": [
+                "Ethernet (100BASE)",
+                "Ethernet (1000BASE)",
+                "Ethernet (10GBASE)"
+            ]
+        }
+    ],
+    "size": 1
+}
