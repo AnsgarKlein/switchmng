@@ -1,6 +1,8 @@
 import unittest
 
 from switchmng import config
+from switchmng.schema import *
+from switchmng.importer import IMPORT_TYPES
 
 class Test_Config(unittest.TestCase):
     """Test class that tests config parser"""
@@ -87,6 +89,39 @@ class Test_Config(unittest.TestCase):
 
         self._cli_arg('webserver --port 9081')
         self.assertEqual(config.PORT, 9081)
+
+    def test_param_import_input_short(self):
+        """Test import -i cli argument"""
+
+        self._cli_arg('import -i examples')
+        self.assertEqual(config.IMPORT_PATH, 'examples')
+
+    def test_param_import_input(self):
+        """Test import --input cli argument"""
+
+        self._cli_arg('import --input examples')
+        self.assertEqual(config.IMPORT_PATH, 'examples')
+
+    def test_param_import_type_fail(self):
+        """Test import --type cli argument with invalid value"""
+
+        with self.assertRaises(SystemExit):
+            self._cli_arg('import --type non-existing-type')
+
+    def test_param_import_type_short(self):
+        """Test import -t cli argument"""
+
+        self._cli_arg('import --input examples -t switch_model')
+        self.assertEqual(config.IMPORT_TYPE, SwitchModel)
+
+    def test_param_import_type(self):
+        """Test import --type cli argument"""
+
+        # Test all types
+        for key, val in IMPORT_TYPES.items():
+            with self.subTest(key = key, val = val):
+                self._cli_arg(f'import --input examples --type {key}')
+                self.assertEqual(config.IMPORT_TYPE, val)
 
 if __name__ == '__main__':
     unittest.main(buffer = True)
