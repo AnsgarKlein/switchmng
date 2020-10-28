@@ -1,0 +1,461 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>switchmng.schema package &#8212; switchmng  documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="About" href="../about.html" />
+    <link rel="prev" title="switchmng.routes package" href="switchmng.routes.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="switchmng-schema-package">
+<h1>switchmng.schema package<a class="headerlink" href="#switchmng-schema-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-switchmng.schema.base">
+<span id="switchmng-schema-base-module"></span><h2>switchmng.schema.base module<a class="headerlink" href="#module-switchmng.schema.base" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-switchmng.schema.base_resource">
+<span id="switchmng-schema-base-resource-module"></span><h2>switchmng.schema.base_resource module<a class="headerlink" href="#module-switchmng.schema.base_resource" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="switchmng.schema.base_resource.BaseResource">
+<em class="property">class </em><code class="sig-prename descclassname">switchmng.schema.base_resource.</code><code class="sig-name descname">BaseResource</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.schema.base_resource.BaseResource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents the base for all REST resources.</p>
+<p>This class only provides the skeleton for other resources
+and cannot be instantiated.
+Every implementing class should overwrite
+<cite>_Attributes</cite> and <cite>ResourceIdentifier</cite>.</p>
+<dl class="py attribute">
+<dt id="switchmng.schema.base_resource.BaseResource.ResourceIdentifier">
+<code class="sig-name descname">ResourceIdentifier</code><em class="property"> = 'name'</em><a class="headerlink" href="#switchmng.schema.base_resource.BaseResource.ResourceIdentifier" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Name</em> of the attribute that is this resource’s identifier</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="switchmng.schema.base_resource.BaseResource.check_param">
+<em class="property">classmethod </em><code class="sig-name descname">check_param</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">val</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.schema.base_resource.BaseResource.check_param" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check given parameter.</p>
+<p>Check if given parameter has the correct type and is a valid
+attribute for this resource.</p>
+<p>These checks get executed when trying to assign a value to a
+resource attribute but can be called when needing to check parameters
+before making changes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>TypeError</strong> – When type of given parameter does not match
+expectation</p></li>
+<li><p><strong>ValueError</strong> – When value of given parameter does not match
+expectation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="switchmng.schema.base_resource.BaseResource.check_params">
+<em class="property">classmethod </em><code class="sig-name descname">check_params</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.schema.base_resource.BaseResource.check_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check all given parameter.</p>
+<p>Check if given parameters have the correct type and are valid
+attributes for this resource.</p>
+<p>These checks get executed when trying to assign a value to a
+resource attribute but can be called when needing to check multiple
+parameters at once in order to prevent inconistent states.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>TypeError</strong> – When type of given parameter does not match
+expectation</p></li>
+<li><p><strong>ValueError</strong> – When value of given parameter does not match
+expectation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="switchmng.schema.base_resource.BaseResource.jsonify">
+<code class="sig-name descname">jsonify</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.schema.base_resource.BaseResource.jsonify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represent this resource as a json-ready dict.</p>
+<p>That is a dict which completely consists of json-compatible structures
+like:</p>
+<ul class="simple">
+<li><p>dict</p></li>
+<li><p>list</p></li>
+<li><p>string</p></li>
+<li><p>int</p></li>
+<li><p>bool</p></li>
+<li><p>None / null</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]]], <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]]]]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-switchmng.schema.connector">
+<span id="switchmng-schema-connector-module"></span><h2>switchmng.schema.connector module<a class="headerlink" href="#module-switchmng.schema.connector" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="switchmng.schema.connector.Connector">
+<em class="property">class </em><code class="sig-prename descclassname">switchmng.schema.connector.</code><code class="sig-name descname">Connector</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.schema.connector.Connector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#switchmng.schema.base_resource.BaseResource" title="switchmng.schema.base_resource.BaseResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">switchmng.schema.base_resource.BaseResource</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<p>Represents a physical port connector.</p>
+<p>This resource is uniquely identified by its name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – Name uniquely identifying this port connector</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="switchmng.schema.connector.Connector.ResourceIdentifier">
+<code class="sig-name descname">ResourceIdentifier</code><em class="property"> = 'name'</em><a class="headerlink" href="#switchmng.schema.connector.Connector.ResourceIdentifier" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Name</em> of the attribute that is this resource’s identifier</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-switchmng.schema.network_protocol">
+<span id="switchmng-schema-network-protocol-module"></span><h2>switchmng.schema.network_protocol module<a class="headerlink" href="#module-switchmng.schema.network_protocol" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="switchmng.schema.network_protocol.NetworkProtocol">
+<em class="property">class </em><code class="sig-prename descclassname">switchmng.schema.network_protocol.</code><code class="sig-name descname">NetworkProtocol</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.schema.network_protocol.NetworkProtocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#switchmng.schema.base_resource.BaseResource" title="switchmng.schema.base_resource.BaseResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">switchmng.schema.base_resource.BaseResource</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<p>Represents a network protocol resource.</p>
+<p>This resource is uniquely identified by its name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Name uniquely identifying this network protocol</p></li>
+<li><p><strong>speed</strong> (<em>int</em>) – Maximum possible speed of this network protocol in Mb/s</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="switchmng.schema.network_protocol.NetworkProtocol.ResourceIdentifier">
+<code class="sig-name descname">ResourceIdentifier</code><em class="property"> = 'name'</em><a class="headerlink" href="#switchmng.schema.network_protocol.NetworkProtocol.ResourceIdentifier" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Name</em> of the attribute that is this resource’s identifier</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-switchmng.schema.port">
+<span id="switchmng-schema-port-module"></span><h2>switchmng.schema.port module<a class="headerlink" href="#module-switchmng.schema.port" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="switchmng.schema.port.Port">
+<em class="property">class </em><code class="sig-prename descclassname">switchmng.schema.port.</code><code class="sig-name descname">Port</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.schema.port.Port" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#switchmng.schema.base_resource.BaseResource" title="switchmng.schema.base_resource.BaseResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">switchmng.schema.base_resource.BaseResource</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<p>Represents a port of a switch.</p>
+<p>That is a concrete port of a concrete switch.
+This resource is uniquely identified by the switch (See
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Switch</span></code>) containing it in combination with its name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – The identifier of this port. Must be unique for the
+containing <code class="xref py py-class docutils literal notranslate"><span class="pre">Switch</span></code>.</p></li>
+<li><p><strong>vlans</strong> (<em>list</em>) – A list of vlans that are active on this port</p></li>
+<li><p><strong>target</strong> (<em>str</em>) – Host that is connected to this port</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="switchmng.schema.port.Port.ResourceIdentifier">
+<code class="sig-name descname">ResourceIdentifier</code><em class="property"> = 'name'</em><a class="headerlink" href="#switchmng.schema.port.Port.ResourceIdentifier" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Name</em> of the attribute that is this resource’s identifier</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-switchmng.schema.port_model">
+<span id="switchmng-schema-port-model-module"></span><h2>switchmng.schema.port_model module<a class="headerlink" href="#module-switchmng.schema.port_model" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="switchmng.schema.port_model.PortModel">
+<em class="property">class </em><code class="sig-prename descclassname">switchmng.schema.port_model.</code><code class="sig-name descname">PortModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.schema.port_model.PortModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#switchmng.schema.base_resource.BaseResource" title="switchmng.schema.base_resource.BaseResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">switchmng.schema.base_resource.BaseResource</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<p>Represents a port model resource.</p>
+<p>This resource is uniquely identified by the switch model (See
+<code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchModel</span></code>) containing it in combination with its name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – The identifier of this port. Must be unique for the
+containing <code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchModel</span></code>.</p></li>
+<li><p><strong>network_protocols</strong> (<em>list</em>) – List of possible network protocols of this port</p></li>
+<li><p><strong>connector</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Connector</span></code>) – Physical connector of this port</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="switchmng.schema.port_model.PortModel.ResourceIdentifier">
+<code class="sig-name descname">ResourceIdentifier</code><em class="property"> = 'name'</em><a class="headerlink" href="#switchmng.schema.port_model.PortModel.ResourceIdentifier" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Name</em> of the attribute that is this resource’s identifier</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-switchmng.schema.switch">
+<span id="switchmng-schema-switch-module"></span><h2>switchmng.schema.switch module<a class="headerlink" href="#module-switchmng.schema.switch" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="switchmng.schema.switch.Switch">
+<em class="property">class </em><code class="sig-prename descclassname">switchmng.schema.switch.</code><code class="sig-name descname">Switch</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.schema.switch.Switch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#switchmng.schema.base_resource.BaseResource" title="switchmng.schema.base_resource.BaseResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">switchmng.schema.base_resource.BaseResource</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<p>Represents a switch resource.</p>
+<p>This resource is uniquely identified by its name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Name uniquely identifying this switch</p></li>
+<li><p><strong>model</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchModel</span></code>) – Model of this switch</p></li>
+<li><p><strong>ports</strong> (<em>list</em>) – Ports associated with this switch</p></li>
+<li><p><strong>location</strong> (<em>int</em>) – Location of this switch in server rack</p></li>
+<li><p><strong>ip</strong> (<em>str</em>) – IP Address of this switch</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="switchmng.schema.switch.Switch.ResourceIdentifier">
+<code class="sig-name descname">ResourceIdentifier</code><em class="property"> = 'name'</em><a class="headerlink" href="#switchmng.schema.switch.Switch.ResourceIdentifier" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Name</em> of the attribute that is this resource’s identifier</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="switchmng.schema.switch.Switch.port">
+<code class="sig-name descname">port</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">resource_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.schema.switch.Switch.port" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return port of this switch identified by resource identifier</p>
+<p>Returns the port for the given resource identifier or None if this
+switch does not contain a matching port.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>resource_id</strong> (<em>str</em>) – The resource id of the port to return object of</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#switchmng.schema.port.Port" title="switchmng.schema.port.Port"><code class="xref py py-class docutils literal notranslate"><span class="pre">Port</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">Port</span></code> object identified by given resource id</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="switchmng.schema.switch.Switch.sync_ports_from_model">
+<code class="sig-name descname">sync_ports_from_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.schema.switch.Switch.sync_ports_from_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Synchronize ports from switch model.</p>
+<p>All ports that have a name that does not exist in switch model will
+get removed.
+All ports from switch model that do not exist in this object will
+be added.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-switchmng.schema.switch_model">
+<span id="switchmng-schema-switch-model-module"></span><h2>switchmng.schema.switch_model module<a class="headerlink" href="#module-switchmng.schema.switch_model" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="switchmng.schema.switch_model.SwitchModel">
+<em class="property">class </em><code class="sig-prename descclassname">switchmng.schema.switch_model.</code><code class="sig-name descname">SwitchModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.schema.switch_model.SwitchModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#switchmng.schema.base_resource.BaseResource" title="switchmng.schema.base_resource.BaseResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">switchmng.schema.base_resource.BaseResource</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<p>Represents a switch model resource.</p>
+<p>This resource is uniquely identified by its name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Name uniquely identifying this switch model
+Acts as resource identifier.</p></li>
+<li><p><strong>ports</strong> (<em>list</em>) – Ports associated with this switch model</p></li>
+<li><p><strong>size</strong> (<em>int</em>) – Size (number of rack units) this switch takes up in server rack</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="switchmng.schema.switch_model.SwitchModel.ResourceIdentifier">
+<code class="sig-name descname">ResourceIdentifier</code><em class="property"> = 'name'</em><a class="headerlink" href="#switchmng.schema.switch_model.SwitchModel.ResourceIdentifier" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Name</em> of the attribute that is this resource’s identifier</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="switchmng.schema.switch_model.SwitchModel.port">
+<code class="sig-name descname">port</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">resource_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.schema.switch_model.SwitchModel.port" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return port of this switch model identified by resource identifier.</p>
+<p>Returns the port for the given resource identifier or None if this
+switch model does not contain a matching port.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>resource_id</strong> (<em>str</em>) – The resource id of the port to return object of</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#switchmng.schema.port_model.PortModel" title="switchmng.schema.port_model.PortModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">PortModel</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">PortModel</span></code> object identified by given resource id</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="switchmng.schema.switch_model.SwitchModel.refresh_switches">
+<code class="sig-name descname">refresh_switches</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.schema.switch_model.SwitchModel.refresh_switches" title="Permalink to this definition">¶</a></dt>
+<dd><p>Refresh ports of all switches using this switch model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-switchmng.schema.vlan">
+<span id="switchmng-schema-vlan-module"></span><h2>switchmng.schema.vlan module<a class="headerlink" href="#module-switchmng.schema.vlan" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="switchmng.schema.vlan.Vlan">
+<em class="property">class </em><code class="sig-prename descclassname">switchmng.schema.vlan.</code><code class="sig-name descname">Vlan</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.schema.vlan.Vlan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#switchmng.schema.base_resource.BaseResource" title="switchmng.schema.base_resource.BaseResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">switchmng.schema.base_resource.BaseResource</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<p>Represents a VLAN resource.</p>
+<p>This resource is uniquely identified by its vlan tag.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tag</strong> (<em>int</em>) – Tag uniquely identifying this VLAN</p></li>
+<li><p><strong>description</strong> (<em>str</em>) – Description of this VLAN</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="switchmng.schema.vlan.Vlan.ResourceIdentifier">
+<code class="sig-name descname">ResourceIdentifier</code><em class="property"> = 'tag'</em><a class="headerlink" href="#switchmng.schema.vlan.Vlan.ResourceIdentifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-switchmng.schema">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-switchmng.schema" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">switchmng</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user-doc.html">User Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code-doc.html">Programmer Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../code-doc.html">Programmer Reference</a><ul>
+  <li><a href="switchmng.html">switchmng package</a><ul>
+      <li>Previous: <a href="switchmng.routes.html" title="previous chapter">switchmng.routes package</a></li>
+      <li>Next: <a href="../about.html" title="next chapter">About</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Ansgar Klein.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/module/switchmng.schema.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

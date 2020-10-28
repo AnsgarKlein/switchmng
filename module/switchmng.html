@@ -1,0 +1,282 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>switchmng package &#8212; switchmng  documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="switchmng.database package" href="switchmng.database.html" />
+    <link rel="prev" title="Programmer Reference" href="../code-doc.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="switchmng-package">
+<h1>switchmng package<a class="headerlink" href="#switchmng-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="switchmng.database.html">switchmng.database package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.database.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.database.html#module-switchmng.database.add">switchmng.database.add module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.database.html#module-switchmng.database.delete">switchmng.database.delete module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.database.html#module-switchmng.database.helper">switchmng.database.helper module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.database.html#module-switchmng.database.modify">switchmng.database.modify module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.database.html#module-switchmng.database.query">switchmng.database.query module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.database.html#module-switchmng.database.set">switchmng.database.set module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.database.html#module-switchmng.database">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="switchmng.routes.html">switchmng.routes package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.routes.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.routes.html#module-switchmng.routes.blueprint">switchmng.routes.blueprint module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.routes.html#module-switchmng.routes.delete">switchmng.routes.delete module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.routes.html#module-switchmng.routes.errors">switchmng.routes.errors module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.routes.html#module-switchmng.routes.get">switchmng.routes.get module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.routes.html#module-switchmng.routes.patch">switchmng.routes.patch module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.routes.html#module-switchmng.routes.post">switchmng.routes.post module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.routes.html#module-switchmng.routes.put">switchmng.routes.put module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.routes.html#module-switchmng.routes">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="switchmng.schema.html">switchmng.schema package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.schema.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.schema.html#module-switchmng.schema.base">switchmng.schema.base module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.schema.html#module-switchmng.schema.base_resource">switchmng.schema.base_resource module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.schema.html#module-switchmng.schema.connector">switchmng.schema.connector module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.schema.html#module-switchmng.schema.network_protocol">switchmng.schema.network_protocol module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.schema.html#module-switchmng.schema.port">switchmng.schema.port module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.schema.html#module-switchmng.schema.port_model">switchmng.schema.port_model module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.schema.html#module-switchmng.schema.switch">switchmng.schema.switch module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.schema.html#module-switchmng.schema.switch_model">switchmng.schema.switch_model module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.schema.html#module-switchmng.schema.vlan">switchmng.schema.vlan module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchmng.schema.html#module-switchmng.schema">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-switchmng.config">
+<span id="switchmng-config-module"></span><h2>switchmng.config module<a class="headerlink" href="#module-switchmng.config" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="switchmng.config.parse_arguments">
+<code class="sig-prename descclassname">switchmng.config.</code><code class="sig-name descname">parse_arguments</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arguments</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.config.parse_arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply configuration from command line arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – List of command line arguments.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.config.parse_config">
+<code class="sig-prename descclassname">switchmng.config.</code><code class="sig-name descname">parse_config</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">content</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.config.parse_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply configuration from configuration file content.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>content</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Content of the configuration file.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.config.parse_config_file">
+<code class="sig-prename descclassname">switchmng.config.</code><code class="sig-name descname">parse_config_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.config.parse_config_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply configuration from configuration file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Path to configuration file.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-switchmng.importer">
+<span id="switchmng-importer-module"></span><h2>switchmng.importer module<a class="headerlink" href="#module-switchmng.importer" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="switchmng.importer.import_from_path">
+<code class="sig-prename descclassname">switchmng.importer.</code><code class="sig-name descname">import_from_path</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">db</span></em>, <em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">resource_type</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.importer.import_from_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add resource(s) from json file(s) to database.</p>
+<p>Given <code class="docutils literal notranslate"><span class="pre">path</span></code> can be one of the following:</p>
+<ol class="arabic simple">
+<li><p>A file.
+In this case the <code class="docutils literal notranslate"><span class="pre">resource_type</span></code> parameter has to be set indicating
+what type of resource this file contains.</p></li>
+<li><p>A directory named like a resource type containing multiple resources
+of that type.
+In this case no <code class="docutils literal notranslate"><span class="pre">resource_type</span></code> has to be given.</p></li>
+<li><p>A directory with any name containing multiple resources of the same
+type.
+In this case <code class="docutils literal notranslate"><span class="pre">resource_type</span></code> parameter has to be set indicating what
+type of resources files in this directory contain.</p></li>
+<li><p>A directory with any name containing multiple directories which are
+named like resource types containing only resources of those types.
+In this case <code class="docutils literal notranslate"><span class="pre">resource_type</span></code> must not be given.</p></li>
+</ol>
+<p><strong>Note</strong>: If path is a directory files in this directory starting
+with <code class="docutils literal notranslate"><span class="pre">.</span></code> will not be imported!</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> (<a class="reference internal" href="switchmng.database.html#switchmng.database.DatabaseConnection" title="switchmng.database.DatabaseConnection"><code class="xref py py-class docutils literal notranslate"><span class="pre">DatabaseConnection</span></code></a>) – Connection to the database</p></li>
+<li><p><strong>path</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The path to the file or directory containing the
+resource(s) in json format.</p></li>
+<li><p><strong>resource_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<a class="reference internal" href="switchmng.schema.html#switchmng.schema.base_resource.BaseResource" title="switchmng.schema.base_resource.BaseResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseResource</span></code></a>]]) – The type of resource the file or directory
+contains or None for autodetection.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.importer.sort_import_dirs">
+<code class="sig-prename descclassname">switchmng.importer.</code><code class="sig-name descname">sort_import_dirs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">paths</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.importer.sort_import_dirs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sort list of directories named like resource identifiers.</p>
+<p>Sort list of directories in order to make sure they can be imported
+correctly so that every resource type gets imported after resource
+types it relies on have been imported.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>paths</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-switchmng.typing">
+<span id="switchmng-typing-module"></span><h2>switchmng.typing module<a class="headerlink" href="#module-switchmng.typing" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-switchmng.wsgi">
+<span id="switchmng-wsgi-module"></span><h2>switchmng.wsgi module<a class="headerlink" href="#module-switchmng.wsgi" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="switchmng.wsgi.app">
+<code class="sig-prename descclassname">switchmng.wsgi.</code><code class="sig-name descname">app</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.wsgi.app" title="Permalink to this definition">¶</a></dt>
+<dd><p>Entry point for wsgi server like <cite>gunicorn</cite> serving this
+application.</p>
+<p>Parse all command line arguments, initialize application then
+start this application.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-switchmng">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-switchmng" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">switchmng</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user-doc.html">User Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code-doc.html">Programmer Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../code-doc.html">Programmer Reference</a><ul>
+      <li>Previous: <a href="../code-doc.html" title="previous chapter">Programmer Reference</a></li>
+      <li>Next: <a href="switchmng.database.html" title="next chapter">switchmng.database package</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Ansgar Klein.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/module/switchmng.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

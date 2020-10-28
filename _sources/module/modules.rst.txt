@@ -1,0 +1,7 @@
+switchmng
+=========
+
+.. toctree::
+   :maxdepth: 4
+
+   switchmng

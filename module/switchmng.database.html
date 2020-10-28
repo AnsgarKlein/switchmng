@@ -1,0 +1,1041 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>switchmng.database package &#8212; switchmng  documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="switchmng.routes package" href="switchmng.routes.html" />
+    <link rel="prev" title="switchmng package" href="switchmng.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="switchmng-database-package">
+<h1>switchmng.database package<a class="headerlink" href="#switchmng-database-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-switchmng.database.add">
+<span id="switchmng-database-add-module"></span><h2>switchmng.database.add module<a class="headerlink" href="#module-switchmng.database.add" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="switchmng.database.add.add_connector">
+<code class="sig-prename descclassname">switchmng.database.add.</code><code class="sig-name descname">add_connector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.add.add_connector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new connector and add it to the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – Parameters for new connector.
+Possible parameters are public attributes of <code class="xref py py-class docutils literal notranslate"><span class="pre">Connector</span></code>
+object but in a json compatible representation (as nested dict structure)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="switchmng.schema.html#switchmng.schema.connector.Connector" title="switchmng.schema.connector.Connector"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connector</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The newly added connector</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.add.add_network_protocol">
+<code class="sig-prename descclassname">switchmng.database.add.</code><code class="sig-name descname">add_network_protocol</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.add.add_network_protocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new network protocol and add it to the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – Parameters for new network protocol.
+Possible parameters are public attributes of <code class="xref py py-class docutils literal notranslate"><span class="pre">NetworkProtocol</span></code>
+object but in a json compatible representation (as nested dict structure)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="switchmng.schema.html#switchmng.schema.network_protocol.NetworkProtocol" title="switchmng.schema.network_protocol.NetworkProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">NetworkProtocol</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The newly added network protocol</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.add.add_port_model">
+<code class="sig-prename descclassname">switchmng.database.add.</code><code class="sig-name descname">add_port_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">switch_model_resource_id</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.add.add_port_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a new port model to a switch model and add it to the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>switch_model_resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier uniquely identifying
+the switch model to add the new port model to.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchModel</span></code> for what attribute is the resource identifier)</p></li>
+<li><p><strong>kwargs</strong> – Parameters for new port model.
+Possible parameters are public attributes of <code class="xref py py-class docutils literal notranslate"><span class="pre">PortModel</span></code> object
+but in a json compatible representation (as nested dict structure)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="switchmng.schema.html#switchmng.schema.port_model.PortModel" title="switchmng.schema.port_model.PortModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">PortModel</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The newly added port model</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.add.add_switch">
+<code class="sig-prename descclassname">switchmng.database.add.</code><code class="sig-name descname">add_switch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.add.add_switch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new switch and add it to the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – Parameters for new switch.
+Possible parameters are public attributes of <code class="xref py py-class docutils literal notranslate"><span class="pre">Switch</span></code> object
+but in a json compatible representation (as nested dict structure)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="switchmng.schema.html#switchmng.schema.switch.Switch" title="switchmng.schema.switch.Switch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Switch</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The newly added switch</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.add.add_switch_model">
+<code class="sig-prename descclassname">switchmng.database.add.</code><code class="sig-name descname">add_switch_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.add.add_switch_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new switch model and add it to the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – Parameters for new switch model.
+Possible parameters are public attributes of <code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchModel</span></code> object
+but in a json compatible representation (as nested dict structure)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="switchmng.schema.html#switchmng.schema.switch_model.SwitchModel" title="switchmng.schema.switch_model.SwitchModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchModel</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The newly added switch model</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.add.add_vlan">
+<code class="sig-prename descclassname">switchmng.database.add.</code><code class="sig-name descname">add_vlan</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.add.add_vlan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new vlan and add it to the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – Parameters for new vlan.
+Possible parameters are public attributes of <code class="xref py py-class docutils literal notranslate"><span class="pre">Vlan</span></code> object
+but in a json compatible representation (as nested dict structure)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="switchmng.schema.html#switchmng.schema.vlan.Vlan" title="switchmng.schema.vlan.Vlan"><code class="xref py py-class docutils literal notranslate"><span class="pre">Vlan</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The newly added vlan</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-switchmng.database.delete">
+<span id="switchmng-database-delete-module"></span><h2>switchmng.database.delete module<a class="headerlink" href="#module-switchmng.database.delete" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="switchmng.database.delete.delete_connector">
+<code class="sig-prename descclassname">switchmng.database.delete.</code><code class="sig-name descname">delete_connector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">resource_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.delete.delete_connector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a connector from the database.</p>
+<p>Can only delete a connector from the database if it is not still
+in use by a port of a switch model.
+Will only delete connector if there is not still a switch model
+which uses the given connector on one of its ports.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier uniquely identifying the
+connector to delete.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">Connector</span></code> for what attribute is the resource identifier)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.delete.delete_network_protocol">
+<code class="sig-prename descclassname">switchmng.database.delete.</code><code class="sig-name descname">delete_network_protocol</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">resource_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.delete.delete_network_protocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a network protocol from the database.</p>
+<p>Can only delete a network protocol from the database if it is not still
+in use by a port of a switch model.
+Will only delete network protocol if there is not still a switch model
+which uses the given network protocol on one of its ports.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier uniquely identifying the
+network protocol to delete.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">NetworkProtocol</span></code> for what attribute is the resource identifier)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.delete.delete_port_model">
+<code class="sig-prename descclassname">switchmng.database.delete.</code><code class="sig-name descname">delete_port_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">switch_model_resource_id</span></em>, <em class="sig-param"><span class="n">port_model_resource_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.delete.delete_port_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a port model from a switch model from the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>switch_model_resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier uniquely identifying
+the switch model containing the port model to delete.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchModel</span></code> for what attribute is the resource identifier)</p></li>
+<li><p><strong>port_model_resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier together with switch model
+uniquely identifying the port model to delete.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">PortModel</span></code> for what attribute is the resource identifier)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.delete.delete_switch">
+<code class="sig-prename descclassname">switchmng.database.delete.</code><code class="sig-name descname">delete_switch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">resource_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.delete.delete_switch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a switch from the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier uniquely identifying the
+switch to delete.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">Switch</span></code> for what attribute is the resource identifier)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.delete.delete_switch_model">
+<code class="sig-prename descclassname">switchmng.database.delete.</code><code class="sig-name descname">delete_switch_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">resource_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.delete.delete_switch_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a switch model from the database.</p>
+<p>Can only delete a switch model from the database if it is not still
+in use by a switch. Will only delete switch model if there is not
+still a switch which uses the given switch model as its model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier uniquely identifying the
+switch model to delete.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchModel</span></code> for what attribute is the resource identifier)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.delete.delete_vlan">
+<code class="sig-prename descclassname">switchmng.database.delete.</code><code class="sig-name descname">delete_vlan</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">resource_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.delete.delete_vlan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a vlan from the database.</p>
+<p>Can only delete a vlan from the database if it is not still in use by a
+port of a switch.
+Will only delete vlan if there is not still a switch which uses the given
+vlan on one of its ports.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier uniquely identifying the vlan to
+delete.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">Vlan</span></code> for what attribute is the resource identifier)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-switchmng.database.helper">
+<span id="switchmng-database-helper-module"></span><h2>switchmng.database.helper module<a class="headerlink" href="#module-switchmng.database.helper" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="switchmng.database.helper.port_model_from_dict">
+<code class="sig-prename descclassname">switchmng.database.helper.</code><code class="sig-name descname">port_model_from_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.helper.port_model_from_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create port model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="switchmng.schema.html#switchmng.schema.port_model.PortModel" title="switchmng.schema.port_model.PortModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">PortModel</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.helper.port_models_from_dict">
+<code class="sig-prename descclassname">switchmng.database.helper.</code><code class="sig-name descname">port_models_from_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">ports</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.helper.port_models_from_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert port models from list of dict of strings to list of port model objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="switchmng.schema.html#switchmng.schema.port_model.PortModel" title="switchmng.schema.port_model.PortModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">PortModel</span></code></a>]</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>ports</strong> (<em>List</em><em>[</em><em>dict</em><em>]</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.helper.ports_from_dict">
+<code class="sig-prename descclassname">switchmng.database.helper.</code><code class="sig-name descname">ports_from_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">ports</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.helper.ports_from_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert ports from list of dict of strings to list of port objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="switchmng.schema.html#switchmng.schema.port.Port" title="switchmng.schema.port.Port"><code class="xref py py-class docutils literal notranslate"><span class="pre">Port</span></code></a>]</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>ports</strong> (<em>List</em><em>[</em><em>dict</em><em>]</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-switchmng.database.modify">
+<span id="switchmng-database-modify-module"></span><h2>switchmng.database.modify module<a class="headerlink" href="#module-switchmng.database.modify" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="switchmng.database.modify.modify_connector">
+<code class="sig-prename descclassname">switchmng.database.modify.</code><code class="sig-name descname">modify_connector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">resource_id</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.modify.modify_connector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modify a <code class="xref py py-class docutils literal notranslate"><span class="pre">Connector</span></code> object in the database.</p>
+<p>All given attributes of connector will be modified.
+Attributes not given will not be changed and will keep their
+current state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier uniquely identifying the
+connector to modify</p></li>
+<li><p><strong>kwargs</strong> – Attributes of connector to change.
+Possible parameters are public attributes of <code class="xref py py-class docutils literal notranslate"><span class="pre">Connector</span></code> object
+but in a json compatible representation (as nested dict structure)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="switchmng.schema.html#switchmng.schema.connector.Connector" title="switchmng.schema.connector.Connector"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connector</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The modified connector object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.modify.modify_network_protocol">
+<code class="sig-prename descclassname">switchmng.database.modify.</code><code class="sig-name descname">modify_network_protocol</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">resource_id</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.modify.modify_network_protocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modify a <code class="xref py py-class docutils literal notranslate"><span class="pre">NetworkProtocol</span></code> object in the database.</p>
+<p>All given attributes of network protocol will be modified.
+Attributes not given will not be changed and will keep their current
+state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier uniquely identifying the
+network protocol to modify.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">NetworkProtocol</span></code> for what attribute is the resource identifier)</p></li>
+<li><p><strong>kwargs</strong> – Attributes of network protocol to change.
+Possible parameters are public attributes of <code class="xref py py-class docutils literal notranslate"><span class="pre">NetworkProtocol</span></code> object
+but in a json compatible representation (as nested dict structure)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="switchmng.schema.html#switchmng.schema.network_protocol.NetworkProtocol" title="switchmng.schema.network_protocol.NetworkProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">NetworkProtocol</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The modified network protocol object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.modify.modify_port">
+<code class="sig-prename descclassname">switchmng.database.modify.</code><code class="sig-name descname">modify_port</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">switch_resource_id</span></em>, <em class="sig-param"><span class="n">port_resource_id</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.modify.modify_port" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modify a <code class="xref py py-class docutils literal notranslate"><span class="pre">Port</span></code> object in the database.</p>
+<p>All given attributes of port will be modified.
+Attributes not given will not be changed and will keep their current
+state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>switch_resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier uniquely identifying the
+switch containing the port to modify.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">Switch</span></code> for what attribute is the resource identifier)</p></li>
+<li><p><strong>port_resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier together with switch uniquely
+identifying the port to modify.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">Port</span></code> for what attribute is the resource identifier)</p></li>
+<li><p><strong>kwargs</strong> – Attributes of port to change.
+Possible parameters are public attributes of <code class="xref py py-class docutils literal notranslate"><span class="pre">Port</span></code> object
+but in a json compatible representation (as nested dict structure)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="switchmng.schema.html#switchmng.schema.port.Port" title="switchmng.schema.port.Port"><code class="xref py py-class docutils literal notranslate"><span class="pre">Port</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The modified port</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.modify.modify_port_model">
+<code class="sig-prename descclassname">switchmng.database.modify.</code><code class="sig-name descname">modify_port_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">switch_model_resource_id</span></em>, <em class="sig-param"><span class="n">port_model_resource_id</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.modify.modify_port_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modify a <code class="xref py py-class docutils literal notranslate"><span class="pre">PortModel</span></code> object in the database.</p>
+<p>All given attributes of port model will be modified.
+Attributes not given will not be changed and will keep their current
+state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>switch_model_resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier uniquely identifying
+the switch model containing the port model to modify.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchModel</span></code> for what attribute is the resource identifier)</p></li>
+<li><p><strong>port_model_resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier together with switch model
+uniquely identifying the port model to modify.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">PortModel</span></code> for what attribute is the resource identifier)</p></li>
+<li><p><strong>kwargs</strong> – Attributes of port model to change.
+Possible parameters are public attributes of <code class="xref py py-class docutils literal notranslate"><span class="pre">PortModel</span></code> object
+but in a json compatible representation (as nested dict structure)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="switchmng.schema.html#switchmng.schema.port_model.PortModel" title="switchmng.schema.port_model.PortModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">PortModel</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The modified port model</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.modify.modify_switch">
+<code class="sig-prename descclassname">switchmng.database.modify.</code><code class="sig-name descname">modify_switch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">resource_id</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.modify.modify_switch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modify a <code class="xref py py-class docutils literal notranslate"><span class="pre">Switch</span></code> object in the database.</p>
+<p>All given attributes of switch will be modified.
+Attributes not given will not be changed and will keep their current
+state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier uniquely identifying the
+switch to modify.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">Switch</span></code> for what attribute is the resource identifier)</p></li>
+<li><p><strong>kwargs</strong> – Attributes of switch to change.
+Possible parameters are public attributes of <code class="xref py py-class docutils literal notranslate"><span class="pre">Switch</span></code> object
+but in a json compatible representation (as nested dict structure)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="switchmng.schema.html#switchmng.schema.switch.Switch" title="switchmng.schema.switch.Switch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Switch</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The modified switch</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.modify.modify_switch_model">
+<code class="sig-prename descclassname">switchmng.database.modify.</code><code class="sig-name descname">modify_switch_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">resource_id</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.modify.modify_switch_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modify a <code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchModel</span></code> object in the database.</p>
+<p>All given attributes of switch model will be modified.
+Attributes not given will not be changed and will keep their current
+state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier uniquely identifying the
+switch model to modify.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchModel</span></code> for what attribute is the resource identifier)</p></li>
+<li><p><strong>kwargs</strong> – Attributes of switch model to change.
+Possible parameters are public attributes of <code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchModel</span></code> object
+but in a json compatible representation (as nested dict structure)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="switchmng.schema.html#switchmng.schema.switch_model.SwitchModel" title="switchmng.schema.switch_model.SwitchModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchModel</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The modified switch model</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.modify.modify_vlan">
+<code class="sig-prename descclassname">switchmng.database.modify.</code><code class="sig-name descname">modify_vlan</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">resource_id</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.modify.modify_vlan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modify a <code class="xref py py-class docutils literal notranslate"><span class="pre">Vlan</span></code> object in the database.</p>
+<p>All given attributes of vlan will be modified.
+Attributes not given will not be changed and will keep their current
+state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier uniquely identifying the
+vlan to modify.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">Vlan</span></code> for what attribute is the resource identifier)</p></li>
+<li><p><strong>kwargs</strong> – Attributes of vlan to change.
+Possible parameters are public attributes of <code class="xref py py-class docutils literal notranslate"><span class="pre">Vlan</span></code> object
+but in a json compatible representation (as nested dict structure)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="switchmng.schema.html#switchmng.schema.vlan.Vlan" title="switchmng.schema.vlan.Vlan"><code class="xref py py-class docutils literal notranslate"><span class="pre">Vlan</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The modified vlan object</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-switchmng.database.query">
+<span id="switchmng-database-query-module"></span><h2>switchmng.database.query module<a class="headerlink" href="#module-switchmng.database.query" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="switchmng.database.query.query_connector">
+<code class="sig-prename descclassname">switchmng.database.query.</code><code class="sig-name descname">query_connector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">resource_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.query.query_connector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve <code class="xref py py-class docutils literal notranslate"><span class="pre">Connector</span></code> object from database.</p>
+<p>Query the database for a <code class="xref py py-class docutils literal notranslate"><span class="pre">Connector</span></code> object with given
+resource identifier and return it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier uniquely identifying the
+connector to return.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">Connector</span></code> for what attribute is the resource identifier)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="switchmng.schema.html#switchmng.schema.connector.Connector" title="switchmng.schema.connector.Connector"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connector</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The connector object matching the given resource identifier or
+None if no matching connector resource was found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.query.query_connectors">
+<code class="sig-prename descclassname">switchmng.database.query.</code><code class="sig-name descname">query_connectors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.query.query_connectors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve multiple <code class="xref py py-class docutils literal notranslate"><span class="pre">Connector</span></code> objects from database.</p>
+<p># TODO: Implement and document query_connectors() correctly</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.query.query_network_protocol">
+<code class="sig-prename descclassname">switchmng.database.query.</code><code class="sig-name descname">query_network_protocol</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">resource_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.query.query_network_protocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve <code class="xref py py-class docutils literal notranslate"><span class="pre">NetworkProtocol</span></code> object from database.</p>
+<p>Query the database for a <code class="xref py py-class docutils literal notranslate"><span class="pre">NetworkProtocol</span></code> object with given
+resource identifier and return it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier uniquely identifying the
+network protocol to return.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">NetworkProtocol</span></code> for what attribute is the resource identifier)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="switchmng.schema.html#switchmng.schema.network_protocol.NetworkProtocol" title="switchmng.schema.network_protocol.NetworkProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">NetworkProtocol</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The network protocol object matching the given resource identifier
+or None if no matching network protocol resource was found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.query.query_network_protocols">
+<code class="sig-prename descclassname">switchmng.database.query.</code><code class="sig-name descname">query_network_protocols</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.query.query_network_protocols" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve multiple <code class="xref py py-class docutils literal notranslate"><span class="pre">NetworkProtocol</span></code> objects from database.</p>
+<p># TODO: Implement and document query_network_protocols() correctly</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.query.query_port">
+<code class="sig-prename descclassname">switchmng.database.query.</code><code class="sig-name descname">query_port</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">switch_resource_id</span></em>, <em class="sig-param"><span class="n">port_resource_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.query.query_port" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve <code class="xref py py-class docutils literal notranslate"><span class="pre">Port</span></code> object from database.</p>
+<p>Query the database for a <code class="xref py py-class docutils literal notranslate"><span class="pre">Port</span></code> object with given resource
+identifier on switch with given resource identifier and return it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>switch_resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier uniquely identifying
+the switch containing the port to return.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">Switch</span></code> for what attribute is the resource identifier)</p></li>
+<li><p><strong>port_resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier together with switch
+uniquely identifying the port to return.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">Port</span></code> for what attribute is the resource identifier)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="switchmng.schema.html#switchmng.schema.port.Port" title="switchmng.schema.port.Port"><code class="xref py py-class docutils literal notranslate"><span class="pre">Port</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The port object matching the given resource identifiers or None
+if no matching port resource was found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.query.query_port_model">
+<code class="sig-prename descclassname">switchmng.database.query.</code><code class="sig-name descname">query_port_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">switch_model_resource_id</span></em>, <em class="sig-param"><span class="n">port_model_resource_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.query.query_port_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve <code class="xref py py-class docutils literal notranslate"><span class="pre">PortModel</span></code> object from database.</p>
+<p>Query the database for a <code class="xref py py-class docutils literal notranslate"><span class="pre">PortModel</span></code> object with given resource
+identifier on switch model with given resource identifier and return it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>switch_model_resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier uniquely identifying
+the switch model containing the port model to return.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchModel</span></code> for what attribute is the resource identifier)</p></li>
+<li><p><strong>port_model_resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier together with switch model
+uniquely identifying the port model to return.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">PortModel</span></code> for what attribute is the resource identifier)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="switchmng.schema.html#switchmng.schema.port_model.PortModel" title="switchmng.schema.port_model.PortModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">PortModel</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The port model object matching the given resource identifiers or
+None if no matching port model resource was found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.query.query_port_models">
+<code class="sig-prename descclassname">switchmng.database.query.</code><code class="sig-name descname">query_port_models</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">switch_model_resource_id</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.query.query_port_models" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve multiple <code class="xref py py-class docutils literal notranslate"><span class="pre">PortModel</span></code> objects from database.</p>
+<p>switch_model_resource_id is optional</p>
+<p># TODO: Implement and document query_port_models() correctly</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.query.query_ports">
+<code class="sig-prename descclassname">switchmng.database.query.</code><code class="sig-name descname">query_ports</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">switch_resource_id</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.query.query_ports" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve multiple <code class="xref py py-class docutils literal notranslate"><span class="pre">Port</span></code> objects from database.</p>
+<p>switch_resource_id is optional</p>
+<p># TODO: Implement and document query_ports() correctly</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.query.query_switch">
+<code class="sig-prename descclassname">switchmng.database.query.</code><code class="sig-name descname">query_switch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">resource_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.query.query_switch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve <code class="xref py py-class docutils literal notranslate"><span class="pre">Switch</span></code> object from database.</p>
+<p>Query the database for a <code class="xref py py-class docutils literal notranslate"><span class="pre">Switch</span></code> object with given resource
+identifier and return it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier uniquely identifying the
+switch to return.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">Switch</span></code> for what attribute is the resource identifier)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="switchmng.schema.html#switchmng.schema.switch.Switch" title="switchmng.schema.switch.Switch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Switch</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The switch object matching the given resource identifier or None
+if no matching switch resource was found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.query.query_switch_model">
+<code class="sig-prename descclassname">switchmng.database.query.</code><code class="sig-name descname">query_switch_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">resource_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.query.query_switch_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve <code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchModel</span></code> object from database.</p>
+<p>Query the database for a <code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchModel</span></code> object with given resource
+identifier and return it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier uniquely identifying the
+switch model to return.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchModel</span></code> for what attribute is the resource identifier)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="switchmng.schema.html#switchmng.schema.switch_model.SwitchModel" title="switchmng.schema.switch_model.SwitchModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchModel</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The switch model object matching the given resource identifier or
+None if no matching switch model resource was found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.query.query_switch_models">
+<code class="sig-prename descclassname">switchmng.database.query.</code><code class="sig-name descname">query_switch_models</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.query.query_switch_models" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve multiple <code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchModel</span></code> objects from database.</p>
+<p># TODO: Implement and document query_switch_models() correctly</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.query.query_switches">
+<code class="sig-prename descclassname">switchmng.database.query.</code><code class="sig-name descname">query_switches</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.query.query_switches" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve multiple <code class="xref py py-class docutils literal notranslate"><span class="pre">Switch</span></code> objects from database.</p>
+<p># TODO: Implement and document query_switches() correctly</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.query.query_vlan">
+<code class="sig-prename descclassname">switchmng.database.query.</code><code class="sig-name descname">query_vlan</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">resource_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.query.query_vlan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve <code class="xref py py-class docutils literal notranslate"><span class="pre">Vlan</span></code> object from database.</p>
+<p>Query the database for a <code class="xref py py-class docutils literal notranslate"><span class="pre">Vlan</span></code> object with given resource
+identifier and return it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier uniquely identifying the
+vlan to return.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">Vlan</span></code> for what attribute is the resource identifier)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="switchmng.schema.html#switchmng.schema.vlan.Vlan" title="switchmng.schema.vlan.Vlan"><code class="xref py py-class docutils literal notranslate"><span class="pre">Vlan</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The vlan object matching the given resource identifier or None
+if no matching vlan resource was found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.query.query_vlans">
+<code class="sig-prename descclassname">switchmng.database.query.</code><code class="sig-name descname">query_vlans</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.query.query_vlans" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve multiple <code class="xref py py-class docutils literal notranslate"><span class="pre">Vlan</span></code> objects from database.</p>
+<p># TODO: Implement and document query_vlans() correctly</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-switchmng.database.set">
+<span id="switchmng-database-set-module"></span><h2>switchmng.database.set module<a class="headerlink" href="#module-switchmng.database.set" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="switchmng.database.set.set_connector">
+<code class="sig-prename descclassname">switchmng.database.set.</code><code class="sig-name descname">set_connector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">resource_id</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.set.set_connector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a <code class="xref py py-class docutils literal notranslate"><span class="pre">Connector</span></code> in the database to a given state.</p>
+<p><code class="xref py py-class docutils literal notranslate"><span class="pre">Connector</span></code> identified by given resource identifier may already
+exist. If it does not already exist it will be created.</p>
+<p>All attributes of connector will be set to given values.
+Attributes not given but present in already existing <code class="xref py py-class docutils literal notranslate"><span class="pre">Connector</span></code>
+will be set to None or [] or other representation of “not set”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resource_id</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Resource identifier uniquely identifying the
+connector to modify.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">Connector</span></code> for what attribute is the resource identifier)</p></li>
+<li><p><strong>kwargs</strong> – Attributes of connector to change.
+Possible parameters are public attributes of <code class="xref py py-class docutils literal notranslate"><span class="pre">Connector</span></code> object
+but in a json compatible representation (as nested dict structure)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="switchmng.schema.html#switchmng.schema.connector.Connector" title="switchmng.schema.connector.Connector"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connector</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The modified or created connector</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.set.set_network_protocol">
+<code class="sig-prename descclassname">switchmng.database.set.</code><code class="sig-name descname">set_network_protocol</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">resource_id</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.set.set_network_protocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a <code class="xref py py-class docutils literal notranslate"><span class="pre">NetworkProtocol</span></code> in the database to a given state.</p>
+<p><code class="xref py py-class docutils literal notranslate"><span class="pre">NetworkProtocol</span></code> identified by given resource identifier may already
+exist. If it does not already exist it will be created.</p>
+<p>All attributes of network protocol will be set to given values.
+Attributes not given but present in already existing <code class="xref py py-class docutils literal notranslate"><span class="pre">NetworkProtocol</span></code>
+will be set to None or [] or other representation of “not set”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resource_id</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Resource identifier uniquely identifying the
+network protocol to modify.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">NetworkProtocol</span></code> for what attribute is the resource identifier)</p></li>
+<li><p><strong>kwargs</strong> – Attributes of network protocol to change.
+Possible parameters are public attributes of <code class="xref py py-class docutils literal notranslate"><span class="pre">NetworkProtocol</span></code> object
+but in a json compatible representation (as nested dict structure)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="switchmng.schema.html#switchmng.schema.network_protocol.NetworkProtocol" title="switchmng.schema.network_protocol.NetworkProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">NetworkProtocol</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The modified or created network protocol</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.set.set_port">
+<code class="sig-prename descclassname">switchmng.database.set.</code><code class="sig-name descname">set_port</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">switch_resource_id</span></em>, <em class="sig-param"><span class="n">port_resource_id</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.set.set_port" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a <code class="xref py py-class docutils literal notranslate"><span class="pre">Port</span></code> in the database to a given state.</p>
+<p><code class="xref py py-class docutils literal notranslate"><span class="pre">Port</span></code> identified by given resource identifier on switch identified
+by given resource identifier may already exist. If it does not already
+exist it will be created.</p>
+<p>All attributes of port will be set to given values.
+Attributes not given but present in already existing <code class="xref py py-class docutils literal notranslate"><span class="pre">Port</span></code>
+will be set to None or [] or other representation of “not set”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>switch_resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier uniquely identifying the
+switch containing the port to modify.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">Switch</span></code> for what attribute is the resource identifier)</p></li>
+<li><p><strong>port_resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier together with switch uniquely
+identifying the port to modify.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">Port</span></code> for what attribute is the resource identifier)</p></li>
+<li><p><strong>kwargs</strong> – Attributes of port to change.
+Possible parameters are public attributes of <code class="xref py py-class docutils literal notranslate"><span class="pre">Port</span></code> object
+but in a json compatible representation (as nested dict structure)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="switchmng.schema.html#switchmng.schema.port.Port" title="switchmng.schema.port.Port"><code class="xref py py-class docutils literal notranslate"><span class="pre">Port</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The modified or created port</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.set.set_port_model">
+<code class="sig-prename descclassname">switchmng.database.set.</code><code class="sig-name descname">set_port_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">switch_model_resource_id</span></em>, <em class="sig-param"><span class="n">port_model_resource_id</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.set.set_port_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a <code class="xref py py-class docutils literal notranslate"><span class="pre">PortModel</span></code> in the database to a given state.</p>
+<p><code class="xref py py-class docutils literal notranslate"><span class="pre">PortModel</span></code> identified by given resource identifier on switch model
+identified by given resource identifier may already exist. If it does not
+already exist it will be created.</p>
+<p>All attributes of port model will be set to given values.
+Attributes not given but present in already existing <code class="xref py py-class docutils literal notranslate"><span class="pre">PortModel</span></code>
+will be set to None or [] or other representation of “not set”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>switch_model_resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier uniquely identifying
+the switch model containing the port model to modify.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchModel</span></code> for what attribute is the resource identifier)</p></li>
+<li><p><strong>port_model_resource_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Resource identifier together with switch model
+uniquely identifying the port model to modify.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">PortModel</span></code> for what attribute is the resource identifier)</p></li>
+<li><p><strong>kwargs</strong> – Attributes of port model to change.
+Possible parameters are public attributes of <code class="xref py py-class docutils literal notranslate"><span class="pre">PortModel</span></code> object
+but in a json compatible representation (as nested dict structure)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="switchmng.schema.html#switchmng.schema.port_model.PortModel" title="switchmng.schema.port_model.PortModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">PortModel</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The modified or created port model</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.set.set_switch">
+<code class="sig-prename descclassname">switchmng.database.set.</code><code class="sig-name descname">set_switch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">resource_id</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.set.set_switch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a <code class="xref py py-class docutils literal notranslate"><span class="pre">Switch</span></code> corresponding to a given resource identifier
+to a given state.</p>
+<p><code class="xref py py-class docutils literal notranslate"><span class="pre">Switch</span></code> identified by given resource identifier may already
+exist. If it does not already exist it will be created.</p>
+<p>All attributes of switch will be set to given values.
+Attributes not given but present in already existing <code class="xref py py-class docutils literal notranslate"><span class="pre">Switch</span></code>
+will be set to None or [] or other representation of “not set”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resource_id</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Resource identifier uniquely identifying the
+switch to modify.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">Switch</span></code> for what attribute is the resource identifier)</p></li>
+<li><p><strong>kwargs</strong> – Attributes of switch to change.
+Possible parameters are public attributes of <code class="xref py py-class docutils literal notranslate"><span class="pre">Switch</span></code> object
+but in a json compatible representation (as nested dict structure)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="switchmng.schema.html#switchmng.schema.switch.Switch" title="switchmng.schema.switch.Switch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Switch</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The modified or created switch</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.set.set_switch_model">
+<code class="sig-prename descclassname">switchmng.database.set.</code><code class="sig-name descname">set_switch_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">resource_id</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.set.set_switch_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a <code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchModel</span></code> in the database to a given state.</p>
+<p><code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchModel</span></code> identified by given resource identifier may already
+exist. If it does not already exist it will be created.</p>
+<p>All attributes of switch model will be set to given values.
+Attributes not given but present in already existing <code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchModel</span></code>
+will be set to None or [] or other representation of “not set”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resource_id</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Resource identifier uniquely identifying the
+switch model to modify.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchModel</span></code> for what attribute is the resource identifier)</p></li>
+<li><p><strong>kwargs</strong> – Attributes of switch model to change.
+Possible parameters are public attributes of <code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchModel</span></code> object
+but in a json compatible representation (as nested dict structure)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="switchmng.schema.html#switchmng.schema.switch_model.SwitchModel" title="switchmng.schema.switch_model.SwitchModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">SwitchModel</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The modified or created switch model</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="switchmng.database.set.set_vlan">
+<code class="sig-prename descclassname">switchmng.database.set.</code><code class="sig-name descname">set_vlan</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em>, <em class="sig-param"><span class="n">resource_id</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.set.set_vlan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a <code class="xref py py-class docutils literal notranslate"><span class="pre">Vlan</span></code> in the database to a given state.</p>
+<p><code class="xref py py-class docutils literal notranslate"><span class="pre">Vlan</span></code> identified by given resource identifier may already
+exist. If it does not already exist it will be created.</p>
+<p>All attributes of vlan will be set to given values.
+Attributes not given but present in already existing <code class="xref py py-class docutils literal notranslate"><span class="pre">Vlan</span></code>
+will be set to None or [] or other representation of “not set”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resource_id</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Resource identifier uniquely identifying the
+vlan to modify.
+(See <code class="xref py py-class docutils literal notranslate"><span class="pre">Vlan</span></code> for what attribute is the resource identifier)</p></li>
+<li><p><strong>kwargs</strong> – Attributes of vlan to change.
+Possible parameters are public attributes of <code class="xref py py-class docutils literal notranslate"><span class="pre">Vlan</span></code> object
+but in a json compatible representation (as nested dict structure)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="switchmng.schema.html#switchmng.schema.vlan.Vlan" title="switchmng.schema.vlan.Vlan"><code class="xref py py-class docutils literal notranslate"><span class="pre">Vlan</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The modified or created vlan</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-switchmng.database">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-switchmng.database" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="switchmng.database.DatabaseConnection">
+<em class="property">class </em><code class="sig-prename descclassname">switchmng.database.</code><code class="sig-name descname">DatabaseConnection</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">db_type</span></em>, <em class="sig-param"><span class="n">db_str</span></em>, <em class="sig-param"><span class="n">db_verbose</span></em>, <em class="sig-param"><span class="n">base</span></em><span class="sig-paren">)</span><a class="headerlink" href="#switchmng.database.DatabaseConnection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">switchmng</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user-doc.html">User Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code-doc.html">Programmer Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../code-doc.html">Programmer Reference</a><ul>
+  <li><a href="switchmng.html">switchmng package</a><ul>
+      <li>Previous: <a href="switchmng.html" title="previous chapter">switchmng package</a></li>
+      <li>Next: <a href="switchmng.routes.html" title="next chapter">switchmng.routes package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Ansgar Klein.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/module/switchmng.database.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

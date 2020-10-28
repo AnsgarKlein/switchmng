@@ -1,0 +1,85 @@
+switchmng.schema package
+========================
+
+Submodules
+----------
+
+switchmng.schema.base module
+----------------------------
+
+.. automodule:: switchmng.schema.base
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+switchmng.schema.base\_resource module
+--------------------------------------
+
+.. automodule:: switchmng.schema.base_resource
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+switchmng.schema.connector module
+---------------------------------
+
+.. automodule:: switchmng.schema.connector
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+switchmng.schema.network\_protocol module
+-----------------------------------------
+
+.. automodule:: switchmng.schema.network_protocol
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+switchmng.schema.port module
+----------------------------
+
+.. automodule:: switchmng.schema.port
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+switchmng.schema.port\_model module
+-----------------------------------
+
+.. automodule:: switchmng.schema.port_model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+switchmng.schema.switch module
+------------------------------
+
+.. automodule:: switchmng.schema.switch
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+switchmng.schema.switch\_model module
+-------------------------------------
+
+.. automodule:: switchmng.schema.switch_model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+switchmng.schema.vlan module
+----------------------------
+
+.. automodule:: switchmng.schema.vlan
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: switchmng.schema
+   :members:
+   :undoc-members:
+   :show-inheritance:

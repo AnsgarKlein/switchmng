@@ -1,0 +1,61 @@
+switchmng.database package
+==========================
+
+Submodules
+----------
+
+switchmng.database.add module
+-----------------------------
+
+.. automodule:: switchmng.database.add
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+switchmng.database.delete module
+--------------------------------
+
+.. automodule:: switchmng.database.delete
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+switchmng.database.helper module
+--------------------------------
+
+.. automodule:: switchmng.database.helper
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+switchmng.database.modify module
+--------------------------------
+
+.. automodule:: switchmng.database.modify
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+switchmng.database.query module
+-------------------------------
+
+.. automodule:: switchmng.database.query
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+switchmng.database.set module
+-----------------------------
+
+.. automodule:: switchmng.database.set
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: switchmng.database
+   :members:
+   :undoc-members:
+   :show-inheritance:

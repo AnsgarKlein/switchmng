@@ -1,0 +1,69 @@
+switchmng.routes package
+========================
+
+Submodules
+----------
+
+switchmng.routes.blueprint module
+---------------------------------
+
+.. automodule:: switchmng.routes.blueprint
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+switchmng.routes.delete module
+------------------------------
+
+.. automodule:: switchmng.routes.delete
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+switchmng.routes.errors module
+------------------------------
+
+.. automodule:: switchmng.routes.errors
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+switchmng.routes.get module
+---------------------------
+
+.. automodule:: switchmng.routes.get
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+switchmng.routes.patch module
+-----------------------------
+
+.. automodule:: switchmng.routes.patch
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+switchmng.routes.post module
+----------------------------
+
+.. automodule:: switchmng.routes.post
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+switchmng.routes.put module
+---------------------------
+
+.. automodule:: switchmng.routes.put
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: switchmng.routes
+   :members:
+   :undoc-members:
+   :show-inheritance:

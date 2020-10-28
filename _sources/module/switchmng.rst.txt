@@ -1,0 +1,55 @@
+switchmng package
+=================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   switchmng.database
+   switchmng.routes
+   switchmng.schema
+
+Submodules
+----------
+
+switchmng.config module
+-----------------------
+
+.. automodule:: switchmng.config
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+switchmng.importer module
+-------------------------
+
+.. automodule:: switchmng.importer
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+switchmng.typing module
+-----------------------
+
+.. automodule:: switchmng.typing
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+switchmng.wsgi module
+---------------------
+
+.. automodule:: switchmng.wsgi
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: switchmng
+   :members:
+   :undoc-members:
+   :show-inheritance:
